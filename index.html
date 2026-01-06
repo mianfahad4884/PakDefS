@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PAKDEF SENTINEL | v33.0 INTEGRITY</title>
+    <title>PAKDEF SENTINEL | v34.0 DRAWER SYSTEM</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -28,6 +28,15 @@
                     },
                     backgroundImage: {
                         'grid': "linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)",
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-5px)' },
+                        }
                     }
                 }
             }
@@ -87,18 +96,6 @@
         }
         .nav-btn:hover { background-color: rgba(255,255,255,0.05); color: white; padding-left: 1rem; }
 
-        /* Sticky Sub-nav */
-        .sticky-subnav {
-            position: sticky;
-            top: 0;
-            background: rgba(2, 2, 3, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 20;
-            padding-bottom: 10px;
-            padding-top: 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
         /* Mobile Menu */
         #mobileMenu {
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -121,7 +118,7 @@
             </div>
             <div class="leading-none">
                 <h1 class="text-xl text-white font-header tracking-wide">SENTINEL <span class="text-neon-blue">DB</span></h1>
-                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v33.0 INTEGRITY</div>
+                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v34.0 DRAWER SYSTEM</div>
             </div>
         </div>
         
@@ -157,11 +154,6 @@
             <div class="p-3 bg-white/5 border-b border-white/5 text-center font-bold text-gray-500 text-[10px] tracking-widest">COMMAND CONSOLE</div>
             
             <nav class="flex-1 overflow-y-auto p-3 custom-scrollbar">
-                <button onclick="app.view('news')" class="w-full flex items-center justify-between p-3 mb-4 rounded bg-neon-red/5 hover:bg-neon-red/10 border border-neon-red/20 hover:border-neon-red transition-all cursor-pointer group text-gray-300">
-                    <span class="text-xs font-bold group-hover:text-white font-mono">INTEL WIRE</span>
-                    <span class="text-neon-red animate-pulse">●</span>
-                </button>
-
                 <div class="text-[9px] text-gray-600 font-bold px-2 py-1 uppercase font-mono">Combat Branches</div>
                 <button onclick="app.view('nuclear')" class="nav-btn hover:border-neon-amber hover:text-neon-amber">STRATEGIC <span>☢</span></button>
                 <button onclick="app.view('army')" class="nav-btn hover:border-neon-green hover:text-neon-green">ARMY (LAND) <span>🛡</span></button>
@@ -180,19 +172,19 @@
         </aside>
 
         <!-- VIEWPORT -->
-        <main id="viewport" class="flex-1 overflow-y-auto relative bg-black/60 custom-scrollbar pb-32">
+        <main id="viewport" class="flex-1 overflow-y-auto p-4 md:p-8 relative bg-black/60 pb-24 md:pb-8 custom-scrollbar scroll-smooth">
             <!-- Dynamic Content -->
         </main>
     </div>
 
-    <!-- MOBILE FOLDABLE MENU BUTTON -->
+    <!-- MOBILE FOLDABLE MENU (Collapsed State) -->
     <div class="md:hidden fixed bottom-0 w-full h-12 bg-black/95 border-t border-white/10 z-50 flex items-center justify-center backdrop-blur-xl">
         <button onclick="app.toggleMobileMenu()" class="flex items-center gap-2 text-neon-blue font-mono text-xs uppercase tracking-widest px-4 py-2 w-full justify-center">
             <span class="animate-bounce">▲</span> ACCESS SYSTEM
         </button>
     </div>
 
-    <!-- MOBILE MENU EXPANDED -->
+    <!-- MOBILE MENU (Expanded State) -->
     <div id="mobileMenu" class="md:hidden fixed inset-0 z-[60] bg-black/95 backdrop-blur-xl flex flex-col translate-y-full">
         <div class="p-4 border-b border-white/10 flex justify-between items-center">
             <h2 class="text-xl font-header text-white tracking-widest">COMMAND GRID</h2>
@@ -202,34 +194,36 @@
         </div>
         
         <div class="p-4 overflow-y-auto grid grid-cols-2 gap-3 pb-20">
-            <button onclick="app.viewMobile('news')" class="p-4 bg-neon-red/5 border border-neon-red/20 rounded flex flex-col items-center justify-center gap-2 hover:bg-neon-red/10 active:scale-95 transition-all">
-                <span class="text-3xl text-neon-red animate-pulse">●</span>
-                <span class="text-[10px] font-mono font-bold text-gray-300">INTEL WIRE</span>
-            </button>
             <button onclick="app.viewMobile('nuclear')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-amber hover:text-neon-amber active:scale-95 transition-all">
                 <span class="text-3xl">☢</span>
                 <span class="text-[10px] font-mono font-bold">STRATEGIC</span>
             </button>
+
             <button onclick="app.viewMobile('army')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-green hover:text-neon-green active:scale-95 transition-all">
                 <span class="text-3xl">🛡</span>
                 <span class="text-[10px] font-mono font-bold">ARMY</span>
             </button>
+
             <button onclick="app.viewMobile('airforce')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-blue hover:text-neon-blue active:scale-95 transition-all">
                 <span class="text-3xl">✈</span>
                 <span class="text-[10px] font-mono font-bold">AIR FORCE</span>
             </button>
+
             <button onclick="app.viewMobile('navy')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-cyan-400 hover:text-cyan-400 active:scale-95 transition-all">
                 <span class="text-3xl">⚓</span>
                 <span class="text-[10px] font-mono font-bold">NAVY</span>
             </button>
+
             <button onclick="app.viewMobile('logistics')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-white hover:text-white active:scale-95 transition-all">
                 <span class="text-3xl">📦</span>
                 <span class="text-[10px] font-mono font-bold">LOGISTICS</span>
             </button>
+
             <button onclick="app.viewMobile('industry')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-purple hover:text-neon-purple active:scale-95 transition-all">
                 <span class="text-3xl">🏭</span>
                 <span class="text-[10px] font-mono font-bold">INDUSTRY</span>
             </button>
+
             <button onclick="app.viewMobile('future')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-purple hover:text-neon-purple active:scale-95 transition-all">
                 <span class="text-3xl">🔬</span>
                 <span class="text-[10px] font-mono font-bold">NASTP / R&D</span>
@@ -243,13 +237,13 @@
             document.getElementById('syncTime').innerText = now.toLocaleTimeString('en-US', { hour12: false });
         }, 1000);
 
-        // --- FULL DATABASE v33.0 (COMPLETE RECONSTRUCTION) ---
+        // --- FULL DATABASE (v34.0) ---
         const DB = {
             nuclear: { 
                 name: "Strategic Command", color: "text-neon-amber", accent: "#ffbf00", 
                 cats: { 
                     ballistic: { 
-                        name: "Ballistic Missiles", 
+                        name: "Ballistic Missiles (Hatf Series)", 
                         items: [
                             { id: "shaheen3", name: "Shaheen-III", role: "MRBM", specs: { "Range": "2,750 km", "Propulsion": "Solid (2-Stage)", "Warhead": "Nuclear/HE/EMP", "Origin": "NESCOM" } },
                             { id: "ababeel", name: "Ababeel", role: "MIRV MRBM", specs: { "Range": "2,200 km", "Payload": "MIRV (3-8 RVs)", "Origin": "KRL" } },
@@ -266,7 +260,7 @@
                     cruise: { 
                         name: "Strategic Cruise Missiles", 
                         items: [
-                            { id: "babur3", name: "Babur-III", role: "SLCM", specs: { "Range": "450 km", "Platform": "Submarine", "Type": "Underwater Launch", "Origin": "NESCOM" } },
+                            { id: "babur3", name: "Babur-III", role: "SLCM", specs: { "Range": "450 km", "Platform": "Submarine", "Capability": "Second Strike", "Origin": "NESCOM" } },
                             { id: "babur2", name: "Babur-2", role: "GLCM", specs: { "Range": "700 km", "Stealth": "Low Observable", "Guidance": "TERCOM/DSMAC", "Origin": "NESCOM" } },
                             { id: "babur1b", name: "Babur-1B", role: "GLCM", specs: { "Range": "700 km", "Status": "Active", "Origin": "NESCOM" } },
                             { id: "raad2", name: "Ra'ad-II", role: "ALCM", specs: { "Range": "600 km", "Stealth": "X-Tail", "Platform": "Mirage/JF-17", "Origin": "AWC" } },
@@ -292,23 +286,16 @@
                             { id: "psr90", name: "PSR-90", role: "Sniper Rifle", specs: { "Caliber": "7.62x51mm", "Precision": "Sub-MOA", "Action": "Bolt", "Origin": "POF" } },
                             { id: "lsr", name: "Light Sniper", role: "Sniper", specs: { "Caliber": ".308", "Origin": "POF" } },
                             { id: "pk9", name: "PK-9", role: "Pistol", specs: { "Caliber": "9mm", "Origin": "POF" } },
+                            { id: "rpg29", name: "RPG-29 Vampir", role: "Anti-Tank", specs: { "Warhead": "Tandem HEAT", "Range": "500m", "Penetration": "750mm RHA" } },
+                            { id: "rpg7", name: "RPG-7", role: "Anti-Tank", specs: { "Usage": "Widespread", "Origin": "Various", "Ammo": "HEAT/Thermobaric" } },
+                            { id: "kornet", name: "Kornet-E", role: "ATGM", specs: { "Range": "5.5 km", "Guidance": "Laser Beam", "Origin": "Russia" } },
+                            { id: "bakhtar", name: "Bakhtar Shikan", role: "ATGM", specs: { "Range": "3-4 km", "Guidance": "Wire Guided", "Origin": "KRL (License)", "Mount": "Tripod/Vehicle" } },
+                            { id: "anza3", name: "Anza Mk-III", role: "MANPADS", specs: { "Range": "6 km", "Guidance": "IR Homing", "Origin": "Indigenous" } },
                             { id: "mortars", name: "POF Mortars", role: "Artillery", specs: { "Calibers": "60mm, 81mm, 120mm", "Origin": "POF" } }
                         ]
                     },
-                    anti_tank: {
-                        name: "Anti-Tank Systems",
-                        items: [
-                            { id: "rpg29", name: "RPG-29 Vampir", role: "Anti-Tank", specs: { "Warhead": "Tandem HEAT", "Range": "500m", "Penetration": "750mm RHA" } },
-                            { id: "rpg7", name: "RPG-7", role: "Anti-Tank", specs: { "Usage": "Widespread", "Origin": "Various" } },
-                            { id: "kornet", name: "Kornet-E", role: "ATGM", specs: { "Range": "5.5 km", "Guidance": "Laser Beam", "Origin": "Russia" } },
-                            { id: "bakhtar", name: "Bakhtar Shikan", role: "ATGM", specs: { "Range": "3 km", "Guidance": "Wire", "Origin": "KRL" } },
-                            { id: "tow2", name: "BGM-71 TOW-2", role: "ATGM", specs: { "Range": "3.75 km", "Guidance": "Wire", "Platform": "Cobra/Vehicle" } },
-                            { id: "metis", name: "Metis-M", role: "ATGM", specs: { "Range": "2 km", "Guidance": "Wire", "Origin": "Russia" } },
-                            { id: "hj8", name: "HJ-8", role: "ATGM", specs: { "Origin": "China", "Range": "3km" } }
-                        ]
-                    },
                     armor: { 
-                        name: "Armored Corps (MBT/IFV)", 
+                        name: "Armored Corps (MBT)", 
                         items: [
                             { id: "vt4", name: "VT-4 Haider", role: "MBT", specs: { "Gun": "125mm", "Engine": "1200hp", "APS": "GL-5", "Origin": "HIT" } },
                             { id: "alkhalid1", name: "Al-Khalid I", role: "MBT", specs: { "Origin": "Indigenous (HIT)", "Engine": "6TD-2", "Autoloader": "Yes" } },
@@ -319,8 +306,6 @@
                             { id: "type69", name: "Type 69-IIMP", role: "MBT", specs: { "Gun": "105mm", "Status": "Reserve", "Origin": "HIT" } },
                             { id: "type59", name: "Type 59", role: "MBT", specs: { "Gun": "100mm", "Status": "Reserve", "Origin": "China" } },
                             { id: "viper", name: "Viper", role: "IFV", specs: { "Gun": "30mm RCWS", "Missiles": "ATGM", "Troops": "8", "Origin": "HIT" } },
-                            { id: "hamza8", name: "Hamza 8x8", role: "IFV", specs: { "Drive": "8x8", "Origin": "HIT", "Protection": "Stanag 4" } },
-                            { id: "hamza6", name: "Hamza 6x6", role: "MRAP", specs: { "Drive": "6x6", "Origin": "HIT", "Role": "Troop Carrier" } },
                             { id: "talha", name: "Talha", role: "APC", specs: { "Base": "M113", "Origin": "Indigenous (HIT)", "Troops": "11" } },
                             { id: "saad", name: "Saad", role: "APC", specs: { "Origin": "HIT", "Extended": "Yes" } },
                             { id: "sakb", name: "Sakb", role: "Command", specs: { "Origin": "HIT", "Base": "Talha" } },
@@ -366,14 +351,12 @@
                         items: [
                             { id: "z10me", name: "Z-10ME", role: "Attack Helo", specs: { "Armor": "Graphene", "Missiles": "AKD-10", "Engine": "Upgraded" } },
                             { id: "mi35", name: "Mi-35M", role: "Assault Helo", specs: { "Origin": "Russia", "Role": "Transport/Attack" } },
-                            { id: "cobra", name: "AH-1F/S Cobra", role: "Attack Helo", specs: { "Armament": "TOW 2", "Status": "Active/Upgraded" } },
+                            { id: "cobra", name: "AH-1F/S Cobra", role: "Attack Helo", specs: { "Armament": "TOW 2", "Status": "Active" } },
                             { id: "mi17", name: "Mi-171E", role: "Transport", specs: { "Capacity": "24 Troops", "Reliability": "High" } },
                             { id: "puma", name: "SA330 Puma", role: "Transport", specs: { "Origin": "France/Romania" } },
                             { id: "bell412", name: "Bell 412", role: "Transport", specs: { "Origin": "USA" } },
                             { id: "ecureuil", name: "AS350 Ecureuil", role: "Light Utility", specs: { "Role": "High Altitude SAR" } },
                             { id: "mushshak_a", name: "Mushshak", role: "Trainer", specs: { "Origin": "PAC" } },
-                            { id: "cessna", name: "Cessna Citation", role: "VIP", specs: { "Role": "Liaison" } },
-                            { id: "commander", name: "Turbo Commander", role: "Survey", specs: { "Role": "Photo/Recce" } },
                             { id: "burraq", name: "Burraq", role: "UCAV", specs: { "Armament": "Barq Missile", "Origin": "NESCOM" } },
                             { id: "ababeel_d", name: "Ababeel-V", role: "Loitering", specs: { "Endurance": "4h", "Warhead": "Anti-Armor", "Origin": "GIDS" } }
                         ]
@@ -390,21 +373,17 @@
                             { id: "jf173", name: "JF-17 Block III", role: "Multi-Role", specs: { "Radar": "KLJ-7A AESA", "HMD": "Yes", "Origin": "PAC Kamra" } },
                             { id: "jf172", name: "JF-17 Block II", role: "Multi-Role", specs: { "Refueling": "Probe", "Data Link": "Link-17", "Origin": "PAC Kamra" } },
                             { id: "jf171", name: "JF-17 Block I", role: "Multi-Role", specs: { "Status": "Active", "Origin": "PAC Kamra" } },
-                            { id: "jf17b", name: "JF-17B", role: "Twin Seat", specs: { "Role": "Training/Strike", "Fuel": "Dorsal Spine" } },
-                            { id: "f16c", name: "F-16C/D Block 52+", role: "Multi-Role", specs: { "Radar": "APG-68(V)9", "Tanks": "CFT", "Missiles": "AIM-120C-5", "Origin": "USA" } },
+                            { id: "f16c", name: "F-16C/D Block 52+", role: "Multi-Role", specs: { "Radar": "APG-68(V)9", "Tanks": "CFT", "Origin": "USA" } },
                             { id: "f16a", name: "F-16A/B MLU", role: "Multi-Role", specs: { "Upgrade": "Mid Life Update", "Capability": "BVR", "Origin": "USA" } },
-                            { id: "mirage_rose", name: "Mirage ROSE I", role: "Strike", specs: { "Role": "Air Defense", "Radar": "Grifo-M3", "Upgrade": "PAC Kamra" } },
-                            { id: "mirage_rose2", name: "Mirage ROSE II/III", role: "Strike", specs: { "Role": "Deep Strike", "Radar": "None", "Nav": "FLIR/NAV" } },
-                            { id: "mirage5", name: "Mirage 5 PA", role: "Maritime Strike", specs: { "Role": "Anti-Ship", "Missile": "Exocet", "Radar": "Agave" } },
-                            { id: "f7pg", name: "F-7PG", role: "Interceptor", specs: { "Role": "Point Defense", "Radar": "Grifo-7" } },
-                            { id: "f7p", name: "F-7P", role: "Interceptor", specs: { "Role": "Training/Reserve", "Status": "Phasing Out" } }
+                            { id: "mirage_rose", name: "Mirage ROSE", role: "Strike", specs: { "Role": "Deep Strike", "Radar": "Grifo-M3", "Upgrade": "PAC" } },
+                            { id: "f7pg", name: "F-7PG", role: "Interceptor", specs: { "Role": "Point Defense", "Radar": "Grifo-7" } }
                         ] 
                     }, 
                     special: { 
                         name: "Special Mission & UAVs", 
                         items: [
-                            { id: "zdk03", name: "ZDK-03 Karakoram", role: "AEW&C", specs: { "Radar": "AESA Rotodome", "Range": "450 km", "Platform": "Y-8F600" } },
-                            { id: "erieye", name: "Saab 2000 Erieye", role: "AEW&C", specs: { "Radar": "PS-890 AESA", "Data": "Link-16/11", "Coverage": "300 Deg" } },
+                            { id: "zdk03", name: "ZDK-03 Karakoram", role: "AEW&C", specs: { "Radar": "AESA Rotodome", "Range": "450 km" } },
+                            { id: "erieye", name: "Saab Erieye", role: "AEW&C", specs: { "Radar": "Fixed Array", "Data": "Link-16" } },
                             { id: "falcon", name: "DA-20 Falcon", role: "EW/ELINT", specs: { "Role": "Jamming / Eavesdropping", "Origin": "France/Pak" } },
                             { id: "il78", name: "Il-78 Midas", role: "Tanker", specs: { "Capacity": "Refuels 3 Jets", "Origin": "Ukraine/Russia" } },
                             { id: "c130", name: "C-130 Hercules", role: "Transport", specs: { "Variant": "B/E/H", "Role": "Tactical Airlift", "Origin": "USA" } },
@@ -466,14 +445,14 @@
                             { id: "054ap", name: "Tughril Class", role: "Frigate", specs: { "VLS": "32 Cell (LY-80N)", "ASCM": "CM-302", "Radar": "SR2410C" } },
                             { id: "babur", name: "Babur Class", role: "Corvette", specs: { "Stealth": "High", "Origin": "Turkey/Pak (KS&EW)", "VLS": "16 Cells" } },
                             { id: "f22p", name: "Zulfiquar Class", role: "Frigate", specs: { "Origin": "China/Pak", "Missiles": "C-802" } },
-                            { id: "alamgir", name: "PNS Alamgir", role: "Frigate", specs: { "Class": "Oliver Hazard Perry", "Origin": "USA", "Role": "ASW" } },
+                            { id: "alamgir", name: "PNS Alamgir", role: "Frigate", specs: { "Class": "Oliver Hazard Perry", "Origin": "USA", "Role": "ASW", "Hangar": "2 Helos" } },
                             { id: "tariq", name: "Tariq Class", role: "Frigate", specs: { "Origin": "UK (Type 21)", "Status": "Phasing Out" } },
-                            { id: "yarmook", name: "Yarmook Class", role: "OPV", specs: { "Origin": "Damen", "Tonnage": "2300t", "Modular": "Yes" } },
+                            { id: "yarmook", name: "Yarmook Class", role: "OPV", specs: { "Origin": "Damen", "Tonnage": "2300t", "Modular": "Yes", "Missiles": "Fitted for" } },
                             { id: "azmat", name: "Azmat Class", role: "FAC(M)", specs: { "Speed": "30 knots", "Missiles": "8x C-802A", "Origin": "KS&EW" } },
                             { id: "jurrat", name: "Jurrat Class", role: "Missile Boat", specs: { "Origin": "Indigenous (KS&EW)", "Role": "Coastal Defense" } },
                             { id: "jalalat", name: "Jalalat Class", role: "Missile Boat", specs: { "Origin": "Indigenous", "Missiles": "C-802" } },
                             { id: "mrtp33", name: "MRTP-33", role: "FAC", specs: { "Origin": "Turkey", "Speed": "High", "Role": "Interdiction" } },
-                            { id: "munsif", name: "Munsif Class", role: "Minehunter", specs: { "Origin": "France/Pak", "Role": "MCMV" } },
+                            { id: "munsif", name: "Munsif Class", role: "Minehunter", specs: { "Origin": "France/Pak" } },
                             { id: "griffon", name: "Griffon 2000TD", role: "Hovercraft", specs: { "Role": "Amphibious/SSG(N)", "Terrain": "Littoral" } }
                         ] 
                     }, 
@@ -489,7 +468,7 @@
                     aviation: {
                         name: "Naval Aviation",
                         items: [
-                            { id: "seasultan", name: "Sea Sultan", role: "LRMP", specs: { "Platform": "Embraer Lineage 1000", "Role": "ASW/ASuW", "Status": "Conversion" } },
+                            { id: "seasultan", name: "Sea Sultan", role: "LRMP", specs: { "Platform": "Embraer Lineage" } },
                             { id: "p3c", name: "P-3C Orion", role: "LRMP", specs: { "Armament": "Harpoon", "Role": "ASW", "Origin": "USA" } },
                             { id: "atr72", name: "ATR-72 MPA", role: "MPA", specs: { "Role": "Maritime Patrol", "Torpedos": "Yes", "System": "Aerodata" } },
                             { id: "seaking", name: "Sea King", role: "ASW Helo", specs: { "Missile": "Exocet", "Origin": "UK" } },
@@ -518,7 +497,7 @@
                             { id: "unimog", name: "Unimog", role: "Utility", specs: { "Drive": "4x4", "Usage": "High Altitude" } },
                             { id: "landrover", name: "Land Rover", role: "Utility", specs: { "Variant": "Defender 110", "Role": "Command/Comms" } },
                             { id: "tanker", name: "Fuel Bowser", role: "Supply", specs: { "Capacity": "20,000L" } },
-                            { id: "recovery", name: "M88 Recovery", role: "ARV", specs: { "Role": "Tank Recovery", "Origin": "USA" } },
+                            { id: "recovery", name: "M88 Recovery", role: "ARV", specs: { "Role": "Tank Recovery" } },
                             { id: "alhadid", name: "Al-Hadid", role: "ARV", specs: { "Base": "APC", "Origin": "HIT", "Crane": "Yes" } },
                             { id: "mohafiz", name: "Mohafiz", role: "Security", specs: { "Origin": "HIT", "Armor": "B7", "Chassis": "Toyota/Land Rover" } }
                         ] 
@@ -532,6 +511,15 @@
                             { id: "behrpaima", name: "Behr Paima", role: "Survey", specs: { "Role": "Hydrography" } },
                             { id: "madadgar", name: "Madadgar Class", role: "Utility", specs: { "Role": "Coastal Logistics" } },
                             { id: "tugs", name: "Coastal Tugs", role: "Support", specs: { "Type": "Harbor/Salvage" } }
+                        ]
+                    },
+                    engineering: {
+                        name: "Engineering & Medical",
+                        items: [
+                            { id: "avlb", name: "M60 AVLB", role: "Bridging", specs: { "Span": "18m", "Class": "MLC 60" } },
+                            { id: "mine_plough", name: "Mine Plough", role: "Counter-Mine", specs: { "Mount": "MBT", "Type": "Mechanical" } },
+                            { id: "ambulance", name: "Field Ambulance", role: "Medical", specs: { "Chassis": "Toyota" } },
+                            { id: "kitchen", name: "Mobile Kitchen", role: "Support", specs: { "Capacity": "500 Men", "Fuel": "Diesel" } }
                         ]
                     },
                     gear: {
@@ -588,9 +576,8 @@
             viewport: document.getElementById('viewport'),
 
             view: function(key) {
-                this.viewport.scrollTop = 0; 
+                this.viewport.scrollTo(0,0);
                 if(key === 'home') this.renderHome();
-                else if(key === 'news') this.renderNews();
                 else this.renderBranch(key);
             },
 
@@ -604,12 +591,12 @@
                         <p class="text-gray-500 font-mono tracking-[0.4em] text-xs md:text-sm mb-12">FULL SPECTRUM DEFENSE ARCHIVE</p>
                         
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-4xl px-4">
-                            ${this.homeBtn('news', 'INTEL FEED', 'text-neon-red', 'border-neon-red')}
                             ${this.homeBtn('nuclear', 'STRATEGIC', 'text-neon-amber', 'border-neon-amber')}
                             ${this.homeBtn('army', 'ARMY', 'text-neon-green', 'border-neon-green')}
                             ${this.homeBtn('airforce', 'AIR FORCE', 'text-neon-blue', 'border-neon-blue')}
                             ${this.homeBtn('navy', 'NAVY', 'text-cyan-400', 'border-cyan-400')}
-                            ${this.homeBtn('industry', 'INDUSTRY', 'text-neon-purple', 'border-neon-purple')}
+                            ${this.homeBtn('logistics', 'LOGISTICS', 'text-white', 'border-white')}
+                            ${this.homeBtn('future', 'NASTP', 'text-neon-purple', 'border-neon-purple')}
                         </div>
                     </div>
                 `;
@@ -624,59 +611,11 @@
                 `;
             },
 
-            renderNews: function() {
-                this.viewport.innerHTML = `
-                    <div class="flex flex-col items-center justify-center h-full">
-                        <div class="w-12 h-12 border-4 border-neon-red border-t-transparent rounded-full animate-spin"></div>
-                        <div class="mt-4 text-neon-red font-mono text-xs animate-pulse">ESTABLISHING SECURE UPLINK...</div>
-                    </div>
-                `;
-
-                setTimeout(() => {
-                    const newsData = [
-                        { type: 'official', title: "FATAH-II INDUCTION", source: "ISPR", time: "2 HRS AGO", text: "Army Strategic Forces Command formally inducts the Fatah-II Guided Multi-Launch Rocket System. 400km range." },
-                        { type: 'rumor', title: "J-31 STEALTH FIGHTER DEAL?", source: "Intel Wire", time: "5 HRS AGO", text: "Unconfirmed reports suggest the PAF Air Staff has finalized the acquisition of 2 squadrons of FC-31/J-31 'Gyrfalcon' stealth fighters." },
-                        { type: 'alert', title: "NAVAL EXERCISE SEASPARK-26", source: "Naval HQ", time: "1 DAY AGO", text: "Live fire drills active in North Arabian Sea. NOTAM issued for sector Delta-9." },
-                        { type: 'official', title: "HANGOR SUB SEA TRIALS", source: "KS&EW", time: "2 DAYS AGO", text: "The first indigenous Hangor Class submarine begins sea trials. AIP performance exceeding parameters." }
-                    ];
-
-                    let html = `
-                        <div class="fade-in max-w-5xl mx-auto pb-10">
-                            <div class="flex justify-between items-end border-b border-white/10 pb-4 mb-6">
-                                <div>
-                                    <h1 class="text-5xl text-white font-header text-neon-red">INTEL WIRE</h1>
-                                    <div class="flex gap-2 mt-1">
-                                        <span class="text-[10px] bg-neon-red/20 text-neon-red px-2 py-0.5 rounded font-mono">LIVE FEED</span>
-                                    </div>
-                                </div>
-                                <button onclick="app.view('home')" class="text-[10px] text-gray-400 border border-white/10 px-3 py-1 rounded hover:bg-white/10">CLOSE</button>
-                            </div>
-                            <div class="space-y-4">
-                    `;
-
-                    newsData.forEach(n => {
-                        let color = n.type === 'official' ? 'text-neon-green border-neon-green' : n.type === 'alert' ? 'text-neon-red border-neon-red' : 'text-neon-amber border-neon-amber';
-                        html += `
-                            <div class="glass float-card p-6 border-l-4 ${color.split(' ')[1]} hover:bg-white/5 transition-all">
-                                <div class="flex justify-between items-start mb-2">
-                                    <span class="text-[9px] font-bold border px-2 py-0.5 rounded ${color}">${n.type.toUpperCase()}</span>
-                                    <span class="text-[10px] text-gray-500 font-mono">${n.time}</span>
-                                </div>
-                                <h2 class="text-2xl text-white font-header mb-2">${n.title}</h2>
-                                <p class="text-sm text-gray-400 font-mono leading-relaxed">${n.text}</p>
-                            </div>
-                        `;
-                    });
-                    html += `</div></div>`;
-                    this.viewport.innerHTML = html;
-                }, 800);
-            },
-
             renderBranch: function(key) {
                 const data = DB[key];
                 let html = `
                     <div class="fade-in max-w-7xl mx-auto pb-10">
-                        <div class="flex justify-between items-end border-b border-white/10 pb-4 mb-6 sticky top-0 bg-black/80 backdrop-blur-md z-20 pt-2">
+                        <div class="flex justify-between items-end border-b border-white/10 pb-4 mb-6">
                             <div>
                                 <h1 class="text-5xl text-white font-header ${data.color}">${data.name}</h1>
                                 <p class="text-xs text-gray-500 font-mono">SECTOR ID: ${key.toUpperCase()}</p>
@@ -684,22 +623,23 @@
                             <button onclick="app.view('home')" class="text-[10px] text-gray-400 border border-white/10 px-3 py-1 rounded hover:bg-white/10">CLOSE</button>
                         </div>
                         
-                        <!-- SUB-MENU NAVIGATION BAR -->
-                        <div class="flex gap-2 overflow-x-auto no-scrollbar mb-6 pb-2 sticky top-24 z-10">
+                        <div class="space-y-4">
                 `;
-
-                // Generate Top Sub-Nav
-                for(const [cKey, cat] of Object.entries(data.cats)) {
-                    html += `<button onclick="document.getElementById('${cKey}').scrollIntoView({behavior: 'smooth', block: 'start'})" class="whitespace-nowrap px-3 py-1 bg-white/5 border border-white/10 rounded text-[10px] font-mono hover:bg-white/10 hover:border-${data.accent.replace('#','')} transition-colors text-gray-300">${cat.name.split('(')[0]}</button>`;
-                }
-                html += `</div>`;
 
                 for(const [cKey, cat] of Object.entries(data.cats)) {
                     html += `
-                        <div id="${cKey}" class="mb-10 scroll-mt-32">
-                            <h3 class="text-xl text-white font-body font-bold mb-4 pl-3 border-l-4" style="border-color: ${data.accent}">${cat.name}</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                        <div class="glass overflow-hidden rounded-lg transition-all border border-white/5 hover:border-${data.accent.replace('#','')}">
+                            <button onclick="app.toggleCategory('${cKey}')" class="w-full p-4 flex justify-between items-center text-left focus:outline-none">
+                                <span class="text-xl font-header text-white tracking-wide flex items-center gap-3">
+                                    <span class="w-1 h-6 bg-${data.color.split('-')[1]}-500"></span> ${cat.name}
+                                </span>
+                                <span id="icon-${cKey}" class="text-${data.color.split('-')[1]}-500 text-xl transition-transform duration-300 transform rotate-0">+</span>
+                            </button>
+                            
+                            <div id="drawer-${cKey}" class="hidden transition-all duration-500 ease-in-out">
+                                <div class="p-4 border-t border-white/5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     `;
+                    
                     cat.items.forEach(item => {
                         let specs = '';
                         let i = 0;
@@ -720,7 +660,8 @@
                             </div>
                         `;
                     });
-                    html += `</div></div>`;
+
+                    html += `</div></div></div>`;
                 }
                 
                 // Smart Analytics
@@ -732,6 +673,19 @@
                 </div>`;
                 this.viewport.innerHTML = html;
                 setTimeout(() => this.renderChart(key), 100);
+            },
+
+            toggleCategory: function(id) {
+                const drawer = document.getElementById(`drawer-${id}`);
+                const icon = document.getElementById(`icon-${id}`);
+                
+                if(drawer.classList.contains('hidden')) {
+                    drawer.classList.remove('hidden');
+                    icon.innerText = '−'; 
+                } else {
+                    drawer.classList.add('hidden');
+                    icon.innerText = '+';
+                }
             },
 
             openModal: function(bKey, cKey, itemId) {
@@ -767,41 +721,23 @@
                 const labels = [];
                 const dataPoints = [];
                 const data = DB[key];
-                
-                // Determine Metric based on Sector
                 let metric = 'Range (KM)';
-                let factor = 1;
                 
                 if (key === 'navy') { metric = 'Displacement (Tons)'; }
-                if (key === 'airforce') { metric = 'Speed (Mach * 10)'; factor = 10; }
+                if (key === 'airforce') { metric = 'Speed (Mach * 10)'; }
                 
-                let foundData = false;
-
                 for (const cat of Object.values(data.cats)) {
                     cat.items.forEach(i => {
                         let val = 0;
-                        // Smart Parsing
                         if (key === 'navy' && i.specs.Displacement) val = parseInt(i.specs.Displacement.replace(/\D/g, ''));
                         else if (key === 'airforce' && i.specs.Speed && i.specs.Speed.includes("Mach")) val = parseFloat(i.specs.Speed.split(' ')[1]) * 10;
-                        else if (i.specs.Range) {
-                            let rangeStr = i.specs.Range.replace(/,/g, '');
-                            let matches = rangeStr.match(/(\d+)/g);
-                            if(matches) {
-                                val = Math.max(...matches.map(Number));
-                            }
-                        }
+                        else if (i.specs.Range) val = parseInt(i.specs.Range.replace(/\D/g, ''));
                         
                         if (val > 0) { 
                             labels.push(i.name.split(' ')[0]); 
                             dataPoints.push(val); 
-                            foundData = true;
                         }
                     });
-                }
-
-                if (!foundData) {
-                    ctx.parentElement.innerHTML = `<div class="text-center text-gray-600 font-mono text-xs pt-10">NO QUANTITATIVE DATA AVAILABLE FOR CHARTING</div>`;
-                    return;
                 }
 
                 new Chart(ctx, {
@@ -811,20 +747,16 @@
                 });
             },
 
-            // --- FOLDABLE MOBILE MENU LOGIC ---
             toggleMobileMenu: function() {
                 const menu = document.getElementById('mobileMenu');
                 menu.classList.toggle('active');
             },
 
             viewMobile: function(key) {
-                // 1. Close the menu
                 this.toggleMobileMenu();
-                // 2. Load the view (with scroll reset)
                 this.view(key);
             },
 
-            // --- SEARCH LOGIC (FIXED) ---
             toggleMobileSearch: function() {
                 document.getElementById('mobileSearch').classList.toggle('hidden');
                 document.getElementById('mobileSearchInput').focus();
@@ -837,7 +769,6 @@
             },
 
             search: function(q) {
-                // 1. Reset if Empty
                 if (!q || q.length < 2) {
                     this.view('home');
                     return;
@@ -845,21 +776,15 @@
 
                 q = q.toLowerCase();
                 let html = `<div class="fade-in pt-4"><h2 class="text-2xl text-white font-header mb-6">SEARCH RESULTS: "${q.toUpperCase()}"</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-4">`;
-                let count = 0;
-
                 for (const [bKey, branch] of Object.entries(DB)) {
                     for (const [cKey, cat] of Object.entries(branch.cats)) {
                         cat.items.forEach(item => {
                             if (item.name.toLowerCase().includes(q) || item.id.includes(q)) {
-                                count++;
                                 html += `<div onclick="app.openModal('${bKey}', '${cKey}', '${item.id}')" class="glass float-card p-4 cursor-pointer hover:bg-white/10 border-l-2 border-transparent hover:border-white transition-all"><div class="text-white font-bold font-header text-lg">${item.name}</div><div class="text-[9px] text-gray-500 font-mono">${branch.name} // ${item.role}</div></div>`;
                             }
                         });
                     }
                 }
-                
-                if (count === 0) html += `<div class="text-gray-500 font-mono text-sm col-span-3">NO RESULTS FOUND.</div>`;
-                
                 html += `</div></div>`;
                 this.viewport.innerHTML = html;
             }

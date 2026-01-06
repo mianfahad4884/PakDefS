@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PAKDEF SENTINEL | v26.2 SEARCH PATCH</title>
+    <title>PAKDEF SENTINEL | v26.3 UI FIX</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -113,17 +113,19 @@
             </div>
             <div class="leading-none">
                 <h1 class="text-xl text-white font-header tracking-wide">SENTINEL <span class="text-neon-blue">DB</span></h1>
-                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v26.2 AUTO-CLEAR</div>
+                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v26.3 UI FIX</div>
             </div>
         </div>
         
+        <!-- Desktop Search -->
         <div class="flex-1 max-w-xl mx-4 hidden md:block relative group">
             <input type="text" id="desktopSearch" placeholder="SEARCH 500+ SYSTEMS..." 
                 class="w-full bg-black/50 border border-white/10 rounded px-4 py-1 text-sm font-mono text-neon-blue focus:outline-none focus:border-neon-blue focus:bg-white/5 transition-all"
                 oninput="app.search(this.value)">
         </div>
 
-        <button class="md:hidden text-neon-blue p-2" onclick="app.toggleMobileMenu()">🔍</button>
+        <!-- FIXED: Mobile Search Button now toggles Search Overlay, NOT the Menu -->
+        <button class="md:hidden text-neon-blue p-2" onclick="document.getElementById('mobileSearch').classList.toggle('hidden')">🔍</button>
 
         <div class="hidden sm:block text-right">
             <div class="text-[9px] text-gray-600 font-bold">DATE: 07 JAN 2026</div>
@@ -133,10 +135,18 @@
         </div>
     </header>
 
+    <!-- MOBILE SEARCH OVERLAY -->
+    <div id="mobileSearch" class="hidden absolute top-14 left-0 w-full bg-black/95 border-b border-white/10 p-4 z-[70] flex gap-2">
+        <input type="text" placeholder="SEARCH DATABASE..." 
+            class="flex-1 bg-white/10 border border-white/20 rounded px-4 py-2 text-white font-mono focus:outline-none focus:border-neon-blue"
+            onkeyup="app.search(this.value)">
+        <button class="text-xs text-gray-400 border border-white/10 px-3 rounded" onclick="document.getElementById('mobileSearch').classList.add('hidden')">X</button>
+    </div>
+
     <!-- MAIN LAYOUT -->
     <div class="flex flex-1 overflow-hidden relative">
         
-        <!-- SIDEBAR -->
+        <!-- SIDEBAR (Desktop) -->
         <aside class="hidden md:flex w-64 bg-black/90 border-r border-white/10 flex-col z-40 h-full shrink-0">
             <div class="p-3 bg-white/5 border-b border-white/5 text-center font-bold text-gray-500 text-[10px] tracking-widest">COMMAND CONSOLE</div>
             
@@ -188,7 +198,7 @@
         <div class="p-4 overflow-y-auto grid grid-cols-2 gap-3 pb-20">
             <!-- Search in Menu -->
             <div class="col-span-2 mb-2">
-                <input type="text" id="mobileSearchInput" placeholder="SEARCH DATABASE..." class="w-full bg-white/5 border border-white/10 rounded px-4 py-3 text-sm font-mono text-neon-blue focus:outline-none" oninput="app.search(this.value)">
+                <input type="text" placeholder="SEARCH DATABASE..." class="w-full bg-white/5 border border-white/10 rounded px-4 py-3 text-sm font-mono text-neon-blue focus:outline-none" oninput="app.search(this.value)">
             </div>
 
             <button onclick="app.viewMobile('news')" class="p-4 bg-neon-red/5 border border-neon-red/20 rounded flex flex-col items-center justify-center gap-2 hover:bg-neon-red/10 active:scale-95 transition-all">
@@ -239,7 +249,7 @@
             document.getElementById('syncTime').innerText = now.toLocaleTimeString('en-US', { hour12: false });
         }, 1000);
 
-        // --- FULL DATABASE (v26.0) ---
+        // --- FULL DATABASE (v25.0) ---
         const DB = {
             nuclear: { 
                 name: "Strategic Command", color: "text-neon-amber", accent: "#ffbf00", 
@@ -360,6 +370,7 @@
                             { id: "ecureuil", name: "AS350 Ecureuil", role: "Light Utility", specs: { "Role": "High Altitude SAR" } },
                             { id: "mushshak_a", name: "Mushshak", role: "Trainer", specs: { "Origin": "PAC", "Role": "Basic Training" } },
                             { id: "cessna", name: "Cessna Citation", role: "VIP", specs: { "Role": "Liaison" } },
+                            { id: "commander", name: "Turbo Commander", role: "Survey", specs: { "Role": "Photo/Recce" } },
                             { id: "burraq", name: "Burraq", role: "UCAV", specs: { "Armament": "Barq Missile", "Origin": "NESCOM" } },
                             { id: "ababeel_d", name: "Ababeel-V", role: "Loitering", specs: { "Endurance": "4h", "Warhead": "Anti-Armor", "Origin": "GIDS" } }
                         ]
@@ -376,6 +387,7 @@
                             { id: "jf173", name: "JF-17 Block III", role: "Multi-Role", specs: { "Radar": "KLJ-7A AESA", "HMD": "Yes", "Engine": "RD-93MA", "Origin": "PAC Kamra" } },
                             { id: "jf172", name: "JF-17 Block II", role: "Multi-Role", specs: { "Refueling": "Probe", "Data Link": "Link-17", "Origin": "PAC Kamra" } },
                             { id: "jf171", name: "JF-17 Block I", role: "Multi-Role", specs: { "Status": "Active", "Origin": "PAC Kamra" } },
+                            { id: "jf17b", name: "JF-17B", role: "Twin Seat", specs: { "Role": "Training/Strike", "Fuel": "Dorsal Spine" } },
                             { id: "f16c", name: "F-16C/D Block 52+", role: "Multi-Role", specs: { "Radar": "APG-68(V)9", "Tanks": "CFT", "Missiles": "AIM-120C-5", "Origin": "USA" } },
                             { id: "f16a", name: "F-16A/B MLU", role: "Multi-Role", specs: { "Upgrade": "Mid Life Update", "Capability": "BVR", "Origin": "USA" } },
                             { id: "mirage_rose", name: "Mirage ROSE I", role: "Strike", specs: { "Role": "Air Defense", "Radar": "Grifo-M3", "Upgrade": "PAC Kamra" } },
@@ -447,7 +459,7 @@
                     surface: { 
                         name: "Surface Fleet", 
                         items: [
-                            { id: "054ap", name: "Tughril Class", role: "Frigate", specs: { "VLS": "32 Cell (LY-80N)", "ASCM": "CM-302", "Radar": "SR2410C", "Displacement": "4200t" } },
+                            { id: "054ap", name: "Tughril Class", role: "Frigate", specs: { "VLS": "32 Cell (LY-80N)", "ASCM": "CM-302", "Radar": "SR2410C" } },
                             { id: "babur", name: "Babur Class", role: "Corvette", specs: { "Stealth": "High", "Origin": "Turkey/Pak (KS&EW)", "VLS": "16 Cells" } },
                             { id: "f22p", name: "Zulfiquar Class", role: "Frigate", specs: { "Origin": "China/Pak", "Missiles": "C-802", "Gun": "76mm" } },
                             { id: "alamgir", name: "PNS Alamgir", role: "Frigate", specs: { "Class": "Oliver Hazard Perry", "Origin": "USA", "Role": "ASW", "Hangar": "2 Helos" } },
@@ -473,9 +485,9 @@
                     aviation: {
                         name: "Naval Aviation",
                         items: [
-                            { id: "seasultan", name: "Sea Sultan", role: "LRMP", specs: { "Platform": "Embraer Lineage 1000", "Role": "ASW/ASuW", "Status": "Conversion" } },
+                            { id: "seasultan", name: "Sea Sultan", role: "LRMP", specs: { "Platform": "Embraer Lineage", "Origin": "Italy/Pak" } },
                             { id: "p3c", name: "P-3C Orion", role: "LRMP", specs: { "Armament": "Harpoon", "Role": "ASW", "Origin": "USA" } },
-                            { id: "atr72", name: "ATR-72 MPA", role: "MPA", specs: { "Role": "Maritime Patrol", "Torpedos": "Yes", "System": "Aerodata" } },
+                            { id: "atr72", name: "ATR-72 MPA", role: "MPA", specs: { "Role": "Maritime Patrol", "Torpedos": "Yes" } },
                             { id: "seaking", name: "Sea King", role: "ASW Helo", specs: { "Missile": "Exocet", "Origin": "UK" } },
                             { id: "z9ec", name: "Z-9EC", role: "ASW Helo", specs: { "Origin": "China", "Role": "Shipborne" } },
                             { id: "alouette", name: "Alouette III", role: "Light Utility", specs: { "Role": "SAR/Liaison" } },
@@ -501,8 +513,8 @@
                             { id: "yakhlaq", name: "Yakhlaq", role: "Transport", specs: { "Origin": "Indigenous (HIT)", "Type": "Heavy Truck" } },
                             { id: "unimog", name: "Unimog", role: "Utility", specs: { "Drive": "4x4", "Usage": "High Altitude" } },
                             { id: "landrover", name: "Land Rover", role: "Utility", specs: { "Variant": "Defender 110", "Role": "Command/Comms" } },
-                            { id: "tanker", name: "Fuel Bowser", role: "Supply", specs: { "Capacity": "20,000L", "Type": "JP-8/Diesel" } },
-                            { id: "recovery", name: "M88 Recovery", role: "ARV", specs: { "Role": "Tank Recovery" } },
+                            { id: "tanker", name: "Fuel Bowser", role: "Supply", specs: { "Capacity": "20,000L" } },
+                            { id: "recovery", name: "M88 Recovery", role: "ARV", specs: { "Role": "Tank Recovery", "Origin": "USA" } },
                             { id: "alhadid", name: "Al-Hadid", role: "ARV", specs: { "Base": "APC", "Origin": "HIT", "Crane": "Yes" } },
                             { id: "mohafiz", name: "Mohafiz", role: "Security", specs: { "Origin": "HIT", "Armor": "B7", "Chassis": "Toyota/Land Rover" } }
                         ] 
@@ -516,6 +528,15 @@
                             { id: "behrpaima", name: "Behr Paima", role: "Survey", specs: { "Role": "Hydrography" } },
                             { id: "madadgar", name: "Madadgar Class", role: "Utility", specs: { "Role": "Coastal Logistics" } },
                             { id: "tugs", name: "Coastal Tugs", role: "Support", specs: { "Type": "Harbor/Salvage" } }
+                        ]
+                    },
+                    engineering: {
+                        name: "Engineering & Medical",
+                        items: [
+                            { id: "avlb", name: "M60 AVLB", role: "Bridging", specs: { "Span": "18m", "Class": "MLC 60" } },
+                            { id: "mine_plough", name: "Mine Plough", role: "Counter-Mine", specs: { "Mount": "MBT", "Type": "Mechanical" } },
+                            { id: "ambulance", name: "Field Ambulance", role: "Medical", specs: { "Chassis": "Toyota" } },
+                            { id: "kitchen", name: "Mobile Kitchen", role: "Support", specs: { "Capacity": "500 Men", "Fuel": "Diesel" } }
                         ]
                     },
                     gear: {
@@ -572,7 +593,9 @@
             viewport: document.getElementById('viewport'),
 
             view: function(key) {
-                this.viewport.scrollTo(0,0);
+                // FIXED SCROLL: Always jump to top on view change
+                this.viewport.scrollTop = 0; 
+
                 if(key === 'home') this.renderHome();
                 else if(key === 'news') this.renderNews();
                 else this.renderBranch(key);

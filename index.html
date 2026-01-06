@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PAKDEF SENTINEL | v21.0 APEX DATABASE</title>
+    <title>PAKDEF SENTINEL | v22.0 FOLDABLE</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -35,12 +35,12 @@
     </script>
 
     <style>
-        body { background-color: #020203; color: #e4e4e7; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        body { background-color: #020203; color: #e4e4e7; height: 100dvh; overflow: hidden; display: flex; flex-direction: column; }
         .bg-grid { background-size: 30px 30px; }
         
         .glass {
             background: rgba(10, 12, 16, 0.95);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
         
@@ -71,6 +71,15 @@
             cursor: pointer;
         }
         .nav-btn:hover { background-color: rgba(255,255,255,0.05); color: white; padding-left: 1rem; }
+
+        /* Mobile Menu Transition */
+        #mobileMenuOverlay {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(100%);
+        }
+        #mobileMenuOverlay.open {
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body class="bg-grid font-body selection:bg-neon-blue selection:text-black">
@@ -85,7 +94,7 @@
             </div>
             <div class="leading-none">
                 <h1 class="text-xl text-white font-header tracking-wide">SENTINEL <span class="text-neon-blue">DB</span></h1>
-                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v21.0 APEX</div>
+                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v22.0 FOLDABLE</div>
             </div>
         </div>
         
@@ -100,7 +109,7 @@
         <div class="hidden sm:block text-right">
             <div class="text-[9px] text-gray-600 font-bold">DATE: 07 JAN 2026</div>
             <div class="text-[10px] text-neon-green font-mono flex items-center justify-end gap-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-neon-green animate-pulse-fast"></span> DATA VERIFIED
+                <span class="w-1.5 h-1.5 rounded-full bg-neon-green animate-pulse-fast"></span> SECURE
             </div>
         </div>
     </header>
@@ -112,7 +121,7 @@
     <!-- MAIN LAYOUT -->
     <div class="flex flex-1 overflow-hidden relative">
         
-        <!-- SIDEBAR -->
+        <!-- SIDEBAR (Desktop Only) -->
         <aside class="hidden md:flex w-64 bg-black/90 border-r border-white/10 flex-col z-40 h-full shrink-0">
             <div class="p-3 bg-white/5 border-b border-white/5 text-center font-bold text-gray-500 text-[10px] tracking-widest">COMMAND CONSOLE</div>
             
@@ -140,25 +149,71 @@
         </aside>
 
         <!-- VIEWPORT -->
-        <main id="viewport" class="flex-1 overflow-y-auto p-4 md:p-8 relative bg-black/60 pb-36 md:pb-8 custom-scrollbar">
+        <main id="viewport" class="flex-1 overflow-y-auto p-4 md:p-8 relative bg-black/60 custom-scrollbar pb-24 md:pb-8">
             <!-- Dynamic Content -->
         </main>
     </div>
 
-    <!-- MOBILE NAV -->
-    <nav class="md:hidden bg-black/95 border-t border-white/10 z-50 fixed bottom-0 w-full p-2 h-28">
-        <div class="grid grid-cols-4 gap-2 h-full">
-            <button onclick="app.view('news')" class="flex flex-col items-center justify-center p-1 text-neon-red bg-white/5 rounded"><span class="text-lg animate-pulse">●</span><span class="text-[8px] font-mono font-bold">INTEL</span></button>
-            <button onclick="app.view('nuclear')" class="flex flex-col items-center justify-center p-1 text-neon-amber"><span class="text-xl">☢</span><span class="text-[8px] font-mono">STRAT</span></button>
-            <button onclick="app.view('army')" class="flex flex-col items-center justify-center p-1 text-neon-green"><span class="text-xl">🛡</span><span class="text-[8px] font-mono">ARMY</span></button>
-            <button onclick="app.view('airforce')" class="flex flex-col items-center justify-center p-1 text-neon-blue"><span class="text-xl">✈</span><span class="text-[8px] font-mono">AIR</span></button>
-            
-            <button onclick="app.view('navy')" class="flex flex-col items-center justify-center p-1 text-cyan-400"><span class="text-xl">⚓</span><span class="text-[8px] font-mono">NAVY</span></button>
-            <button onclick="app.view('logistics')" class="flex flex-col items-center justify-center p-1 text-white"><span class="text-xl">📦</span><span class="text-[8px] font-mono">LOGS</span></button>
-            <button onclick="app.view('industry')" class="flex flex-col items-center justify-center p-1 text-neon-purple"><span class="text-xl">🏭</span><span class="text-[8px] font-mono">IND</span></button>
-            <button onclick="app.view('future')" class="flex flex-col items-center justify-center p-1 text-neon-purple"><span class="text-xl">🔬</span><span class="text-[8px] font-mono">R&D</span></button>
+    <!-- MOBILE COMPACT BAR (Folded) -->
+    <div class="md:hidden fixed bottom-0 left-0 w-full h-14 bg-black/95 border-t border-white/10 z-40 flex items-center justify-center backdrop-blur-md">
+        <button onclick="app.toggleMobileMenu()" class="flex flex-col items-center justify-center text-neon-blue w-full h-full group">
+            <span class="text-xl group-hover:-translate-y-1 transition-transform">▲</span>
+            <span class="text-[9px] font-mono tracking-widest text-gray-400">SYSTEM ACCESS</span>
+        </button>
+    </div>
+
+    <!-- MOBILE MENU OVERLAY (Unfolded) -->
+    <div id="mobileMenuOverlay" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex flex-col pt-16 pb-4 px-4 translate-y-full">
+        
+        <!-- Close Button -->
+        <button onclick="app.toggleMobileMenu()" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-white/10 rounded-full flex items-center justify-center border border-white/20 text-white animate-bounce">
+            ▼
+        </button>
+
+        <h2 class="text-center text-2xl text-white font-header tracking-widest mb-8 border-b border-white/10 pb-4">COMMAND MODULE</h2>
+
+        <div class="grid grid-cols-2 gap-4 overflow-y-auto pb-20">
+            <button onclick="app.viewMobile('news')" class="p-4 bg-neon-red/10 border border-neon-red/30 rounded flex flex-col items-center justify-center gap-2">
+                <span class="text-3xl">●</span>
+                <span class="text-xs font-mono text-neon-red font-bold">INTEL WIRE</span>
+            </button>
+
+            <button onclick="app.viewMobile('nuclear')" class="p-4 bg-neon-amber/10 border border-neon-amber/30 rounded flex flex-col items-center justify-center gap-2">
+                <span class="text-3xl">☢</span>
+                <span class="text-xs font-mono text-neon-amber font-bold">STRATEGIC</span>
+            </button>
+
+            <button onclick="app.viewMobile('army')" class="p-4 bg-neon-green/10 border border-neon-green/30 rounded flex flex-col items-center justify-center gap-2">
+                <span class="text-3xl">🛡</span>
+                <span class="text-xs font-mono text-neon-green font-bold">ARMY</span>
+            </button>
+
+            <button onclick="app.viewMobile('airforce')" class="p-4 bg-neon-blue/10 border border-neon-blue/30 rounded flex flex-col items-center justify-center gap-2">
+                <span class="text-3xl">✈</span>
+                <span class="text-xs font-mono text-neon-blue font-bold">AIR FORCE</span>
+            </button>
+
+            <button onclick="app.viewMobile('navy')" class="p-4 bg-cyan-400/10 border border-cyan-400/30 rounded flex flex-col items-center justify-center gap-2">
+                <span class="text-3xl">⚓</span>
+                <span class="text-xs font-mono text-cyan-400 font-bold">NAVY</span>
+            </button>
+
+            <button onclick="app.viewMobile('logistics')" class="p-4 bg-white/10 border border-white/30 rounded flex flex-col items-center justify-center gap-2">
+                <span class="text-3xl">📦</span>
+                <span class="text-xs font-mono text-white font-bold">LOGISTICS</span>
+            </button>
+
+            <button onclick="app.viewMobile('industry')" class="p-4 bg-purple-500/10 border border-purple-500/30 rounded flex flex-col items-center justify-center gap-2">
+                <span class="text-3xl">🏭</span>
+                <span class="text-xs font-mono text-purple-400 font-bold">INDUSTRY</span>
+            </button>
+
+            <button onclick="app.viewMobile('future')" class="p-4 bg-purple-500/10 border border-purple-500/30 rounded flex flex-col items-center justify-center gap-2">
+                <span class="text-3xl">🔬</span>
+                <span class="text-xs font-mono text-purple-400 font-bold">NASTP / R&D</span>
+            </button>
         </div>
-    </nav>
+    </div>
 
     <script>
         setInterval(() => {
@@ -173,15 +228,16 @@
                     ballistic: { 
                         name: "Ballistic Missiles (Hatf Series)", 
                         items: [
-                            { id: "shaheen3", name: "Shaheen-III", role: "MRBM", specs: { "Range": "2,750 km", "Propulsion": "Solid (2-Stage)", "Warhead": "Nuclear/HE", "Length": "19.3m", "Diameter": "1.4m", "Launch": "10-Axis TEL", "Origin": "NESCOM" } },
-                            { id: "ababeel", name: "Ababeel", role: "MIRV MRBM", specs: { "Range": "2,200 km", "Payload": "MIRV (3-8 RVs)", "Guidance": "Inertial + Star", "Role": "BMD Countermeasure", "Diameter": "1.4m", "Origin": "KRL" } },
+                            { id: "shaheen3", name: "Shaheen-III", role: "MRBM", specs: { "Range": "2,750 km", "Propulsion": "Solid (2-Stage)", "Warhead": "Nuclear/HE", "Origin": "NESCOM" } },
+                            { id: "ababeel", name: "Ababeel", role: "MIRV MRBM", specs: { "Range": "2,200 km", "Payload": "MIRV (3-8 RVs)", "Role": "BMD Countermeasure", "Diameter": "1.4m", "Origin": "KRL" } },
                             { id: "shaheen2", name: "Shaheen-II", role: "MRBM", specs: { "Range": "2,000 km", "Propulsion": "Solid (2-Stage)", "Guidance": "INS/GPS", "Accuracy": "<10m CEP", "Origin": "NESCOM" } },
                             { id: "ghauri", name: "Ghauri (Hatf-V)", role: "MRBM", specs: { "Range": "1,300 km", "Fuel": "Liquid (TM-185)", "Warhead": "700 kg", "Launch": "TEL", "Origin": "KRL" } },
                             { id: "shaheen1a", name: "Shaheen-IA", role: "SRBM", specs: { "Range": "900 km", "Accuracy": "Improved", "Control": "Terminal Guidance", "Status": "Active", "Origin": "NESCOM" } },
                             { id: "shaheen1", name: "Shaheen-I", role: "SRBM", specs: { "Range": "750 km", "Propulsion": "Solid", "Payload": "700kg", "Status": "Active", "Origin": "NESCOM" } },
                             { id: "ghaznavi", name: "Ghaznavi (Hatf-III)", role: "SRBM", specs: { "Range": "290 km", "Propulsion": "Solid", "Launch": "Road Mobile", "Warhead": "Nuclear/HE", "Origin": "NDC" } },
                             { id: "abdali", name: "Abdali (Hatf-II)", role: "SRBM", specs: { "Range": "180 km", "Propulsion": "Solid", "Warhead": "Variable", "Status": "Active", "Role": "Tactical" } },
-                            { id: "nasr", name: "Nasr (Hatf-IX)", role: "TNW", specs: { "Range": "70 km", "Role": "Tactical Nuke", "Salvo": "4 Missiles", "Maneuver": "In-flight", "Launcher": "ARJE TEL", "Origin": "NDC" } }
+                            { id: "nasr", name: "Nasr (Hatf-IX)", role: "TNW", specs: { "Range": "70 km", "Role": "Tactical Nuke", "Salvo": "4 Missiles", "Maneuver": "In-flight", "Launcher": "ARJE TEL", "Origin": "NDC" } },
+                            { id: "hatf1", name: "Hatf-I/IB", role: "BRBM", specs: { "Range": "70-100 km", "Status": "Active/Reserve", "Origin": "KRL" } }
                         ] 
                     }, 
                     cruise: { 
@@ -200,7 +256,7 @@
                 name: "Pakistan Army", color: "text-neon-green", accent: "#39ff14", 
                 cats: { 
                     infantry_arms: {
-                        name: "Small Arms & Infantry",
+                        name: "Infantry Systems (Small Arms)",
                         items: [
                             { id: "bw20", name: "BW-20", role: "Assault Rifle", specs: { "Caliber": "5.56x45 / 7.62x51", "Action": "Roller Delayed", "Origin": "POF (Indigenous)", "Feed": "Polymer Mag" } },
                             { id: "cw39", name: "CW-39", role: "Assault Rifle", specs: { "Caliber": "7.62x39mm", "Platform": "AR-15 Style", "Origin": "POF", "Status": "Prototype/LRIP" } },
@@ -211,13 +267,15 @@
                             { id: "mg3", name: "MG3", role: "GPMG", specs: { "Caliber": "7.62x51mm", "Rate of Fire": "1200 rpm", "Origin": "POF (License)", "Feed": "Belt" } },
                             { id: "pk16", name: "PK-16", role: "HMG", specs: { "Caliber": "12.7x108mm", "Origin": "POF", "Mount": "Tripod/Vehicle" } },
                             { id: "psr90", name: "PSR-90", role: "Sniper Rifle", specs: { "Caliber": "7.62x51mm", "Precision": "Sub-MOA", "Action": "Bolt", "Origin": "POF" } },
-                            { id: "awm", name: "Accuracy Intl AWM", role: "Sniper", specs: { "Caliber": ".338 Lapua", "Origin": "UK", "Range": "1500m+" } },
-                            { id: "barrett", name: "Barrett M82", role: "Anti-Materiel", specs: { "Caliber": ".50 BMG", "Origin": "USA", "Range": "1800m" } },
+                            { id: "lsr", name: "Light Sniper", role: "Sniper", specs: { "Caliber": ".308", "Origin": "POF" } },
+                            { id: "pk9", name: "PK-9", role: "Pistol", specs: { "Caliber": "9mm", "Origin": "POF" } },
                             { id: "rpg29", name: "RPG-29 Vampir", role: "Anti-Tank", specs: { "Warhead": "Tandem HEAT", "Range": "500m", "Penetration": "750mm RHA" } },
                             { id: "rpg7", name: "RPG-7", role: "Anti-Tank", specs: { "Usage": "Widespread", "Origin": "Various", "Ammo": "HEAT/Thermobaric" } },
                             { id: "kornet", name: "Kornet-E", role: "ATGM", specs: { "Range": "5.5 km", "Guidance": "Laser Beam Riding", "Penetration": "1200mm RHA" } },
                             { id: "bakhtar", name: "Bakhtar Shikan", role: "ATGM", specs: { "Range": "3-4 km", "Guidance": "Wire Guided", "Origin": "KRL (License)", "Mount": "Tripod/Vehicle" } },
                             { id: "tow2", name: "BGM-71 TOW-2", role: "ATGM", specs: { "Range": "3.75 km", "Guidance": "Wire", "Platform": "Cobra/Vehicle" } },
+                            { id: "metis", name: "Metis-M", role: "ATGM", specs: { "Range": "2 km", "Origin": "Russia" } },
+                            { id: "hj8", name: "HJ-8", role: "ATGM", specs: { "Origin": "China", "Range": "3km" } },
                             { id: "mortars", name: "POF Mortars", role: "Artillery", specs: { "Calibers": "60mm, 81mm, 120mm", "Origin": "POF", "Range": "Variable" } }
                         ]
                     },
@@ -363,7 +421,7 @@
                             { id: "pl10", name: "PL-10", role: "SRAAM", specs: { "Type": "HOBS (High Off Boresight)", "Guidance": "IIR", "Origin": "China" } },
                             { id: "aim9", name: "AIM-9M/L/P", role: "Sidewinder", specs: { "Type": "IR Homing", "Origin": "USA" } },
                             { id: "h4", name: "H-4 SOW", role: "Glide Bomb", specs: { "Range": "120km", "Guidance": "TV/IR", "Origin": "NESCOM" } },
-                            { id: "h2", name: "H-2 SOW", role: "Glide Bomb", specs: { "Range": "60km", "Role": "Precision Strike" } },
+                            { id: "h2", name: "H-2 SOW", role: "Glide Bomb", specs: { "Range": "6km", "Role": "Precision Strike" } },
                             { id: "takbir", name: "Takbir", role: "Glide Bomb", specs: { "Range": "80km", "Guidance": "Satellite", "Origin": "GIDS" } },
                             { id: "rek", name: "GIDS REK", role: "Kit", specs: { "Range": "50km", "Type": "Range Extension", "Origin": "GIDS" } },
                             { id: "albattar", name: "Al-Battar", role: "LGB", specs: { "Weight": "500lb/1000lb", "Guidance": "Laser", "Origin": "NESCOM" } },

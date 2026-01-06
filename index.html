@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PAKDEF SENTINEL | v12.5 STABLE</title>
+    <title>PAKDEF SENTINEL | v13.0 MOBILE FIX</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -28,9 +28,6 @@
                     },
                     backgroundImage: {
                         'grid': "linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)",
-                    },
-                    animation: {
-                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     }
                 }
             }
@@ -38,7 +35,7 @@
     </script>
 
     <style>
-        /* CRITICAL LAYOUT FIXES */
+        /* CORE LAYOUT */
         body { background-color: #020203; color: #e4e4e7; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
         .bg-grid { background-size: 30px 30px; }
         
@@ -48,7 +45,6 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
         
-        /* CRT Scanline Effect */
         .scanlines {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10;
             background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.05));
@@ -57,11 +53,15 @@
 
         .chart-wrapper { position: relative; height: 250px; width: 100%; }
 
-        /* Custom Scrollbar */
+        /* SCROLLBAR & HIDING */
         ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-track { background: #050505; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
         ::-webkit-scrollbar-thumb:hover { background: #00f3ff; }
+        
+        /* Hide scrollbar for mobile nav but allow scrolling */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
         .fade-in { animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -84,7 +84,7 @@
 
     <div class="scanlines"></div>
 
-    <!-- HEADER (Fixed Top) -->
+    <!-- HEADER -->
     <header class="h-14 border-b border-white/10 bg-black/95 flex items-center justify-between px-4 z-50 shrink-0">
         <div class="flex items-center gap-3 cursor-pointer" onclick="app.view('home')">
             <div class="w-8 h-8 bg-neon-blue/10 border border-neon-blue flex items-center justify-center">
@@ -92,13 +92,12 @@
             </div>
             <div class="leading-none">
                 <h1 class="text-xl text-white font-header tracking-wide">SENTINEL <span class="text-neon-blue">DB</span></h1>
-                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v12.5 CLASSIFIED</div>
+                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v13.0 MOBILE OPTIMIZED</div>
             </div>
         </div>
         
-        <!-- Desktop Search -->
         <div class="flex-1 max-w-xl mx-4 hidden md:block relative group">
-            <input type="text" id="desktopSearch" placeholder="SEARCH DATABASE (e.g. G3A3, FATAH, J-10C)..." 
+            <input type="text" id="desktopSearch" placeholder="SEARCH DATABASE..." 
                 class="w-full bg-black/50 border border-white/10 rounded px-4 py-1 text-sm font-mono text-neon-blue focus:outline-none focus:border-neon-blue focus:bg-white/5 transition-all"
                 onkeyup="app.search(this.value)">
         </div>
@@ -106,57 +105,42 @@
         <button class="md:hidden text-neon-blue p-2" onclick="document.getElementById('mobileSearch').classList.toggle('hidden')">🔍</button>
 
         <div class="hidden sm:block text-right">
-            <div class="text-[9px] text-gray-600 font-bold">DATE: 06 JAN 2026</div>
+            <div class="text-[9px] text-gray-600 font-bold">DATE: 07 JAN 2026</div>
             <div class="text-[10px] text-neon-green font-mono flex items-center justify-end gap-1">
                 <span class="w-1.5 h-1.5 rounded-full bg-neon-green animate-pulse-fast"></span> NETWORK SECURE
             </div>
         </div>
     </header>
 
-    <!-- MOBILE SEARCH OVERLAY -->
+    <!-- MOBILE SEARCH -->
     <div id="mobileSearch" class="hidden absolute top-14 left-0 w-full bg-black/95 border-b border-white/10 p-4 z-50">
         <input type="text" placeholder="SEARCH DATABASE..." 
             class="w-full bg-white/10 border border-white/20 rounded px-4 py-2 text-white font-mono"
             onkeyup="app.search(this.value)">
     </div>
 
-    <!-- MAIN LAYOUT (Flex Column -> Flex Row) -->
+    <!-- MAIN LAYOUT -->
     <div class="flex flex-1 overflow-hidden relative">
         
-        <!-- SIDEBAR (Fixed Desktop, Flex Item) -->
+        <!-- DESKTOP SIDEBAR (Fixed) -->
         <aside class="hidden md:flex w-64 bg-black/90 border-r border-white/10 flex-col z-40 h-full shrink-0">
             <div class="p-3 bg-white/5 border-b border-white/5 text-center font-bold text-gray-500 text-[10px] tracking-widest">COMMAND CONSOLE</div>
             
             <nav class="flex-1 overflow-y-auto p-3 custom-scrollbar">
-                <!-- News Button -->
                 <button onclick="app.view('news')" class="w-full flex items-center justify-between p-3 mb-4 rounded bg-neon-red/5 hover:bg-neon-red/10 border border-neon-red/20 hover:border-neon-red transition-all cursor-pointer group text-gray-300">
                     <span class="text-xs font-bold group-hover:text-white font-mono">INTEL WIRE</span>
                     <span class="text-neon-red animate-pulse">●</span>
                 </button>
 
                 <div class="text-[9px] text-gray-600 font-bold px-2 py-1 uppercase font-mono">Combat Branches</div>
-                
-                <button onclick="app.view('nuclear')" class="nav-btn hover:border-neon-amber hover:text-neon-amber">
-                    STRATEGIC <span>☢</span>
-                </button>
-                <button onclick="app.view('army')" class="nav-btn hover:border-neon-green hover:text-neon-green">
-                    ARMY (LAND) <span>🛡</span>
-                </button>
-                <button onclick="app.view('airforce')" class="nav-btn hover:border-neon-blue hover:text-neon-blue">
-                    AIR FORCE <span>✈</span>
-                </button>
-                <button onclick="app.view('navy')" class="nav-btn hover:border-cyan-400 hover:text-cyan-400">
-                    NAVY (SEA) <span>⚓</span>
-                </button>
+                <button onclick="app.view('nuclear')" class="nav-btn hover:border-neon-amber hover:text-neon-amber">STRATEGIC <span>☢</span></button>
+                <button onclick="app.view('army')" class="nav-btn hover:border-neon-green hover:text-neon-green">ARMY (LAND) <span>🛡</span></button>
+                <button onclick="app.view('airforce')" class="nav-btn hover:border-neon-blue hover:text-neon-blue">AIR FORCE <span>✈</span></button>
+                <button onclick="app.view('navy')" class="nav-btn hover:border-cyan-400 hover:text-cyan-400">NAVY (SEA) <span>⚓</span></button>
                 
                 <div class="text-[9px] text-gray-600 font-bold px-2 py-1 mt-4 uppercase font-mono">Support & Dev</div>
-                
-                <button onclick="app.view('logistics')" class="nav-btn hover:border-white hover:text-white">
-                    LOGISTICS <span>📦</span>
-                </button>
-                <button onclick="app.view('future')" class="nav-btn hover:border-neon-purple hover:text-neon-purple">
-                    NASTP / R&D <span>🔬</span>
-                </button>
+                <button onclick="app.view('logistics')" class="nav-btn hover:border-white hover:text-white">LOGISTICS <span>📦</span></button>
+                <button onclick="app.view('future')" class="nav-btn hover:border-neon-purple hover:text-neon-purple">NASTP / R&D <span>🔬</span></button>
             </nav>
             
             <div class="p-3 border-t border-white/10 text-[9px] text-gray-600 text-center font-mono">
@@ -164,19 +148,55 @@
             </div>
         </aside>
 
-        <!-- VIEWPORT (Scrollable Content) -->
+        <!-- CONTENT VIEWPORT -->
         <main id="viewport" class="flex-1 overflow-y-auto p-4 md:p-8 relative bg-black/60 pb-24 md:pb-8 custom-scrollbar">
-            <!-- Content Loads Here -->
+            <!-- Dynamic Content -->
         </main>
     </div>
 
-    <!-- MOBILE BOTTOM NAV (Fixed) -->
-    <nav class="md:hidden h-16 bg-black/95 border-t border-white/10 flex justify-around items-center z-50 fixed bottom-0 w-full backdrop-blur-xl">
-        <button onclick="app.view('news')" class="flex flex-col items-center text-neon-red space-y-1 w-full"><span class="text-lg animate-pulse">●</span><span class="text-[8px] font-mono">INTEL</span></button>
-        <button onclick="app.view('nuclear')" class="flex flex-col items-center text-neon-amber space-y-1 w-full"><span class="text-lg">☢</span><span class="text-[8px] font-mono">STRAT</span></button>
-        <button onclick="app.view('army')" class="flex flex-col items-center text-neon-green space-y-1 w-full"><span class="text-lg">🛡</span><span class="text-[8px] font-mono">ARMY</span></button>
-        <button onclick="app.view('airforce')" class="flex flex-col items-center text-neon-blue space-y-1 w-full"><span class="text-lg">✈</span><span class="text-[8px] font-mono">AIR</span></button>
-        <button onclick="app.view('navy')" class="flex flex-col items-center text-cyan-400 space-y-1 w-full"><span class="text-lg">⚓</span><span class="text-[8px] font-mono">NAVY</span></button>
+    <!-- MOBILE BOTTOM NAV (Scrollable) -->
+    <!-- FIX: Added 'overflow-x-auto' and 'justify-start' with padding to allow scrolling -->
+    <nav class="md:hidden h-16 bg-black/95 border-t border-white/10 flex items-center overflow-x-auto no-scrollbar z-50 fixed bottom-0 w-full px-2 gap-2">
+        
+        <button onclick="app.view('news')" class="flex-shrink-0 w-16 flex flex-col items-center justify-center text-neon-red h-full">
+            <span class="text-xl animate-pulse">●</span>
+            <span class="text-[8px] font-mono mt-1">INTEL</span>
+        </button>
+        
+        <div class="w-px h-8 bg-white/10 flex-shrink-0"></div>
+
+        <button onclick="app.view('nuclear')" class="flex-shrink-0 w-16 flex flex-col items-center justify-center text-neon-amber h-full">
+            <span class="text-xl">☢</span>
+            <span class="text-[8px] font-mono mt-1">STRAT</span>
+        </button>
+
+        <button onclick="app.view('army')" class="flex-shrink-0 w-16 flex flex-col items-center justify-center text-neon-green h-full">
+            <span class="text-xl">🛡</span>
+            <span class="text-[8px] font-mono mt-1">ARMY</span>
+        </button>
+
+        <button onclick="app.view('airforce')" class="flex-shrink-0 w-16 flex flex-col items-center justify-center text-neon-blue h-full">
+            <span class="text-xl">✈</span>
+            <span class="text-[8px] font-mono mt-1">AIR</span>
+        </button>
+
+        <button onclick="app.view('navy')" class="flex-shrink-0 w-16 flex flex-col items-center justify-center text-cyan-400 h-full">
+            <span class="text-xl">⚓</span>
+            <span class="text-[8px] font-mono mt-1">NAVY</span>
+        </button>
+
+        <button onclick="app.view('logistics')" class="flex-shrink-0 w-16 flex flex-col items-center justify-center text-white h-full">
+            <span class="text-xl">📦</span>
+            <span class="text-[8px] font-mono mt-1">LOGS</span>
+        </button>
+
+        <button onclick="app.view('future')" class="flex-shrink-0 w-16 flex flex-col items-center justify-center text-neon-purple h-full">
+            <span class="text-xl">🔬</span>
+            <span class="text-[8px] font-mono mt-1">R&D</span>
+        </button>
+        
+        <!-- Spacer for end of scroll -->
+        <div class="w-2 flex-shrink-0"></div>
     </nav>
 
     <script>
@@ -186,7 +206,7 @@
             document.getElementById('syncTime').innerText = now.toLocaleTimeString('en-US', { hour12: false });
         }, 1000);
 
-        // --- DATABASE v12.5 ---
+        // --- DATABASE ---
         const DB = {
             nuclear: { 
                 name: "Strategic Command", color: "text-neon-amber", accent: "#ffbf00", 
@@ -285,6 +305,7 @@
                             { id: "j10c", name: "J-10C Dragon", role: "Omni-Role", specs: { "Radar": "AESA", "Engine": "WS-10B", "Missiles": "PL-15 (145km+)" } },
                             { id: "jf173", name: "JF-17 Block III", role: "Multi-Role", specs: { "Radar": "KLJ-7A AESA", "HMD": "Yes", "Engine": "RD-93MA" } },
                             { id: "jf172", name: "JF-17 Block II", role: "Multi-Role", specs: { "Refueling": "Probe", "Data Link": "Link-17" } },
+                            { id: "jf171", name: "JF-17 Block I", role: "Multi-Role", specs: { "Status": "Active", "Origin": "PAC Kamra" } },
                             { id: "f16c", name: "F-16C/D Block 52+", role: "Multi-Role", specs: { "Radar": "APG-68(V)9", "Tanks": "CFT", "Missiles": "AIM-120C-5" } },
                             { id: "f16a", name: "F-16A/B MLU", role: "Multi-Role", specs: { "Upgrade": "Mid Life Update", "Capability": "BVR" } },
                             { id: "mirage_rose", name: "Mirage ROSE", role: "Strike", specs: { "Role": "Deep Strike", "Radar": "Grifo-M3", "Armament": "Ra'ad" } },
@@ -308,6 +329,7 @@
                         items: [
                             { id: "pl15", name: "PL-15", role: "LRAAM", specs: { "Range": "145km+", "Guidance": "AESA Seeker", "Type": "BVR" } },
                             { id: "aim120", name: "AIM-120C-5", role: "AMRAAM", specs: { "Range": "105km", "Origin": "USA" } },
+                            { id: "sd10", name: "SD-10A", role: "BVR Missile", specs: { "Range": "100km", "Origin": "China" } },
                             { id: "h4", name: "H-4 SOW", role: "Glide Bomb", specs: { "Range": "120km", "Guidance": "TV/IR" } },
                             { id: "takbir", name: "Takbir", role: "Glide Bomb", specs: { "Range": "80km", "Guidance": "Satellite" } },
                             { id: "cm400", name: "CM-400AKG", role: "Anti-Ship", specs: { "Speed": "Mach 4", "Range": "400km" } }
@@ -341,8 +363,9 @@
                     aviation: {
                         name: "Naval Aviation",
                         items: [
-                            { id: "seasultan", name: "Sea Sultan", role: "LRMP", specs: { "Platform": "Embraer Lineage 1000", "Role": "ASW/ASuW" } },
+                            { id: "seasultan", name: "Sea Sultan", role: "LRMP", specs: { "Platform": "Embraer Lineage", "Role": "ASW/ASuW" } },
                             { id: "p3c", name: "P-3C Orion", role: "LRMP", specs: { "Armament": "Harpoon", "Role": "ASW" } },
+                            { id: "atr72", name: "ATR-72 MPA", role: "MPA", specs: { "Role": "Maritime Patrol", "Torpedos": "Yes" } },
                             { id: "seaking", name: "Sea King", role: "ASW Helo", specs: { "Missile": "Exocet" } },
                             { id: "z9ec", name: "Z-9EC", role: "ASW Helo", specs: { "Origin": "China", "Role": "Shipborne" } }
                         ]
@@ -376,7 +399,9 @@
                         items: [
                             { id: "vest", name: "Body Armor", role: "Protection", specs: { "Level": "NIJ IV", "Plates": "Ceramic" } },
                             { id: "helmet", name: "Ballistic Helmet", role: "Protection", specs: { "Type": "Composite/Kevlar" } },
-                            { id: "nvg", name: "Night Vision", role: "Optics", specs: { "Origin": "IEP" } }
+                            { id: "nvg", name: "Night Vision", role: "Optics", specs: { "Origin": "IEP" } },
+                            { id: "boots", name: "Combat Boots", role: "Footwear", specs: { "Type": "DMS", "Durability": "High" } },
+                            { id: "ration", name: "Field Rations", role: "Supplies", specs: { "Type": "MRE", "Calories": "3500" } }
                         ]
                     }
                 } 
@@ -403,6 +428,9 @@
             viewport: document.getElementById('viewport'),
 
             view: function(key) {
+                // SCROLL RESET FIX: THIS LINE FIXES THE SCROLL POSITION ISSUE
+                this.viewport.scrollTop = 0; 
+
                 if(key === 'home') this.renderHome();
                 else if(key === 'news') this.renderNews();
                 else this.renderBranch(key);

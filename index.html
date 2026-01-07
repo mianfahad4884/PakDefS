@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PAKDEF SENTINEL | v42.0 FULL DB + FIXES</title>
+    <title>PAKDEF SENTINEL | v42.5 STANDARDIZED</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -66,7 +66,6 @@
 
         .chart-wrapper { position: relative; height: 250px; width: 100%; }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #050505; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
@@ -87,17 +86,9 @@
         }
         .nav-btn:hover { background-color: rgba(255,255,255,0.05); color: white; padding-left: 1rem; }
 
-        #viewport {
-            padding-top: 4rem; /* Offset for fixed header */
-        }
-
-        #mobileMenu {
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            transform: translateY(100%);
-        }
-        #mobileMenu.active {
-            transform: translateY(0);
-        }
+        #viewport { padding-top: 4rem; }
+        #mobileMenu { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); transform: translateY(100%); }
+        #mobileMenu.active { transform: translateY(0); }
     </style>
 </head>
 <body class="bg-grid font-body selection:bg-neon-blue selection:text-black">
@@ -111,7 +102,7 @@
             </div>
             <div class="leading-none">
                 <h1 class="text-xl text-white font-header tracking-wide">SENTINEL <span class="text-neon-blue">DB</span></h1>
-                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v42.0 FULL DATA</div>
+                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v42.5 STANDARD</div>
             </div>
         </div>
         
@@ -139,30 +130,26 @@
     </div>
 
     <div class="flex flex-1 overflow-hidden relative pt-14">
-        
         <aside class="hidden md:flex w-64 bg-black/90 border-r border-white/10 flex-col z-40 h-full shrink-0">
             <div class="p-3 bg-white/5 border-b border-white/5 text-center font-bold text-gray-500 text-[10px] tracking-widest">COMMAND CONSOLE</div>
-            
             <nav class="flex-1 overflow-y-auto p-3 custom-scrollbar">
                 <div class="text-[9px] text-gray-600 font-bold px-2 py-1 uppercase font-mono">Combat Branches</div>
                 <button onclick="app.view('nuclear')" class="nav-btn hover:border-neon-amber hover:text-neon-amber">STRATEGIC <span>☢</span></button>
                 <button onclick="app.view('army')" class="nav-btn hover:border-neon-green hover:text-neon-green">ARMY (LAND) <span>🛡</span></button>
                 <button onclick="app.view('airforce')" class="nav-btn hover:border-neon-blue hover:text-neon-blue">AIR FORCE <span>✈</span></button>
                 <button onclick="app.view('navy')" class="nav-btn hover:border-cyan-400 hover:text-cyan-400">NAVY (SEA) <span>⚓</span></button>
-                
                 <div class="text-[9px] text-gray-600 font-bold px-2 py-1 mt-4 uppercase font-mono">Support & Industry</div>
                 <button onclick="app.view('logistics')" class="nav-btn hover:border-white hover:text-white">LOGISTICS <span>📦</span></button>
                 <button onclick="app.view('industry')" class="nav-btn hover:border-neon-purple hover:text-neon-purple">INDUSTRIAL <span>🏭</span></button>
                 <button onclick="app.view('future')" class="nav-btn hover:border-neon-purple hover:text-neon-purple">NASTP / R&D <span>🔬</span></button>
             </nav>
-            
             <div class="p-3 border-t border-white/10 text-[9px] text-gray-600 text-center font-mono">
                 SECURE TERMINAL // <span id="syncTime">00:00:00</span>
             </div>
         </aside>
 
         <main id="viewport" class="flex-1 overflow-y-auto p-4 md:p-8 relative bg-black/60 pb-24 md:pb-8 custom-scrollbar scroll-smooth !pt-6">
-            </main>
+        </main>
         
         <button id="ghostArrow" onclick="app.scrollToTop()" class="absolute bottom-20 right-6 w-10 h-10 bg-neon-blue/20 border border-neon-blue text-neon-blue rounded-full flex items-center justify-center backdrop-blur-md z-50 hover:bg-neon-blue/40 transition-all duration-300 opacity-0 pointer-events-none">
             <span class="text-xl font-bold">↑</span>
@@ -180,35 +167,27 @@
             <h2 class="text-xl font-header text-white tracking-widest">COMMAND GRID</h2>
             <button onclick="app.toggleMobileMenu()" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-colors">▼</button>
         </div>
-        
         <div class="p-4 overflow-y-auto grid grid-cols-2 gap-3 pb-20">
-            <button onclick="app.viewMobile('nuclear')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-amber hover:text-neon-amber active:scale-95 transition-all">
-                <span class="text-3xl">☢</span>
-                <span class="text-[10px] font-mono font-bold">STRATEGIC</span>
+            <button onclick="app.viewMobile('nuclear')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-amber hover:text-neon-amber">
+                <span class="text-3xl">☢</span><span class="text-[10px] font-mono font-bold">STRATEGIC</span>
             </button>
-            <button onclick="app.viewMobile('army')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-green hover:text-neon-green active:scale-95 transition-all">
-                <span class="text-3xl">🛡</span>
-                <span class="text-[10px] font-mono font-bold">ARMY</span>
+            <button onclick="app.viewMobile('army')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-green hover:text-neon-green">
+                <span class="text-3xl">🛡</span><span class="text-[10px] font-mono font-bold">ARMY</span>
             </button>
-            <button onclick="app.viewMobile('airforce')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-blue hover:text-neon-blue active:scale-95 transition-all">
-                <span class="text-3xl">✈</span>
-                <span class="text-[10px] font-mono font-bold">AIR FORCE</span>
+            <button onclick="app.viewMobile('airforce')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-blue hover:text-neon-blue">
+                <span class="text-3xl">✈</span><span class="text-[10px] font-mono font-bold">AIR FORCE</span>
             </button>
-            <button onclick="app.viewMobile('navy')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-cyan-400 hover:text-cyan-400 active:scale-95 transition-all">
-                <span class="text-3xl">⚓</span>
-                <span class="text-[10px] font-mono font-bold">NAVY</span>
+            <button onclick="app.viewMobile('navy')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-cyan-400 hover:text-cyan-400">
+                <span class="text-3xl">⚓</span><span class="text-[10px] font-mono font-bold">NAVY</span>
             </button>
-             <button onclick="app.viewMobile('logistics')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-white hover:text-white active:scale-95 transition-all">
-                <span class="text-3xl">📦</span>
-                <span class="text-[10px] font-mono font-bold">LOGISTICS</span>
+             <button onclick="app.viewMobile('logistics')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-white hover:text-white">
+                <span class="text-3xl">📦</span><span class="text-[10px] font-mono font-bold">LOGISTICS</span>
             </button>
-            <button onclick="app.viewMobile('industry')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-purple hover:text-neon-purple active:scale-95 transition-all">
-                <span class="text-3xl">🏭</span>
-                <span class="text-[10px] font-mono font-bold">INDUSTRY</span>
+            <button onclick="app.viewMobile('industry')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-purple hover:text-neon-purple">
+                <span class="text-3xl">🏭</span><span class="text-[10px] font-mono font-bold">INDUSTRY</span>
             </button>
-             <button onclick="app.viewMobile('future')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-purple hover:text-neon-purple active:scale-95 transition-all">
-                <span class="text-3xl">🔬</span>
-                <span class="text-[10px] font-mono font-bold">NASTP / R&D</span>
+             <button onclick="app.viewMobile('future')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-purple hover:text-neon-purple">
+                <span class="text-3xl">🔬</span><span class="text-[10px] font-mono font-bold">NASTP / R&D</span>
             </button>
         </div>
     </div>
@@ -219,7 +198,14 @@
             document.getElementById('syncTime').innerText = now.toLocaleTimeString('en-US', { hour12: false });
         }, 1000);
 
-        // --- FULL DATABASE (RESTORED) ---
+        // --- DATABASE v42.5 (STANDARDIZED SEQUENCE) ---
+        // STANDARDS APPLIED:
+        // MISSILES: Range -> Warhead -> Guidance -> Propulsion -> Origin -> Status
+        // ARMS: Caliber -> Range -> Action -> Mag -> Origin
+        // ARMOR: Gun -> Engine -> Armor -> Speed -> Origin -> Status
+        // AIRCRAFT: Role -> Speed -> Radar -> Hardpoints -> Origin
+        // SHIPS: Role -> Displacement -> Missiles -> Origin -> Status
+
         const DB = {
             nuclear: { 
                 name: "Strategic Command", color: "text-neon-amber", accent: "#ffbf00", 
@@ -227,26 +213,25 @@
                     ballistic: { 
                         name: "Ballistic Missiles", 
                         items: [
-                            { id: "shaheen3", name: "Shaheen-III", role: "MRBM", specs: { "Range": "2,750 km", "Propulsion": "Solid (2-Stage)", "Warhead": "Nuclear/HE/EMP", "Origin": "NESCOM", "CEP": "<50m", "Launch": "10-Axis TEL", "Status": "Active" } },
-                            { id: "ababeel", name: "Ababeel", role: "MIRV MRBM", specs: { "Range": "2,200 km", "Payload": "MIRV (3-8 RVs)", "Guidance": "Inertial + Star", "Role": "BMD Countermeasure", "Diameter": "1.4m", "Status": "Active/Deployed", "Origin": "KRL" } },
-                            { id: "shaheen2", name: "Shaheen-II", role: "MRBM", specs: { "Range": "2,000 km", "Propulsion": "Solid (2-Stage)", "Guidance": "INS/GPS", "Accuracy": "<50m CEP", "Warhead": "Single (Nuc/HE)", "Origin": "NESCOM", "Mobile": "Yes", "Status": "Active", "Length": "17.5m" } },
-                            { id: "ghauri", name: "Ghauri (Hatf-V)", role: "MRBM", specs: { "Range": "1,300 km", "Fuel": "Liquid (TM-185)", "Warhead": "700 kg", "Launch": "TEL", "Origin": "KRL", "Status": "Active", "Type": "Single Stage", "Guidance": "Inertial", "Accuracy": "1100m CEP" } },
-                            { id: "shaheen1a", name: "Shaheen-IA", role: "SRBM", specs: { "Range": "900 km", "Accuracy": "Improved", "Control": "Terminal Guidance", "Status": "Active", "Origin": "NESCOM", "Propulsion": "Solid", "Warhead": "Nuclear", "Launch": "Mobile", "Length": "12m" } },
-                            { id: "shaheen1", name: "Shaheen-I", role: "SRBM", specs: { "Range": "750 km", "Propulsion": "Solid", "Status": "Active", "Origin": "NESCOM", "Accuracy": "200m CEP", "Payload": "700kg", "Warhead": "Nuclear", "Launch": "TEL", "Diameter": "1m" } },
-                            { id: "ghaznavi", name: "Ghaznavi (Hatf-III)", role: "SRBM", specs: { "Range": "290 km", "Propulsion": "Solid", "Origin": "NDC", "Status": "Active", "Launch": "Road Mobile", "Warhead": "Nuclear/HE", "Accuracy": "High", "Payload": "700kg", "Length": "9.64m" } },
-                            { id: "abdali", name: "Abdali (Hatf-II)", role: "SRBM", specs: { "Range": "180 km", "Propulsion": "Solid", "Origin": "NDC", "Status": "Active", "Role": "Tactical", "Warhead": "Variable", "Accuracy": "High", "Payload": "450kg", "Launch": "TEL" } },
-                            { id: "nasr", name: "Nasr (Hatf-IX)", role: "TNW", specs: { "Range": "70 km", "Role": "Tactical Nuke", "Salvo": "4 Missiles", "Maneuver": "In-flight", "Launcher": "ARJE TEL", "Origin": "NDC", "Yield": "Sub-kiloton", "Guidance": "High Precision", "Status": "Active" } },
-                            { id: "hatf1", name: "Hatf-I/IB", role: "BRBM", specs: { "Range": "70-100 km", "Status": "Active/Reserve", "Origin": "KRL", "Propulsion": "Solid", "Payload": "500kg", "Type": "Artillery Rocket", "Guidance": "Inertial (IB)", "Warhead": "HE" } }
+                            { id: "shaheen3", name: "Shaheen-III", role: "MRBM", specs: { "Range": "2,750 km", "Warhead": "Nuclear/HE/EMP", "Guidance": "INS/GPS", "Propulsion": "Solid (2-Stage)", "Origin": "NESCOM", "Status": "Active" } },
+                            { id: "ababeel", name: "Ababeel", role: "MIRV MRBM", specs: { "Range": "2,200 km", "Warhead": "MIRV (3-8 RVs)", "Guidance": "Inertial + Star", "Propulsion": "Solid (3-Stage)", "Origin": "KRL", "Status": "Active" } },
+                            { id: "shaheen2", name: "Shaheen-II", role: "MRBM", specs: { "Range": "2,000 km", "Warhead": "Single (Nuc/HE)", "Guidance": "INS/GPS", "Propulsion": "Solid (2-Stage)", "Origin": "NESCOM", "Status": "Active" } },
+                            { id: "ghauri", name: "Ghauri (Hatf-V)", role: "MRBM", specs: { "Range": "1,300 km", "Warhead": "700 kg", "Guidance": "Inertial", "Propulsion": "Liquid (TM-185)", "Origin": "KRL", "Status": "Active" } },
+                            { id: "shaheen1a", name: "Shaheen-IA", role: "SRBM", specs: { "Range": "900 km", "Warhead": "Nuclear/HE", "Guidance": "Terminal Guidance", "Propulsion": "Solid", "Origin": "NESCOM", "Status": "Active" } },
+                            { id: "shaheen1", name: "Shaheen-I", role: "SRBM", specs: { "Range": "750 km", "Warhead": "Nuclear/HE", "Guidance": "Inertial", "Propulsion": "Solid", "Origin": "NESCOM", "Status": "Active" } },
+                            { id: "ghaznavi", name: "Ghaznavi", role: "SRBM", specs: { "Range": "290 km", "Warhead": "Nuclear/HE", "Guidance": "Inertial", "Propulsion": "Solid", "Origin": "NDC", "Status": "Active" } },
+                            { id: "abdali", name: "Abdali", role: "SRBM", specs: { "Range": "180 km", "Warhead": "Variable", "Guidance": "Inertial", "Propulsion": "Solid", "Origin": "NDC", "Status": "Active" } },
+                            { id: "nasr", name: "Nasr", role: "TNW", specs: { "Range": "70 km", "Warhead": "Sub-kiloton Nuke", "Guidance": "High Precision", "Propulsion": "Solid", "Origin": "NDC", "Status": "Active" } }
                         ] 
                     }, 
                     cruise: { 
                         name: "Strategic Cruise Missiles", 
                         items: [
-                            { id: "babur3", name: "Babur-III", role: "SLCM", specs: { "Range": "450 km", "Platform": "Submarine", "Capability": "Second Strike", "Propulsion": "Turbofan", "Origin": "NESCOM", "Warhead": "Nuclear", "Launch": "Torpedo Tube", "Guidance": "TERCOM", "Status": "Active" } },
-                            { id: "babur2", name: "Babur-2", role: "GLCM", specs: { "Range": "700 km", "Stealth": "Low Observable", "Guidance": "TERCOM/DSMAC", "Launch": "3-Tube TEL", "Origin": "NESCOM", "Speed": "Mach 0.8", "Warhead": "Nuclear/HE", "Accuracy": "Pinpoint", "Status": "Active" } },
-                            { id: "babur1b", name: "Babur-1B", role: "GLCM", specs: { "Range": "700 km", "Guidance": "INS/GPS", "Origin": "NESCOM", "Payload": "450kg", "Status": "Active", "Speed": "Subsonic", "Launch": "4-Tube TEL", "Warhead": "Dual", "Type": "Cruise" } },
-                            { id: "raad2", name: "Ra'ad-II", role: "ALCM", specs: { "Range": "600 km", "Stealth": "X-Tail", "Platform": "Mirage/JF-17", "Guidance": "TERCOM", "Origin": "AWC", "Engine": "Turbofan", "Warhead": "Nuc/HE", "Status": "Active", "Role": "Standoff" } },
-                            { id: "raad1", name: "Ra'ad-I", role: "ALCM", specs: { "Range": "350 km", "Status": "Active", "Origin": "AWC", "Config": "H-Tail", "Payload": "Nuclear/HE", "Platform": "Mirage ROSE", "Guidance": "INS/GPS", "Speed": "Mach 0.8", "Type": "Air Launched" } }
+                            { id: "babur3", name: "Babur-III", role: "SLCM", specs: { "Range": "450 km", "Warhead": "Nuclear", "Guidance": "TERCOM", "Propulsion": "Turbofan", "Origin": "NESCOM", "Status": "Active" } },
+                            { id: "babur2", name: "Babur-2", role: "GLCM", specs: { "Range": "700 km", "Warhead": "Nuclear/HE", "Guidance": "TERCOM/DSMAC", "Propulsion": "Turbofan", "Origin": "NESCOM", "Status": "Active" } },
+                            { id: "babur1b", name: "Babur-1B", role: "GLCM", specs: { "Range": "700 km", "Warhead": "Dual (Nuc/HE)", "Guidance": "INS/GPS", "Propulsion": "Turbofan", "Origin": "NESCOM", "Status": "Active" } },
+                            { id: "raad2", name: "Ra'ad-II", role: "ALCM", specs: { "Range": "600 km", "Warhead": "Nuc/HE", "Guidance": "TERCOM", "Propulsion": "Turbofan", "Origin": "AWC", "Status": "Active" } },
+                            { id: "raad1", name: "Ra'ad-I", role: "ALCM", specs: { "Range": "350 km", "Warhead": "Nuc/HE", "Guidance": "INS/GPS", "Propulsion": "Turbojet", "Origin": "AWC", "Status": "Active" } }
                         ] 
                     } 
                 } 
@@ -257,99 +242,61 @@
                     infantry_arms: {
                         name: "Infantry Weapons",
                         items: [
-                            { id: "bw20", name: "BW-20", role: "Assault Rifle", specs: { "Caliber": "5.56x45 / 7.62x51", "Origin": "POF (Indigenous)", "Mode": "Gas Piston", "Mag": "Polymer", "Rail": "Picatinny", "Status": "Inducting", "Action": "Roller Delayed", "Weight": "Light" } },
-                            { id: "g3a3", name: "G3A3", role: "Battle Rifle", specs: { "Caliber": "7.62x51mm", "Origin": "POF (License)", "Range": "400m Effective", "Weight": "4.4kg", "Mag": "20 Round", "Status": "Standard Issue", "Action": "Roller Delayed", "Rate": "500-600 rpm" } },
-                            { id: "type56", name: "Type 56-1", role: "Assault Rifle", specs: { "Caliber": "7.62x39mm", "Origin": "China/Pak", "Stock": "Folding", "Reliability": "High", "Mag": "30 Round", "Rate": "600 rpm", "Range": "300m", "Action": "Gas Operated" } },
-                            { id: "cw39", name: "CW-39", role: "Assault Rifle", specs: { "Caliber": "7.62x39mm", "Origin": "POF", "Platform": "AR-15 Style", "Status": "Prototype/LRIP", "Rail": "Full", "Mag": "AK Type", "Action": "Roller Delayed", "Weight": "3.5kg" } },
-                            { id: "ak103", name: "AK-103", role: "Assault Rifle", specs: { "Caliber": "7.62x39mm", "Origin": "Russia/Local", "Usage": "SSG / Frontline", "Mag": "30 Round", "Rate": "600 rpm", "Rail": "Side", "Muzzle": "Brake", "Stock": "Folding" } },
-                            { id: "m4a1", name: "M4A1", role: "Carbine", specs: { "Caliber": "5.56mm", "Origin": "USA", "Use": "SSG", "Weight": "2.9kg", "Rail": "Quad", "Range": "500m", "Action": "Gas Impingement", "Optics": "ACOG/Red Dot" } },
-                            { id: "mg3", name: "MG3", role: "GPMG", specs: { "Caliber": "7.62x51mm", "Origin": "POF (License)", "Rate of Fire": "1200 rpm", "Feed": "Belt", "Range": "1200m", "Weight": "11.5kg", "Cooling": "Air", "Bipod": "Yes" } },
-                            { id: "pk16", name: "PK-16", role: "HMG", specs: { "Caliber": "12.7x108mm", "Origin": "POF", "Mount": "Tripod/Vehicle", "Range": "2000m", "Rate": "600 rpm", "Feed": "Belt", "Weight": "25kg", "Role": "Anti-Material" } },
-                            { id: "psr90", name: "PSR-90", role: "Sniper Rifle", specs: { "Caliber": "7.62x51mm", "Origin": "POF", "Precision": "Sub-MOA", "Action": "Bolt", "Scope": "Variable Zoom", "Barrel": "Free Float", "Stock": "Adjustable", "Range": "800m" } },
-                            { id: "lsr", name: "Light Sniper", role: "Sniper", specs: { "Caliber": ".308", "Origin": "POF", "Action": "Bolt", "Range": "600m", "Weight": "Light", "Optics": "Day/Night", "Usage": "Designated Marksman", "Mag": "5 Round" } },
-                            { id: "pk9", name: "PK-9", role: "Pistol", specs: { "Caliber": "9mm", "Origin": "POF", "Mag": "15 Round", "Action": "Short Recoil", "Frame": "Alloy", "Safety": "Manual", "Sights": "Fixed", "Range": "50m" } },
-                            { id: "rpg29", name: "RPG-29 Vampir", role: "Anti-Tank", specs: { "Warhead": "Tandem HEAT", "Range": "500m", "Origin": "Russia/Pak", "Penetration": "750mm RHA", "Crew": "2", "Sights": "Optical", "Caliber": "105mm", "Status": "Active" } },
-                            { id: "rpg7", name: "RPG-7", role: "Anti-Tank", specs: { "Usage": "Widespread", "Origin": "Various", "Ammo": "HEAT/Thermobaric", "Range": "300m", "Penetration": "Variable", "Sights": "Iron/Optical", "Weight": "7kg", "Status": "Active" } },
-                            { id: "kornet", name: "Kornet-E", role: "ATGM", specs: { "Range": "5.5 km", "Guidance": "Laser Beam", "Origin": "Russia", "Penetration": "1200mm RHA", "Warhead": "Tandem HEAT", "Mount": "Tripod", "Crew": "2", "Status": "Active" } },
-                            { id: "bakhtar", name: "Bakhtar Shikan", role: "ATGM", specs: { "Range": "3-4 km", "Guidance": "Wire Guided", "Origin": "KRL (License)", "Mount": "Tripod/Vehicle", "Penetration": "800mm", "Warhead": "Tandem", "Status": "Active", "Type": "SACLOS" } },
-                            { id: "tow2", name: "BGM-71 TOW-2", role: "ATGM", specs: { "Range": "3.75 km", "Guidance": "Wire", "Origin": "USA", "Platform": "Cobra/Vehicle", "Penetration": "900mm", "Warhead": "Tandem", "Status": "Active", "Type": "Heavy" } },
-                            { id: "metis", name: "Metis-M", role: "ATGM", specs: { "Range": "2 km", "Guidance": "Wire", "Origin": "Russia", "Portable": "Manpack", "Penetration": "800mm", "Warhead": "HEAT", "Status": "Active", "Crew": "2" } },
-                            { id: "hj8", name: "HJ-8", role: "ATGM", specs: { "Origin": "China", "Range": "3km", "Guidance": "Wire SACLOS", "Mount": "Tripod/APC", "Penetration": "800mm", "Status": "Active", "Warhead": "HEAT", "Export": "Wide" } },
-                            { id: "anza3", name: "Anza Mk-III", role: "MANPADS", specs: { "Range": "6 km", "Guidance": "IR Homing", "Origin": "Indigenous (KRL)", "Status": "Active", "Speed": "Mach 2", "Warhead": "HE", "Weight": "18kg", "Seeker": "Dual Band" } },
-                            { id: "mortars", name: "POF Mortars", role: "Artillery", specs: { "Calibers": "60mm, 81mm, 120mm", "Origin": "POF", "Range": "Variable", "Type": "Smoothbore", "Ammo": "HE/Smoke/Illum", "Mount": "Baseplate", "Status": "Active" } }
+                            { id: "bw20", name: "BW-20", role: "Assault Rifle", specs: { "Caliber": "5.56 / 7.62mm", "Range": "400m", "Action": "Roller Delayed", "Mag": "30 Round", "Origin": "POF (Indigenous)" } },
+                            { id: "g3a3", name: "G3A3", role: "Battle Rifle", specs: { "Caliber": "7.62x51mm", "Range": "400m Effective", "Action": "Roller Delayed", "Mag": "20 Round", "Origin": "POF (License)" } },
+                            { id: "type56", name: "Type 56-1", role: "Assault Rifle", specs: { "Caliber": "7.62x39mm", "Range": "300m", "Action": "Gas Operated", "Mag": "30 Round", "Origin": "China/Pak" } },
+                            { id: "ak103", name: "AK-103", role: "Assault Rifle", specs: { "Caliber": "7.62x39mm", "Range": "500m", "Action": "Gas Operated", "Mag": "30 Round", "Origin": "Russia" } },
+                            { id: "m4a1", name: "M4A1", role: "Carbine", specs: { "Caliber": "5.56mm", "Range": "500m", "Action": "Gas Impingement", "Mag": "30 Round", "Origin": "USA" } },
+                            { id: "mg3", name: "MG3", role: "GPMG", specs: { "Caliber": "7.62x51mm", "Range": "1200m", "Action": "Recoil Operated", "Mag": "Belt Fed", "Origin": "POF" } },
+                            { id: "psr90", name: "PSR-90", role: "Sniper Rifle", specs: { "Caliber": "7.62x51mm", "Range": "800m", "Action": "Bolt Action", "Mag": "5 Round", "Origin": "POF" } },
+                            { id: "pk9", name: "PK-9", role: "Pistol", specs: { "Caliber": "9mm", "Range": "50m", "Action": "Short Recoil", "Mag": "15 Round", "Origin": "POF" } },
+                            { id: "rpg29", name: "RPG-29 Vampir", role: "Anti-Tank", specs: { "Caliber": "105mm", "Range": "500m", "Warhead": "Tandem HEAT", "Penetration": "750mm RHA", "Origin": "Russia/Pak" } },
+                            { id: "kornet", name: "Kornet-E", role: "ATGM", specs: { "Caliber": "152mm", "Range": "5.5 km", "Guidance": "Laser Beam", "Penetration": "1200mm RHA", "Origin": "Russia" } },
+                            { id: "bakhtar", name: "Bakhtar Shikan", role: "ATGM", specs: { "Caliber": "120mm", "Range": "3-4 km", "Guidance": "Wire SACLOS", "Penetration": "800mm", "Origin": "KRL" } }
                         ]
                     },
                     armor: { 
-                        name: "Armored Corps (MBT/IFV)", 
+                        name: "Armored Corps", 
                         items: [
-                            { id: "vt4", name: "VT-4 Haider", role: "MBT", specs: { "Gun": "125mm Smoothbore", "Engine": "1200hp", "APS": "GL-5 Active Protection", "Armor": "Composite+FY-4 ERA", "Origin": "NORINCO/HIT", "Crew": "3", "FCS": "Hunter-Killer", "Status": "Active" } },
-                            { id: "alkhalid1", name: "Al-Khalid I", role: "MBT", specs: { "Origin": "Indigenous (HIT)", "Engine": "6TD-2 1200hp", "Autoloader": "Yes", "Gun": "125mm KBA-3", "Sights": "Thermal/Night", "Weight": "46 Tons", "Armor": "Composite+ERA", "Status": "Active" } },
-                            { id: "alkhalid", name: "Al-Khalid", role: "MBT", specs: { "Status": "Active", "Origin": "HIT", "Engine": "6TD-2", "Gun": "125mm", "Autoloader": "Yes", "Speed": "70 km/h", "Range": "500 km", "Upgrade": "Ongoing to AK-I" } },
-                            { id: "t80ud", name: "T-80UD", role: "MBT", specs: { "Origin": "Ukraine", "Engine": "Diesel 6TD-1 (1000hp)", "Armor": "ERA K-5", "Gun": "125mm", "Autoloader": "Cassette Type", "Speed": "60 km/h", "Status": "Active", "Count": "320" } },
-                            { id: "alzarrar", name: "Al-Zarrar", role: "MBT", specs: { "Base": "Type-59", "Gun": "125mm Smoothbore", "Engine": "730hp", "Armor": "ERA", "Origin": "HIT", "FCS": "Computerized", "Speed": "55 km/h", "Status": "Active" } },
-                            { id: "type85", name: "Type 85-IIAP", role: "MBT", specs: { "Gun": "125mm", "Status": "Active", "Origin": "China", "Count": "300+", "Engine": "730hp", "Autoloader": "Yes", "Armor": "Composite", "FCS": "ISFCS" } },
-                            { id: "type69", name: "Type 69-IIMP", role: "MBT", specs: { "Gun": "105mm", "Status": "Reserve/Active", "Origin": "China/HIT", "Engine": "580hp", "Upgrade": "Pak", "Range": "Laser Finder", "Armor": "Steel", "Role": "Support" } },
-                            { id: "type59", name: "Type 59", role: "MBT", specs: { "Gun": "100mm", "Status": "Reserve", "Origin": "China", "Engine": "520hp", "Armor": "Steel", "Role": "Training", "Count": "Variable", "Base": "T-54" } },
-                            { id: "viper", name: "Viper", role: "IFV", specs: { "Gun": "30mm RCWS", "Missiles": "2x ATGM", "Troops": "8", "Origin": "HIT", "Chassis": "M113 Modified", "Armor": "Add-on Composite", "Engine": "360hp", "Speed": "65 km/h" } },
-                            { id: "hamza8", name: "Hamza 8x8", role: "IFV", specs: { "Drive": "8x8", "Origin": "HIT", "Protection": "Stanag 4", "Weapon": "30mm Cannon", "Engine": "600hp", "Speed": "100 km/h", "Troops": "10", "Status": "Prototype/LRIP" } },
-                            { id: "hamza6", name: "Hamza 6x6", role: "MRAP", specs: { "Drive": "6x6", "Origin": "HIT", "Role": "Troop Carrier", "Protection": "Mine/IED", "Engine": "Diesel", "Troops": "12", "Weapon": "12.7mm Turret", "Status": "Active" } },
-                            { id: "talha", name: "Talha", role: "APC", specs: { "Base": "M113", "Origin": "Indigenous (HIT)", "Troops": "11", "Engine": "Detroit Diesel", "Armor": "Aluminum 5083", "Speed": "62 km/h", "Amphibious": "Yes", "Status": "Active" } },
-                            { id: "saad", name: "Saad", role: "APC", specs: { "Origin": "HIT", "Extended": "Yes", "Troops": "13", "Role": "Heavy Transport", "Engine": "400hp", "Armor": "Enhanced", "Weapon": "12.7mm", "Status": "Active" } },
-                            { id: "sakb", name: "Sakb", role: "Command Vehicle", specs: { "Base": "Talha", "Origin": "HIT", "Role": "C3I", "Comms": "Enhanced", "Power": "Aux Unit", "Crew": "Staff", "Status": "Active" } },
-                            { id: "alqaswa", name: "Al-Qaswa", role: "Logistics", specs: { "Base": "Talha", "Origin": "HIT", "Role": "Supply/Ambulance", "Capacity": "6 Ton", "Crane": "Optional", "Status": "Active", "Amphibious": "Yes" } },
-                            { id: "m113", name: "M113", role: "APC", specs: { "Status": "Widespread Service", "Origin": "USA/HIT", "Variants": "A1/A2/A3/P", "Troops": "11", "Armor": "Aluminum", "Speed": "60 km/h", "Weapon": "M2 Browning" } },
-                            { id: "maxxpro", name: "MaxxPro", role: "MRAP", specs: { "Origin": "USA", "Protection": "Mine Resistant", "Usage": "COIN Ops", "Chassis": "International", "Engine": "MaxxForce", "Crew": "2+6", "Status": "Active" } },
-                            { id: "dragoon", name: "Dragoon", role: "AFV", specs: { "Role": "Security", "Origin": "HIT", "Gun": "90mm", "Drive": "4x4", "Speed": "100 km/h", "Armor": "Steel", "Status": "Police/Paramilitary" } },
-                            { id: "ferret", name: "Daimler Ferret", role: "Scout", specs: { "Status": "Ceremonial/Reserve", "Origin": "UK", "Drive": "4x4", "Role": "Recon", "Weapon": "7.62mm", "Armor": "Light", "History": "Legacy" } }
+                            { id: "vt4", name: "VT-4 Haider", role: "MBT", specs: { "Gun": "125mm Smoothbore", "Engine": "1200hp Diesel", "Armor": "Composite+FY-4 ERA", "Speed": "70 km/h", "Origin": "NORINCO/HIT", "Status": "Active" } },
+                            { id: "alkhalid1", name: "Al-Khalid I", role: "MBT", specs: { "Gun": "125mm KBA-3", "Engine": "1200hp 6TD-2", "Armor": "Composite+ERA", "Speed": "72 km/h", "Origin": "HIT", "Status": "Active" } },
+                            { id: "alkhalid", name: "Al-Khalid", role: "MBT", specs: { "Gun": "125mm Smoothbore", "Engine": "1200hp 6TD-2", "Armor": "Composite+ERA", "Speed": "70 km/h", "Origin": "HIT", "Status": "Active" } },
+                            { id: "t80ud", name: "T-80UD", role: "MBT", specs: { "Gun": "125mm Smoothbore", "Engine": "1000hp 6TD-1", "Armor": "K-5 ERA", "Speed": "60 km/h", "Origin": "Ukraine", "Status": "Active" } },
+                            { id: "alzarrar", name: "Al-Zarrar", role: "MBT", specs: { "Gun": "125mm Smoothbore", "Engine": "730hp Diesel", "Armor": "Add-on ERA", "Speed": "55 km/h", "Origin": "HIT", "Status": "Active" } },
+                            { id: "viper", name: "Viper", role: "IFV", specs: { "Gun": "30mm RCWS", "Engine": "360hp", "Armor": "Composite", "Speed": "65 km/h", "Origin": "HIT", "Status": "Inducting" } },
+                            { id: "hamza8", name: "Hamza 8x8", role: "IFV", specs: { "Gun": "30mm Cannon", "Engine": "600hp", "Armor": "STANAG 4", "Speed": "100 km/h", "Origin": "HIT", "Status": "Prototype" } },
+                            { id: "talha", name: "Talha", role: "APC", specs: { "Gun": "12.7mm HMG", "Engine": "Detroit Diesel", "Armor": "Aluminum 5083", "Speed": "62 km/h", "Origin": "HIT", "Status": "Active" } }
                         ] 
                     }, 
                     artillery: { 
                         name: "Artillery & MLRS", 
                         items: [
-                            { id: "fatah2", name: "Fatah-II", role: "GMLRS", specs: { "Range": "400 km", "Precision": "<10m CEP", "Origin": "GIDS", "Guidance": "GPS/INS", "Platform": "8x8 Truck", "Warhead": "Unitary", "Status": "Inducting" } },
-                            { id: "fatah1", name: "Fatah-1", role: "GMLRS", specs: { "Range": "140 km", "Status": "Active", "Origin": "GIDS", "Warhead": "Unitary/Cluster", "Guidance": "Inertial", "Platform": "8x8", "Salvo": "8 Rockets" } },
-                            { id: "a100", name: "A-100", role: "MLRS", specs: { "Range": "100 km", "Caliber": "300mm", "Origin": "China/Pak", "Salvo": "10 Rockets", "Guidance": "Simple Inertial", "Warhead": "235kg", "Status": "Active" } },
-                            { id: "krl122", name: "KRL-122", role: "MLRS", specs: { "Range": "40 km", "Caliber": "122mm", "Origin": "KRL", "Based On": "BM-21 Grad", "Salvo": "30/40", "Warhead": "HE-Frag", "Status": "Active" } },
-                            { id: "sh15", name: "SH-15", role: "SP Howitzer", specs: { "Caliber": "155mm / 52 Cal", "Origin": "China/Pak", "Chassis": "6x6 Truck", "Range": "53km (V-LAP)", "Rate": "4-6 rpm", "Mobility": "Shoot & Scoot", "Status": "Active" } },
-                            { id: "m109a5", name: "M109A5", role: "SP Howitzer", specs: { "Caliber": "155mm", "Tracked": "Yes", "Origin": "USA", "Range": "30km", "Crew": "6", "Engine": "440hp", "Status": "Active" } },
-                            { id: "m109a2", name: "M109A2", role: "SP Howitzer", specs: { "Status": "Upgraded", "Origin": "USA", "Caliber": "155mm", "Range": "24km", "Tracked": "Yes", "Armor": "Aluminum", "Count": "High" } },
-                            { id: "m110", name: "M110", role: "SP Howitzer", specs: { "Caliber": "203mm", "Role": "Heavy Artillery", "Status": "Active", "Range": "29km", "Origin": "USA", "Tracked": "Yes", "Warhead": "High Explosive" } },
-                            { id: "panter", name: "Panter", role: "Towed Howitzer", specs: { "Caliber": "155mm", "Origin": "Turkey/Pak (HMC)", "Range": "40km", "Barrel": "52 Cal", "APU": "Yes", "Rate": "6 rpm", "Status": "Active" } },
-                            { id: "m198", name: "M198", role: "Towed Howitzer", specs: { "Caliber": "155mm", "Origin": "USA", "Airlift": "C-130", "Range": "30km", "Weight": "7000kg", "Crew": "9", "Status": "Active" } },
-                            { id: "m115", name: "M115", role: "Towed Howitzer", specs: { "Caliber": "203mm", "Status": "Reserve", "Range": "16km", "Origin": "USA", "Role": "Siege/Heavy", "Weight": "13.5 Tons", "Rate": "Low" } },
-                            { id: "yarmuk", name: "Yarmuk", role: "MLRS", specs: { "Caliber": "122mm", "Mount": "Truck", "Origin": "Indigenous", "Range": "20-40km", "Tubes": "40", "Warhead": "HE", "Status": "Active" } }
+                            { id: "fatah2", name: "Fatah-II", role: "GMLRS", specs: { "Caliber": "Unknown", "Range": "400 km", "Guidance": "GPS/INS", "Origin": "GIDS", "Status": "Inducting" } },
+                            { id: "fatah1", name: "Fatah-1", role: "GMLRS", specs: { "Caliber": "300mm", "Range": "140 km", "Guidance": "Inertial", "Origin": "GIDS", "Status": "Active" } },
+                            { id: "a100", name: "A-100", role: "MLRS", specs: { "Caliber": "300mm", "Range": "100 km", "Guidance": "Simple Inertial", "Origin": "China/Pak", "Status": "Active" } },
+                            { id: "sh15", name: "SH-15", role: "SP Howitzer", specs: { "Caliber": "155mm / 52 Cal", "Range": "53km (V-LAP)", "Rate": "4-6 rpm", "Origin": "China/Pak", "Status": "Active" } },
+                            { id: "m109a5", name: "M109A5", role: "SP Howitzer", specs: { "Caliber": "155mm", "Range": "30km", "Rate": "4 rpm", "Origin": "USA", "Status": "Active" } },
+                            { id: "panter", name: "Panter", role: "Towed Howitzer", specs: { "Caliber": "155mm", "Range": "40km", "Rate": "6 rpm", "Origin": "Turkey/Pak", "Status": "Active" } },
+                            { id: "m198", name: "M198", role: "Towed Howitzer", specs: { "Caliber": "155mm", "Range": "30km", "Rate": "4 rpm", "Origin": "USA", "Status": "Active" } }
                         ] 
                     }, 
                     ad_army: { 
                         name: "Army Air Defense", 
                         items: [
-                            { id: "hq9p", name: "HQ-9/P", role: "HIMADS", specs: { "Range": "250km (Radar)", "Ceiling": "27km", "Role": "Strategic AD", "Guidance": "Active Radar", "Origin": "China", "Speed": "Mach 4+", "Battery": "TEL+Radar+C2" } },
-                            { id: "ly80", name: "LY-80", role: "LOMADS", specs: { "Range": "70km", "Radar": "IBIS-150", "Origin": "China", "Mobility": "High", "Targets": "6 Simultaneous", "Missile": "HQ-16", "Status": "Active" } },
-                            { id: "fm90", name: "FM-90", role: "SHORAD", specs: { "Range": "15km", "Reaction": "6s", "Origin": "China", "Mount": "Mobile 6x6", "Guidance": "Command Line", "Warhead": "HE-Frag", "Status": "Active" } },
-                            { id: "spada", name: "Spada 2000", role: "LOMADS", specs: { "Range": "25km", "Origin": "Italy/MBDA", "Radar": "Rac-3D", "Missile": "Aspide 2000", "Guidance": "Semi-Active", "Status": "Active", "Deployment": "Fixed/Mobile" } },
-                            { id: "rbs70", name: "RBS-70 NG", role: "MANPADS", specs: { "Guidance": "Laser Beam Rider", "Immunity": "High", "Range": "9km", "Origin": "Sweden", "Mount": "Tripod/Vehicle", "Warhead": "Tungsten", "Status": "Active" } },
-                            { id: "anza3", name: "Anza Mk-III", role: "MANPADS", specs: { "Range": "6km", "Guidance": "IR Homing", "Origin": "KRL", "Weight": "18kg", "Speed": "Mach 2", "Warhead": "HE", "Status": "Active" } },
-                            { id: "fn6", name: "FN-6", role: "MANPADS", specs: { "Guidance": "IR", "Range": "6km", "Origin": "China", "Features": "Digital Seeker", "Status": "Active", "Type": "Shoulder Fired" } },
-                            { id: "mistral", name: "Mistral", role: "MANPADS", specs: { "Origin": "France", "Platform": "Vehicle/Ground", "Range": "6km", "Guidance": "IR", "Speed": "Mach 2.5", "Status": "Active" } },
-                            { id: "oerlikon", name: "Oerlikon GDF-005", role: "AAA", specs: { "Caliber": "35mm", "Radar": "Skyguard", "Rate": "1100 rpm", "Origin": "Switzerland", "Range": "4km", "Ammo": "AHEAD", "Status": "Active" } },
-                            { id: "zu23", name: "ZU-23-2", role: "AAA", specs: { "Caliber": "23mm", "Role": "Low Altitude", "Origin": "China/Pak", "Mount": "Twin", "Rate": "400 rpm", "Range": "2.5km", "Status": "Active" } }
+                            { id: "hq9p", name: "HQ-9/P", role: "HIMADS", specs: { "Range": "250km", "Guidance": "Active Radar", "Ceiling": "27km", "Radar": "AESA", "Origin": "China", "Status": "Active" } },
+                            { id: "ly80", name: "LY-80", role: "LOMADS", specs: { "Range": "70km", "Guidance": "Semi-Active", "Ceiling": "18km", "Radar": "IBIS-150", "Origin": "China", "Status": "Active" } },
+                            { id: "fm90", name: "FM-90", role: "SHORAD", specs: { "Range": "15km", "Guidance": "Command Line", "Ceiling": "6km", "Mount": "Mobile 6x6", "Origin": "China", "Status": "Active" } },
+                            { id: "anza3", name: "Anza Mk-III", role: "MANPADS", specs: { "Range": "6km", "Guidance": "IR Homing", "Speed": "Mach 2", "Origin": "KRL", "Status": "Active" } }
                         ] 
                     },
                     aviation: {
                         name: "Army Aviation",
                         items: [
-                            { id: "z10me", name: "Z-10ME", role: "Attack Helo", specs: { "Armor": "Graphene", "Missiles": "AKD-10", "Engine": "Upgraded (1200kw)", "MAWS": "Yes", "Origin": "China", "Gun": "23mm", "Status": "Inducting" }, desc: "Modern attack helicopter inducted to replace the aging Cobra fleet. Features advanced countermeasures and heavy armor." },
-                            { id: "mi35", name: "Mi-35M", role: "Assault Helo", specs: { "Origin": "Russia", "Role": "Transport/Attack", "Armament": "Shturm-V / 23mm Cannon", "Troops": "8", "Engine": "VK-2500", "Night Ops": "Full", "Status": "Active" } },
-                            { id: "cobra", name: "AH-1F/S Cobra", role: "Attack Helo", specs: { "Armament": "TOW 2", "Status": "Active/Upgraded", "Origin": "USA", "Engine": "T53-L-703", "Gun": "20mm Vulcan", "Role": "Anti-Armor", "Avionics": "C-NITE" } },
-                            { id: "mi17", name: "Mi-171E", role: "Transport", specs: { "Capacity": "24 Troops", "Reliability": "High", "Lift": "4 Ton", "Origin": "Russia", "Engine": "TV3-117", "Role": "Logistics/Assault", "Status": "Active" } },
-                            { id: "puma", name: "SA330 Puma", role: "Transport", specs: { "Origin": "France/Romania", "Role": "Utility", "Troops": "16", "Engine": "Turmo IVC", "Status": "Active" } },
-                            { id: "bell412", name: "Bell 412", role: "Transport", specs: { "Origin": "USA", "Role": "VIP/Utility", "Rotors": "4 Blade", "Status": "Active" } },
-                            { id: "ecureuil", name: "AS350 Ecureuil", role: "Light Utility", specs: { "Role": "High Altitude SAR", "Ceiling": "High", "Origin": "France", "Status": "Active", "Usage": "Siachen Support" } },
-                            { id: "mushshak_a", name: "Mushshak", role: "Trainer", specs: { "Origin": "PAC", "Role": "Basic Training", "Engine": "IO-360", "Seats": "2", "Status": "Active" } },
-                            { id: "cessna", name: "Cessna Citation", role: "VIP", specs: { "Role": "Liaison", "Origin": "USA", "Status": "Active" } },
-                            { id: "commander", name: "Turbo Commander", role: "Survey", specs: { "Role": "Photo/Recce", "Origin": "USA", "Status": "Active" } },
-                            { id: "burraq", name: "Burraq", role: "UCAV", specs: { "Armament": "Barq Missile", "Origin": "NESCOM", "Endurance": "12h", "Ceiling": "16k ft", "Role": "COIN", "Status": "Active" } },
-                            { id: "ababeel_d", name: "Ababeel-V", role: "Loitering", specs: { "Endurance": "4h", "Warhead": "Anti-Armor", "Origin": "GIDS", "Type": "Kamikaze", "Status": "Active" } }
+                            { id: "z10me", name: "Z-10ME", role: "Attack Helo", specs: { "Role": "Attack", "Speed": "270 km/h", "Armament": "AKD-10/23mm", "Range": "800 km", "Origin": "China" } },
+                            { id: "mi35", name: "Mi-35M", role: "Assault Helo", specs: { "Role": "Attack/Transport", "Speed": "310 km/h", "Armament": "Shturm/23mm", "Range": "460 km", "Origin": "Russia" } },
+                            { id: "cobra", name: "AH-1F/S Cobra", role: "Attack Helo", specs: { "Role": "Anti-Armor", "Speed": "277 km/h", "Armament": "TOW/20mm", "Range": "500 km", "Origin": "USA" } },
+                            { id: "mi17", name: "Mi-171E", role: "Transport", specs: { "Role": "Utility", "Speed": "250 km/h", "Capacity": "24 Troops", "Range": "465 km", "Origin": "Russia" } },
+                            { id: "burraq", name: "Burraq", role: "UCAV", specs: { "Role": "COIN/Strike", "Speed": "200 km/h", "Armament": "Barq Missile", "Endurance": "12 Hours", "Origin": "NESCOM" } }
                         ]
                     }
                 } 
@@ -360,74 +307,30 @@
                     fighters: { 
                         name: "Fighter Fleet", 
                         items: [
-                            { id: "j10c", name: "J-10C Dragon", role: "Omni-Role", specs: { "Radar": "AESA (KLJ-7A)", "Engine": "WS-10B", "Missiles": "PL-15 (145km+)", "Origin": "China", "Speed": "Mach 1.8", "Hardpoints": "11", "Status": "Active", "IR": "PL-10" }, desc: "4.5+ Gen fighter with cutting edge avionics, AESA radar, and long-range BVR capabilities." },
-                            { id: "jf173", name: "JF-17 Block III", role: "Multi-Role", specs: { "Radar": "KLJ-7A AESA", "HMD": "Yes", "Engine": "RD-93MA", "Origin": "PAC Kamra", "Speed": "Mach 1.6", "Hardpoints": "7", "EWAR": "Internal", "Status": "Production" }, desc: "Latest iteration of the Thunder, featuring 5th gen avionics, composite airframe elements, and AESA radar." },
-                            { id: "jf172", name: "JF-17 Block II", role: "Multi-Role", specs: { "Refueling": "Probe", "Data Link": "Link-17", "Origin": "PAC Kamra", "Radar": "KLJ-7", "Status": "Active", "Role": "Workhorse" } },
-                            { id: "jf171", name: "JF-17 Block I", role: "Multi-Role", specs: { "Status": "Active", "Origin": "PAC Kamra", "Radar": "KLJ-7", "Role": "Air Defense", "Upgrade": "Scheduled" } },
-                            { id: "jf17b", name: "JF-17B", role: "Twin Seat", specs: { "Role": "Training/Strike", "Fuel": "Dorsal Spine", "Origin": "PAC Kamra", "Status": "Active", "EWAR": "Enhanced" } },
-                            { id: "f16c", name: "F-16C/D Block 52+", role: "Multi-Role", specs: { "Radar": "APG-68(V)9", "Tanks": "CFT", "Missiles": "AIM-120C-5", "Origin": "USA", "Engine": "P&W F100-229", "Range": "Combat", "Pod": "Sniper", "Status": "Active" } },
-                            { id: "f16a", name: "F-16A/B MLU", role: "Multi-Role", specs: { "Upgrade": "Mid Life Update", "Capability": "BVR", "Origin": "USA", "Missiles": "AMRAAM", "Radar": "APG-66(V)2", "Status": "Active" } },
-                            { id: "mirage_rose", name: "Mirage ROSE I", role: "Strike", specs: { "Role": "Air Defense", "Radar": "Grifo-M3", "Upgrade": "PAC Kamra", "Origin": "France/Pak", "Missile": "MICA/Sidewinder", "Status": "Active" } },
-                            { id: "mirage_rose2", name: "Mirage ROSE II/III", role: "Strike", specs: { "Role": "Deep Strike", "Radar": "None", "Nav": "FLIR/NAV", "Weapon": "Ra'ad / H-4 SOW", "Status": "Active", "Night Ops": "Capable" } },
-                            { id: "mirage5", name: "Mirage 5 PA", role: "Maritime Strike", specs: { "Role": "Anti-Ship", "Missile": "Exocet", "Radar": "Agave", "Origin": "France", "Status": "Active" } },
-                            { id: "f7pg", name: "F-7PG", role: "Interceptor", specs: { "Role": "Point Defense", "Radar": "Grifo-7", "Wing": "Double Delta", "Origin": "China", "Status": "Active", "Missile": "AIM-9" } },
-                            { id: "f7p", name: "F-7P", role: "Interceptor", specs: { "Role": "Training/Reserve", "Status": "Phasing Out", "Origin": "China", "Radar": "Skyranger" } }
+                            { id: "j10c", name: "J-10C Dragon", role: "Omni-Role", specs: { "Role": "Air Superiority", "Speed": "Mach 1.8", "Radar": "KLJ-7A AESA", "Armament": "PL-15/PL-10", "Range": "1850 km", "Origin": "China" } },
+                            { id: "jf173", name: "JF-17 Block III", role: "Multi-Role", specs: { "Role": "Multi-Role", "Speed": "Mach 1.6", "Radar": "KLJ-7A AESA", "Armament": "PL-15/PL-10", "Range": "1350 km", "Origin": "PAC Kamra" } },
+                            { id: "jf172", name: "JF-17 Block II", role: "Multi-Role", specs: { "Role": "Multi-Role", "Speed": "Mach 1.6", "Radar": "KLJ-7 V2", "Armament": "SD-10/C-802", "Range": "1350 km", "Origin": "PAC Kamra" } },
+                            { id: "f16c", name: "F-16C/D Blk 52", role: "Multi-Role", specs: { "Role": "Multi-Role", "Speed": "Mach 2.0", "Radar": "APG-68(V)9", "Armament": "AIM-120C-5", "Range": "3200 km (Ferry)", "Origin": "USA" } },
+                            { id: "mirage_rose", name: "Mirage ROSE", role: "Strike", specs: { "Role": "Deep Strike", "Speed": "Mach 2.2", "Radar": "Grifo-M3", "Armament": "Ra'ad/H-4", "Range": "1500 km", "Origin": "France/Pak" } }
                         ] 
                     }, 
                     special: { 
                         name: "Special Mission & UAVs", 
                         items: [
-                            { id: "zdk03", name: "ZDK-03 Karakoram", role: "AEW&C", specs: { "Radar": "AESA Rotodome", "Range": "450 km", "Platform": "Y-8F600", "Crew": "Mission Crew", "Origin": "China", "Status": "Active" } },
-                            { id: "erieye", name: "Saab 2000 Erieye", role: "AEW&C", specs: { "Radar": "PS-890 AESA", "Data": "Link-16/11", "Coverage": "300 Deg", "Endurance": "9 Hours", "Origin": "Sweden", "Status": "Active" } },
-                            { id: "falcon", name: "DA-20 Falcon", role: "EW/ELINT", specs: { "Role": "Jamming / Eavesdropping", "Origin": "France/Pak", "Status": "Active", "Tech": "Classified" } },
-                            { id: "il78", name: "Il-78 Midas", role: "Tanker", specs: { "Capacity": "Refuels 3 Jets", "Origin": "Ukraine/Russia", "Range": "Strategic", "Status": "Active", "Pods": "UPAZ" } },
-                            { id: "c130", name: "C-130 Hercules", role: "Transport", specs: { "Variant": "B/E/H", "Role": "Tactical Airlift", "Origin": "USA", "Capacity": "92 Troops", "Status": "Active" } },
-                            { id: "saab2000", name: "Saab 2000", role: "VIP/Cargo", specs: { "Role": "Logistics", "Origin": "Sweden", "Status": "Active" } },
-                            { id: "cn235", name: "CN-235", role: "Transport", specs: { "Origin": "Indonesia", "Role": "Light Transport", "Status": "Active" } },
-                            { id: "y12", name: "Y-12", role: "Light Utility", specs: { "Origin": "China", "Role": "Short Range", "Status": "Active" } },
-                            { id: "phenom", name: "Embraer Phenom", role: "VIP", specs: { "Role": "Transport", "Origin": "Brazil", "Status": "Active" } },
-                            { id: "akinci", name: "Bayraktar Akıncı", role: "HALE UCAV", specs: { "Payload": "1.3T", "Missile": "SOM", "Ceiling": "40k ft", "Endurance": "24h", "Origin": "Turkey", "Engine": "Turboprop", "Status": "Active" } },
-                            { id: "tb2", name: "Bayraktar TB2", role: "MALE UCAV", specs: { "Role": "SEAD", "Armament": "MAM-L", "Origin": "Turkey", "Endurance": "27h", "Status": "Active" } },
-                            { id: "shahpar2", name: "Shahpar-II", role: "MALE UCAV", specs: { "Origin": "GIDS", "Armament": "Burq-II", "Endurance": "14h", "Range": "1000km Link", "Status": "Active" } },
-                            { id: "shahpar1", name: "Shahpar-I", role: "Tactical UAV", specs: { "Role": "Surveillance", "Origin": "GIDS", "Status": "Active" } },
-                            { id: "wingloong", name: "Wing Loong II", role: "MALE UCAV", specs: { "Armament": "Heavy", "Endurance": "20h+", "Origin": "China", "Status": "Active" } },
-                            { id: "ch4", name: "CH-4", role: "MALE UCAV", specs: { "Origin": "China", "Status": "Active", "Role": "Strike/Recce" } },
-                            { id: "falco", name: "Selex Falco", role: "UAV", specs: { "Origin": "Italy/PAC", "Role": "Recon", "Status": "Active" } }
+                            { id: "zdk03", name: "ZDK-03 Karakoram", role: "AEW&C", specs: { "Role": "AEW&C", "Radar": "AESA Rotodome", "Range": "450km (Detect)", "Platform": "Y-8F600", "Origin": "China" } },
+                            { id: "erieye", name: "Saab 2000 Erieye", role: "AEW&C", specs: { "Role": "AEW&C", "Radar": "PS-890 AESA", "Range": "450km (Detect)", "Platform": "Saab 2000", "Origin": "Sweden" } },
+                            { id: "akinci", name: "Bayraktar Akıncı", role: "HALE UCAV", specs: { "Role": "Strategic Strike", "Endurance": "24h", "Ceiling": "40k ft", "Payload": "1.3 Tons", "Origin": "Turkey" } },
+                            { id: "shahpar2", name: "Shahpar-II", role: "MALE UCAV", specs: { "Role": "Recce/Strike", "Endurance": "14h", "Ceiling": "23k ft", "Payload": "Burq-II", "Origin": "GIDS" } }
                         ] 
-                    },
-                    trainers: {
-                        name: "Trainers",
-                        items: [
-                            { id: "k8", name: "K-8 Karakoram", role: "Jet Trainer", specs: { "Origin": "PAC/China", "Role": "Intermediate", "Cockpit": "Glass", "Status": "Active", "Attack": "Limited" } },
-                            { id: "t37", name: "T-37 Tweet", role: "Jet Trainer", specs: { "Origin": "USA", "Role": "Basic Jet", "Status": "Active" } },
-                            { id: "mushshak", name: "Super Mushshak", role: "Prop Trainer", specs: { "Origin": "PAC", "Export": "Wide", "Avionics": "Garmin", "Status": "Active", "Engine": "260hp" } },
-                            { id: "mfi17", name: "MFI-17", role: "Basic Trainer", specs: { "Origin": "PAC", "Status": "Active", "Role": "Primary" } }
-                        ]
                     },
                     munitions: {
                         name: "Standoff Weapons",
                         items: [
-                            { id: "pl15", name: "PL-15", role: "LRAAM", specs: { "Range": "145km+", "Guidance": "AESA Seeker", "Type": "BVR", "Origin": "China", "Platform": "J-10C/JF-17" } },
-                            { id: "aim120", name: "AIM-120C-5", role: "AMRAAM", specs: { "Range": "105km", "Origin": "USA", "Platform": "F-16", "Guidance": "Active Radar" } },
-                            { id: "sd10", name: "SD-10A", role: "BVR Missile", specs: { "Range": "100km", "Origin": "China", "Platform": "JF-17", "Guidance": "Active Radar" } },
-                            { id: "pl10", name: "PL-10", role: "SRAAM", specs: { "Type": "HOBS (High Off Boresight)", "Guidance": "IIR", "Origin": "China", "Range": "20km" } },
-                            { id: "aim9", name: "AIM-9M/L/P", role: "Sidewinder", specs: { "Type": "IR Homing", "Origin": "USA", "Range": "18km", "Status": "Active" } },
-                            { id: "h4", name: "H-4 SOW", role: "Glide Bomb", specs: { "Range": "120km", "Guidance": "TV/IR", "Origin": "NESCOM", "Type": "Precision", "Platform": "Mirage" } },
-                            { id: "h2", name: "H-2 SOW", role: "Glide Bomb", specs: { "Range": "6km", "Role": "Precision Strike", "Origin": "NESCOM" } },
-                            { id: "takbir", name: "Takbir", role: "Glide Bomb", specs: { "Range": "80km", "Guidance": "Satellite", "Origin": "GIDS", "Weight": "250kg" } },
-                            { id: "rek", name: "GIDS REK", role: "Kit", specs: { "Range": "50km", "Type": "Range Extension", "Origin": "GIDS", "Bomb": "Mk-80 Series" } },
-                            { id: "albattar", name: "Al-Battar", role: "LGB", specs: { "Weight": "500lb/1000lb", "Guidance": "Laser", "Origin": "NESCOM" } },
-                            { id: "cm400", name: "CM-400AKG", role: "Anti-Ship", specs: { "Speed": "Mach 4", "Range": "400km", "Platform": "JF-17", "Profile": "High Diving" } },
-                            { id: "c802ak", name: "C-802AK", role: "Anti-Ship", specs: { "Range": "180km", "Profile": "Sea Skimming", "Origin": "China", "Platform": "JF-17" } },
-                            { id: "bkd", name: "BKD-1", role: "Bunker Buster", specs: { "Origin": "Air Weapons Complex", "Penetration": "Deep", "Guidance": "Laser/GPS" } },
-                            { id: "mars", name: "MARS-1", role: "Anti-Radiation", specs: { "Role": "SEAD", "Origin": "Indigenous", "Range": "100km" } }
-                        ]
-                    },
-                    asymmetric_air: {
-                        name: "Tactical & Loitering",
-                        items: [
-                            { id: "kemankes", name: "Kemankes", role: "Mini Cruise", specs: { "Range": "200km+", "Platform": "TB2/Akıncı", "Guidance": "AI Optical", "Origin": "Turkey" } },
-                            { id: "kagem", name: "KaGeM", role: "Loitering", specs: { "Warhead": "Blast Frag", "Origin": "Turkey/Pak", "Platform": "UAV" } }
+                            { id: "pl15", name: "PL-15", role: "LRAAM", specs: { "Range": "145km+", "Guidance": "AESA Seeker", "Warhead": "HE Frag", "Propulsion": "Dual Pulse", "Origin": "China" } },
+                            { id: "aim120", name: "AIM-120C-5", role: "AMRAAM", specs: { "Range": "105km", "Guidance": "Active Radar", "Warhead": "HE Blast", "Propulsion": "Solid", "Origin": "USA" } },
+                            { id: "sd10", name: "SD-10A", role: "BVR Missile", specs: { "Range": "100km", "Guidance": "Active Radar", "Warhead": "HE Frag", "Propulsion": "Solid", "Origin": "China" } },
+                            { id: "raadz", name: "Ra'ad", role: "ALCM", specs: { "Range": "350km", "Guidance": "INS/GPS", "Warhead": "Nuc/HE", "Propulsion": "Turbojet", "Origin": "AWC" } },
+                            { id: "h4", name: "H-4 SOW", role: "Glide Bomb", specs: { "Range": "120km", "Guidance": "TV/IR", "Warhead": "HE", "Propulsion": "Glide", "Origin": "NESCOM" } }
                         ]
                     }
                 } 
@@ -438,46 +341,32 @@
                     surface: { 
                         name: "Surface Fleet", 
                         items: [
-                            { id: "054ap", name: "Tughril Class", role: "Frigate", specs: { "VLS": "32 Cell (LY-80N)", "ASCM": "CM-302 (Mach 3)", "Radar": "SR2410C AESA", "Displacement": "4200t", "Sonar": "Towed Array", "Origin": "China", "Status": "Active" } },
-                            { id: "babur", name: "Babur Class", role: "Corvette", specs: { "Stealth": "High", "Origin": "Turkey/Pak (KS&EW)", "VLS": "16 Cells", "Displacement": "3000t", "Missile": "Albatros NG", "Status": "Active/Building" } },
-                            { id: "f22p", name: "Zulfiquar Class", role: "Frigate", specs: { "Origin": "China/Pak", "Missiles": "C-802", "Gun": "76mm", "Displacement": "3100t", "FM-90": "SAM", "Status": "Active" } },
-                            { id: "alamgir", name: "PNS Alamgir", role: "Frigate", specs: { "Class": "Oliver Hazard Perry", "Origin": "USA", "Role": "ASW", "Hangar": "2 Helos", "Missiles": "Harpoon", "Status": "Active" } },
-                            { id: "tariq", name: "Tariq Class", role: "Frigate", specs: { "Origin": "UK (Type 21)", "Status": "Phasing Out", "Role": "Patrol", "Missiles": "Harpoon" } },
-                            { id: "yarmook", name: "Yarmook Class", role: "OPV", specs: { "Origin": "Damen", "Tonnage": "2300t", "Modular": "Yes", "Missiles": "Fitted for", "Role": "Patrol", "Status": "Active" } },
-                            { id: "azmat", name: "Azmat Class", role: "FAC(M)", specs: { "Speed": "30 knots", "Missiles": "8x C-802A", "Origin": "KS&EW", "Stealth": "Partial", "Displacement": "560t", "Status": "Active" } },
-                            { id: "jurrat", name: "Jurrat Class", role: "Missile Boat", specs: { "Origin": "Indigenous (KS&EW)", "Role": "Coastal Defense", "Missiles": "C-802", "Status": "Active" } },
-                            { id: "jalalat", name: "Jalalat Class", role: "Missile Boat", specs: { "Origin": "Indigenous", "Missiles": "C-802", "Status": "Active" } },
-                            { id: "mrtp33", name: "MRTP-33", role: "FAC", specs: { "Origin": "Turkey", "Speed": "High", "Role": "Interdiction", "Status": "Active" } },
-                            { id: "munsif", name: "Munsif Class", role: "Minehunter", specs: { "Origin": "France/Pak", "Role": "MCMV", "Hull": "GRP", "Status": "Active" } },
-                            { id: "griffon", name: "Griffon 2000TD", role: "Hovercraft", specs: { "Role": "Amphibious/SSG(N)", "Terrain": "Littoral", "Origin": "UK", "Status": "Active" } }
+                            { id: "054ap", name: "Tughril Class", role: "Frigate", specs: { "Role": "Multi-Role", "Displacement": "4200 Tons", "Missiles": "CM-302/LY-80N", "Speed": "27 Knots", "Origin": "China", "Status": "Active" } },
+                            { id: "babur", name: "Babur Class", role: "Corvette", specs: { "Role": "Patrol/ASW", "Displacement": "3000 Tons", "Missiles": "Harbah/Albatros", "Speed": "29 Knots", "Origin": "Turkey/Pak", "Status": "Active" } },
+                            { id: "f22p", name: "Zulfiquar Class", role: "Frigate", specs: { "Role": "Multi-Role", "Displacement": "3100 Tons", "Missiles": "C-802/FM-90", "Speed": "29 Knots", "Origin": "China/Pak", "Status": "Active" } },
+                            { id: "azmat", name: "Azmat Class", role: "FAC(M)", specs: { "Role": "Fast Attack", "Displacement": "560 Tons", "Missiles": "8x C-802A", "Speed": "30 Knots", "Origin": "KS&EW", "Status": "Active" } }
                         ] 
                     },
                     subs: {
                         name: "Submarines",
                         items: [
-                            { id: "hangor", name: "Hangor Class", role: "AIP SSK", specs: { "Status": "Construction (8 Units)", "Missile": "Babur-3", "Origin": "China/KS&EW", "AIP": "Stirling", "Displacement": "2800t", "Torpedo": "Yu-6" } },
-                            { id: "agosta90b", name: "Agosta 90B", role: "AIP SSK", specs: { "Name": "Khalid Class", "Upgrade": "STM Turkey", "Origin": "France", "AIP": "MESMA", "Missile": "Harpoon/Exocet", "Status": "Active" } },
-                            { id: "agosta70", name: "Agosta 70", role: "SSK", specs: { "Name": "Hashmat Class", "Status": "Active", "Origin": "France", "Role": "Hunter Killer" } },
-                            { id: "xcraft", name: "X-Craft", role: "Midget Sub", specs: { "Role": "SSG(N) Ops", "Origin": "Indigenous (KS&EW)", "Torpedos": "2", "Status": "Active" } }
+                            { id: "hangor", name: "Hangor Class", role: "AIP SSK", specs: { "Role": "Attack/Strike", "Displacement": "2800 Tons", "Armament": "Babur-3/Yu-6", "Propulsion": "Stirling AIP", "Origin": "China/Pak", "Status": "Building" } },
+                            { id: "agosta90b", name: "Agosta 90B", role: "AIP SSK", specs: { "Role": "Attack/Strike", "Displacement": "2050 Tons", "Armament": "Harpoon/Exocet", "Propulsion": "MESMA AIP", "Origin": "France/Pak", "Status": "Active" } }
                         ]
                     },
                     aviation: {
                         name: "Naval Aviation",
                         items: [
-                            { id: "seasultan", name: "Sea Sultan", role: "LRMP", specs: { "Platform": "Embraer Lineage 1000", "Role": "ASW/ASuW", "Status": "Conversion", "Origin": "Italy/Pak" } },
-                            { id: "p3c", name: "P-3C Orion", role: "LRMP", specs: { "Armament": "Harpoon", "Role": "ASW", "Origin": "USA", "Endurance": "Long", "Status": "Active" } },
-                            { id: "atr72", name: "ATR-72 MPA", role: "MPA", specs: { "Role": "Maritime Patrol", "Torpedos": "Yes", "System": "Aerodata", "Origin": "Germany/Italy", "Status": "Active" } },
-                            { id: "seaking", name: "Sea King", role: "ASW Helo", specs: { "Missile": "Exocet", "Origin": "UK", "Role": "ASW/SAR", "Status": "Active" } },
-                            { id: "z9ec", name: "Z-9EC", role: "ASW Helo", specs: { "Origin": "China", "Role": "Shipborne", "Sonar": "Dipping", "Torpedos": "ET-52C", "Status": "Active" } },
-                            { id: "alouette", name: "Alouette III", role: "Light Utility", specs: { "Role": "SAR/Liaison", "Origin": "France", "Status": "Active" } },
-                            { id: "luna", name: "Luna NG", role: "UAV", specs: { "Role": "Shipborne Recon", "Launch": "Catapult", "Origin": "Germany", "Status": "Active" } }
+                            { id: "seasultan", name: "Sea Sultan", role: "LRMP", specs: { "Role": "ASW/ASuW", "Speed": "Mach 0.82", "Range": "Strategic", "Armament": "Torpedos/Missiles", "Origin": "Pak/Italy" } },
+                            { id: "p3c", name: "P-3C Orion", role: "LRMP", specs: { "Role": "ASW", "Speed": "750 km/h", "Range": "4400 km", "Armament": "Harpoon", "Origin": "USA" } },
+                            { id: "seaking", name: "Sea King", role: "ASW Helo", specs: { "Role": "ASW/SAR", "Speed": "208 km/h", "Range": "1200 km", "Armament": "Exocet", "Origin": "UK" } }
                         ]
                     },
                     coastal: {
                         name: "Coastal Defense",
                         items: [
-                            { id: "zarb", name: "Zarb", role: "Anti-Ship", specs: { "Range": "300km", "Platform": "Land Based Truck", "Missile": "C-602", "Origin": "China/Pak", "Status": "Active" } },
-                            { id: "harbah", name: "Harbah", role: "Cruise", specs: { "Range": "700km", "Origin": "GIDS", "Platform": "Ship/Land", "Guidance": "Active Radar", "Status": "Active" } }
+                            { id: "zarb", name: "Zarb", role: "Anti-Ship", specs: { "Range": "300km", "Warhead": "HE", "Guidance": "Active Radar", "Platform": "Land Truck", "Origin": "China/Pak", "Status": "Active" } },
+                            { id: "harbah", name: "Harbah", role: "Cruise", specs: { "Range": "700km", "Warhead": "HE", "Guidance": "Active Radar", "Platform": "Land/Ship", "Origin": "GIDS", "Status": "Active" } }
                         ]
                     }
                 } 
@@ -488,46 +377,9 @@
                     vehicles: { 
                         name: "Transport & Aux", 
                         items: [
-                            { id: "hino", name: "Hino Truck", role: "Logistics", specs: { "Type": "Heavy Transport", "Usage": "General", "Drive": "6x6 / 4x4", "Assembly": "Indigenous" } },
-                            { id: "yakhlaq", name: "Yakhlaq", role: "Transport", specs: { "Origin": "Indigenous (HIT)", "Type": "Heavy Truck", "Status": "Active" } },
-                            { id: "unimog", name: "Unimog", role: "Utility", specs: { "Drive": "4x4", "Usage": "High Altitude", "Origin": "Germany", "Status": "Active" } },
-                            { id: "landrover", name: "Land Rover", role: "Utility", specs: { "Variant": "Defender 110", "Role": "Command/Comms", "Status": "Active" } },
-                            { id: "tanker", name: "Fuel Bowser", role: "Supply", specs: { "Capacity": "20,000L", "Type": "JP-8/Diesel", "Status": "Active" } },
-                            { id: "recovery", name: "M88 Recovery", role: "ARV", specs: { "Role": "Tank Recovery", "Origin": "USA", "Status": "Active" } },
-                            { id: "alhadid", name: "Al-Hadid", role: "ARV", specs: { "Base": "APC", "Origin": "HIT", "Crane": "Yes", "Role": "Repair", "Status": "Active" } },
-                            { id: "mohafiz", name: "Mohafiz", role: "Security", specs: { "Origin": "HIT", "Armor": "B7", "Chassis": "Toyota/Land Rover", "Role": "Internal Security", "Status": "Active" } }
+                            { id: "hino", name: "Hino Truck", role: "Logistics", specs: { "Type": "Transport", "Drive": "6x6", "Usage": "General", "Origin": "Indigenous" } },
+                            { id: "unimog", name: "Unimog", role: "Utility", specs: { "Type": "Utility", "Drive": "4x4", "Usage": "High Altitude", "Origin": "Germany" } }
                         ] 
-                    },
-                    naval_aux: {
-                        name: "Naval Auxiliaries",
-                        items: [
-                            { id: "moawin", name: "PNS Moawin", role: "Fleet Tanker", specs: { "Tonnage": "17,000t", "Built": "KS&EW", "Facilities": "Medical/Helo", "Role": "Replenishment", "Status": "Active" } },
-                            { id: "nasr_ship", name: "PNS Nasr", role: "Replenishment", specs: { "Origin": "China", "Status": "Active" } },
-                            { id: "behr", name: "Behr Masah", role: "Survey", specs: { "Role": "Hydrography", "Origin": "China", "Status": "Active" } },
-                            { id: "behrpaima", name: "Behr Paima", role: "Survey", specs: { "Role": "Hydrography", "Status": "Active" } },
-                            { id: "madadgar", name: "Madadgar Class", role: "Utility", specs: { "Role": "Coastal Logistics", "Status": "Active" } },
-                            { id: "tugs", name: "Coastal Tugs", role: "Support", specs: { "Type": "Harbor/Salvage", "Status": "Active" } }
-                        ]
-                    },
-                    engineering: {
-                        name: "Engineering & Medical",
-                        items: [
-                            { id: "avlb", name: "M60 AVLB", role: "Bridging", specs: { "Span": "18m", "Class": "MLC 60", "Status": "Active" } },
-                            { id: "mine_plough", name: "Mine Plough", role: "Counter-Mine", specs: { "Mount": "MBT", "Type": "Mechanical", "Origin": "HIT", "Status": "Active" } },
-                            { id: "ambulance", name: "Field Ambulance", role: "Medical", specs: { "Chassis": "Toyota", "Role": "Evacuation", "Status": "Active" } },
-                            { id: "kitchen", name: "Mobile Kitchen", role: "Support", specs: { "Capacity": "500 Men", "Fuel": "Diesel", "Origin": "Indigenous", "Status": "Active" } }
-                        ]
-                    },
-                    gear: {
-                        name: "General Gear",
-                        items: [
-                            { id: "vest", name: "Body Armor", role: "Protection", specs: { "Level": "NIJ IV", "Plates": "Ceramic", "Origin": "GIDS", "Status": "Active" } },
-                            { id: "helmet", name: "Ballistic Helmet", role: "Protection", specs: { "Type": "Composite/Kevlar", "Origin": "GIDS", "Status": "Active" } },
-                            { id: "nvg", name: "Night Vision", role: "Optics", specs: { "Origin": "IEP", "Gen": "3", "Type": "Monocular/Binocular", "Status": "Active" } },
-                            { id: "boots", name: "Combat Boots", role: "Footwear", specs: { "Type": "DMS", "Durability": "High", "Origin": "Local", "Status": "Active" } },
-                            { id: "ration", name: "MRE", role: "Supplies", specs: { "Type": "Halal", "Shelf Life": "3 Years", "Origin": "Local", "Status": "Active" } },
-                            { id: "uniform", name: "Digital Camo", role: "Uniform", specs: { "Pattern": "Arid/Semi-Arid", "Material": "Ripstop", "Feature": "IR Masking", "Status": "Active" } }
-                        ]
                     }
                 } 
             },
@@ -537,13 +389,9 @@
                     giants: { 
                         name: "Major Complexes", 
                         items: [
-                            { id: "hit", name: "Heavy Industries Taxila", role: "Land Systems", specs: { "Products": "Al-Khalid, VT-4, APCs", "Location": "Taxila", "Employees": "Thousands" }, desc: "The backbone of Pakistan's armored vehicle production and rebuilding." },
-                            { id: "pac", name: "PAC Kamra", role: "Aviation", specs: { "Products": "JF-17, Mushshak", "MRO": "F-16, Mirage", "Factories": "AMF, MRF, ARF" }, desc: "Premier aviation complex responsible for manufacturing the JF-17 Thunder." },
-                            { id: "gids", name: "GIDS", role: "Tech/Export", specs: { "Products": "Fatah-II, Shahpar, Burq", "Role": "R&D Integration" }, desc: "State-owned conglomerate integrating electronics and smart weapons." },
-                            { id: "pof", name: "POF Wah", role: "Ordnance", specs: { "Products": "Small Arms, Ammo, Explosives", "Export": "Global" }, desc: "Massive complex supplying all ammunition and small arms." },
-                            { id: "ksew", name: "Karachi Shipyard", role: "Naval", specs: { "Products": "Hangor Subs, Frigates", "Role": "Shipbuilding" } },
-                            { id: "nrtc", name: "NRTC", role: "Electronics", specs: { "Products": "Radios, Jammers", "Location": "Haripur" } },
-                            { id: "nescom", name: "NESCOM", role: "Strategic", specs: { "Products": "Missiles, UAVs" } }
+                            { id: "pac", name: "PAC Kamra", role: "Aviation", specs: { "Domain": "Aerospace", "Product": "JF-17 Thunder", "Location": "Kamra", "Type": "State Owned" } },
+                            { id: "hit", name: "HIT Taxila", role: "Land Systems", specs: { "Domain": "Armor", "Product": "Al-Khalid/VT-4", "Location": "Taxila", "Type": "State Owned" } },
+                             { id: "gids", name: "GIDS", role: "R&D", specs: { "Domain": "Electronics/UAV", "Product": "Shahpar/Fatah", "Location": "Rawalpindi", "Type": "Conglomerate" } }
                         ] 
                     } 
                 } 
@@ -554,14 +402,8 @@
                     advanced: { 
                         name: "Next Gen Projects", 
                         items: [
-                            { id: "pfx", name: "PF-X", role: "5th Gen Fighter", specs: { "Stealth": "VLO", "Status": "Design", "Aim": "Air Dominance" }, desc: "Indigenous 5th Gen Fighter program under Project Azm." },
-                            { id: "azm", name: "Project Azm", role: "Strategic", specs: { "Scope": "MALE UAV / 5th Gen Fighter", "Origin": "PAC/NESCOM" } },
-                            { id: "arrow1", name: "Arrow-1", role: "Stealth Missile", specs: { "Design": "Faceted", "Type": "Loiter" } },
-                            { id: "lightning1", name: "Lightning-1", role: "Mini Missile", specs: { "Role": "Swarm/Precision" } },
-                            { id: "shahpar3", name: "Shahpar-III", role: "MALE UCAV", specs: { "Hardpoints": "6", "Engine": "Indigenous", "Status": "Testing" } },
-                            { id: "p282", name: "P-282", role: "Hypersonic", specs: { "Speed": "Mach 5+", "Role": "Anti-Ship Ballistic" } },
-                            { id: "space", name: "Space Program", role: "Strategic", specs: { "Satellites": "PRSS-1, PakSat-MM1", "Agency": "SUPARCO" } },
-                            { id: "jinnah", name: "Jinnah Class", role: "Frigate", specs: { "Design": "Indigenous", "Status": "Design Phase" } }
+                            { id: "azm", name: "Project Azm", role: "Strategic", specs: { "Type": "5th Gen Fighter", "Status": "Design", "Partner": "Turkey/China", "Goal": "Air Dominance" } },
+                            { id: "p282", name: "P-282", role: "Hypersonic", specs: { "Type": "Ballistic Missile", "Status": "Development", "Speed": "Mach 5+", "Goal": "Anti-Ship" } }
                         ] 
                     } 
                 } 
@@ -715,19 +557,19 @@
                 if (bKey === 'navy' && (cKey === 'surface' || cKey === 'subs')) metric = 'Displacement (Tons)';
                 if (bKey === 'airforce' && cKey === 'fighters') metric = 'Speed (Mach x10)';
                 if (cKey === 'armor') metric = 'Engine (HP)';
+                if (cKey === 'infantry_arms') metric = 'Range (m)';
 
                 cat.items.forEach(i => {
                     let val = 0;
                     
-                    // SMART PARSING FIX
                     let text = "";
                     if (metric === 'Range (KM)' && i.specs.Range) text = i.specs.Range;
+                    if (metric === 'Range (m)' && i.specs.Range) text = i.specs.Range;
                     if (metric === 'Displacement (Tons)' && i.specs.Displacement) text = i.specs.Displacement;
                     if (metric === 'Engine (HP)' && i.specs.Engine) text = i.specs.Engine;
                     if (metric === 'Speed (Mach x10)' && i.specs.Speed) text = i.specs.Speed;
 
                     if(text) {
-                        // Extract numbers. Handle "70-100", "2,750", "1.8"
                         let matches = text.match(/(\d+(?:,\d+)*(?:\.\d+)?)/g);
                         if(matches) {
                             let nums = matches.map(m => parseFloat(m.replace(/,/g, '')));

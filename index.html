@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PAKDEF SENTINEL | v44.0 TYPO FIXES</title>
+    <title>PAKDEF SENTINEL | v44.5 SEARCH FIX</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -89,6 +89,14 @@
         #viewport { padding-top: 4rem; }
         #mobileMenu { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); transform: translateY(100%); }
         #mobileMenu.active { transform: translateY(0); }
+
+        /* Hide native clear button to use custom one */
+        input[type="search"]::-webkit-search-decoration,
+        input[type="search"]::-webkit-search-cancel-button,
+        input[type="search"]::-webkit-search-results-button,
+        input[type="search"]::-webkit-search-results-decoration {
+            -webkit-appearance: none;
+        }
     </style>
 </head>
 <body class="bg-grid font-body selection:bg-neon-blue selection:text-black">
@@ -102,14 +110,15 @@
             </div>
             <div class="leading-none">
                 <h1 class="text-xl text-white font-header tracking-wide">SENTINEL <span class="text-neon-blue">DB</span></h1>
-                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v44.0 TYPO FIXES</div>
+                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v44.5 SEARCH FIX</div>
             </div>
         </div>
         
         <div class="flex-1 max-w-xl mx-4 hidden md:block relative group">
-            <input type="text" id="desktopSearch" placeholder="SEARCH 500+ SYSTEMS..." 
-                class="w-full bg-black/50 border border-white/10 rounded px-4 py-1 text-sm font-mono text-neon-blue focus:outline-none focus:border-neon-blue focus:bg-white/5 transition-all"
+            <input type="search" id="desktopSearch" placeholder="SEARCH 500+ SYSTEMS..." 
+                class="w-full bg-black/50 border border-white/10 rounded px-4 py-1 text-sm font-mono text-neon-blue focus:outline-none focus:border-neon-blue focus:bg-white/5 transition-all pr-8"
                 oninput="app.search(this.value)">
+            <button id="desktopClearBtn" onclick="app.clearSearch('desktop')" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white hidden transition-colors">✕</button>
         </div>
 
         <button class="md:hidden text-neon-blue p-2" onclick="app.toggleMobileSearch()">🔍</button>
@@ -123,10 +132,13 @@
     </header>
 
     <div id="mobileSearch" class="hidden fixed top-14 left-0 w-full bg-black/95 border-b border-white/10 p-4 z-[90] flex gap-2">
-        <input type="text" id="mobileSearchInput" placeholder="SEARCH DATABASE..." 
-            class="flex-1 bg-white/10 border border-white/20 rounded px-4 py-2 text-white font-mono focus:outline-none focus:border-neon-blue"
-            oninput="app.search(this.value)">
-        <button class="text-xs text-gray-400 border border-white/10 px-3 rounded hover:bg-white/10" onclick="app.closeMobileSearch()">X</button>
+        <div class="relative flex-1">
+            <input type="search" id="mobileSearchInput" placeholder="SEARCH DATABASE..." 
+                class="w-full bg-white/10 border border-white/20 rounded px-4 py-2 text-white font-mono focus:outline-none focus:border-neon-blue pr-10"
+                oninput="app.search(this.value)">
+            <button id="mobileClearBtn" onclick="app.clearSearch('mobile')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white hidden">✕</button>
+        </div>
+        <button class="text-xs text-gray-400 border border-white/10 px-3 rounded hover:bg-white/10" onclick="app.closeMobileSearch()">CANCEL</button>
     </div>
 
     <div class="flex flex-1 overflow-hidden relative pt-14">
@@ -198,7 +210,7 @@
             document.getElementById('syncTime').innerText = now.toLocaleTimeString('en-US', { hour12: false });
         }, 1000);
 
-        // --- DATABASE v44.0 ---
+        // --- DATABASE v44.5 ---
         const DB = {
             nuclear: { 
                 name: "Strategic Command", color: "text-neon-amber", accent: "#ffbf00", 
@@ -730,6 +742,24 @@
                 if (count === 0) html += `<div class="text-gray-500 font-mono text-sm col-span-3">NO RESULTS FOUND.</div>`;
                 html += `</div></div>`;
                 this.viewport.innerHTML = html;
+                
+                // Show/Hide Clear Buttons
+                const dBtn = document.getElementById('desktopClearBtn');
+                const mBtn = document.getElementById('mobileClearBtn');
+                if(q.length > 0) {
+                    if(dBtn) dBtn.classList.remove('hidden');
+                    if(mBtn) mBtn.classList.remove('hidden');
+                } else {
+                    if(dBtn) dBtn.classList.add('hidden');
+                    if(mBtn) mBtn.classList.add('hidden');
+                }
+            },
+            clearSearch: function(type) {
+                const id = type === 'desktop' ? 'desktopSearch' : 'mobileSearchInput';
+                const el = document.getElementById(id);
+                el.value = '';
+                el.focus();
+                this.search('');
             },
             scrollToTop: function() { this.viewport.scrollTo({ top: 0, behavior: 'smooth' }); }
         };

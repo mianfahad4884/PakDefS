@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PAKDEF SENTINEL | v34.0 DRAWER SYSTEM</title>
+    <title>PAKDEF SENTINEL | v35.0 MODULAR ANALYTICS</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -29,14 +29,14 @@
                     backgroundImage: {
                         'grid': "linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)",
                     },
-                    animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                    },
                     keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-5px)' },
+                        slideDown: {
+                            '0%': { opacity: '0', transform: 'translateY(-10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
                         }
+                    },
+                    animation: {
+                        'slide-down': 'slideDown 0.3s ease-out forwards',
                     }
                 }
             }
@@ -72,7 +72,7 @@
             background-size: 100% 4px;
         }
 
-        .chart-wrapper { position: relative; height: 250px; width: 100%; }
+        .chart-wrapper { position: relative; height: 200px; width: 100%; }
 
         /* Scrollbar */
         ::-webkit-scrollbar { width: 4px; height: 4px; }
@@ -118,7 +118,7 @@
             </div>
             <div class="leading-none">
                 <h1 class="text-xl text-white font-header tracking-wide">SENTINEL <span class="text-neon-blue">DB</span></h1>
-                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v34.0 DRAWER SYSTEM</div>
+                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v35.0 MODULAR ANALYTICS</div>
             </div>
         </div>
         
@@ -177,14 +177,14 @@
         </main>
     </div>
 
-    <!-- MOBILE FOLDABLE MENU (Collapsed State) -->
+    <!-- MOBILE FOLDABLE MENU -->
     <div class="md:hidden fixed bottom-0 w-full h-12 bg-black/95 border-t border-white/10 z-50 flex items-center justify-center backdrop-blur-xl">
         <button onclick="app.toggleMobileMenu()" class="flex items-center gap-2 text-neon-blue font-mono text-xs uppercase tracking-widest px-4 py-2 w-full justify-center">
             <span class="animate-bounce">▲</span> ACCESS SYSTEM
         </button>
     </div>
 
-    <!-- MOBILE MENU (Expanded State) -->
+    <!-- MOBILE MENU -->
     <div id="mobileMenu" class="md:hidden fixed inset-0 z-[60] bg-black/95 backdrop-blur-xl flex flex-col translate-y-full">
         <div class="p-4 border-b border-white/10 flex justify-between items-center">
             <h2 class="text-xl font-header text-white tracking-widest">COMMAND GRID</h2>
@@ -243,9 +243,9 @@
                 name: "Strategic Command", color: "text-neon-amber", accent: "#ffbf00", 
                 cats: { 
                     ballistic: { 
-                        name: "Ballistic Missiles (Hatf Series)", 
+                        name: "Ballistic Missiles", 
                         items: [
-                            { id: "shaheen3", name: "Shaheen-III", role: "MRBM", specs: { "Range": "2,750 km", "Propulsion": "Solid (2-Stage)", "Warhead": "Nuclear/HE/EMP", "Origin": "NESCOM" } },
+                            { id: "shaheen3", name: "Shaheen-III", role: "MRBM", specs: { "Range": "2,750 km", "Propulsion": "Solid (2-Stage)", "Warhead": "Nuclear/HE", "Origin": "NESCOM" } },
                             { id: "ababeel", name: "Ababeel", role: "MIRV MRBM", specs: { "Range": "2,200 km", "Payload": "MIRV (3-8 RVs)", "Origin": "KRL" } },
                             { id: "shaheen2", name: "Shaheen-II", role: "MRBM", specs: { "Range": "2,000 km", "Propulsion": "Solid", "Guidance": "INS/GPS", "Origin": "NESCOM" } },
                             { id: "ghauri", name: "Ghauri (Hatf-V)", role: "MRBM", specs: { "Range": "1,300 km", "Fuel": "Liquid", "Origin": "KRL" } },
@@ -306,6 +306,8 @@
                             { id: "type69", name: "Type 69-IIMP", role: "MBT", specs: { "Gun": "105mm", "Status": "Reserve", "Origin": "HIT" } },
                             { id: "type59", name: "Type 59", role: "MBT", specs: { "Gun": "100mm", "Status": "Reserve", "Origin": "China" } },
                             { id: "viper", name: "Viper", role: "IFV", specs: { "Gun": "30mm RCWS", "Missiles": "ATGM", "Troops": "8", "Origin": "HIT" } },
+                            { id: "hamza8", name: "Hamza 8x8", role: "IFV", specs: { "Drive": "8x8", "Origin": "HIT", "Protection": "Stanag 4" } },
+                            { id: "hamza6", name: "Hamza 6x6", role: "MRAP", specs: { "Drive": "6x6", "Origin": "HIT", "Role": "Troop Carrier" } },
                             { id: "talha", name: "Talha", role: "APC", specs: { "Base": "M113", "Origin": "Indigenous (HIT)", "Troops": "11" } },
                             { id: "saad", name: "Saad", role: "APC", specs: { "Origin": "HIT", "Extended": "Yes" } },
                             { id: "sakb", name: "Sakb", role: "Command", specs: { "Origin": "HIT", "Base": "Talha" } },
@@ -394,9 +396,7 @@
                             { id: "akinci", name: "Bayraktar Akıncı", role: "HALE UCAV", specs: { "Payload": "1.3T", "Missile": "SOM", "Ceiling": "40k ft" } },
                             { id: "tb2", name: "Bayraktar TB2", role: "MALE UCAV", specs: { "Role": "SEAD", "Armament": "MAM-L" } },
                             { id: "shahpar2", name: "Shahpar-II", role: "MALE UCAV", specs: { "Origin": "GIDS", "Armament": "Burq-II", "Endurance": "14h" } },
-                            { id: "wingloong", name: "Wing Loong II", role: "MALE UCAV", specs: { "Armament": "Heavy", "Endurance": "20h+" } },
-                            { id: "ch4", name: "CH-4", role: "MALE UCAV", specs: { "Origin": "China", "Status": "Active" } },
-                            { id: "falco", name: "Selex Falco", role: "UAV", specs: { "Origin": "Italy/PAC", "Role": "Recon" } }
+                            { id: "ch4", name: "CH-4", role: "MALE UCAV", specs: { "Origin": "China", "Status": "Active" } }
                         ] 
                     },
                     trainers: {
@@ -430,8 +430,7 @@
                     asymmetric_air: {
                         name: "Tactical & Loitering",
                         items: [
-                            { id: "kemankes", name: "Kemankes", role: "Mini Cruise", specs: { "Range": "200km+", "Platform": "TB2/Akıncı" } },
-                            { id: "kagem", name: "KaGeM", role: "Loitering", specs: { "Warhead": "Blast Frag", "Origin": "Turkey/Pak" } }
+                            { id: "kemankes", name: "Kemankes", role: "Mini Cruise", specs: { "Range": "200km+", "Platform": "TB2/Akıncı" } }
                         ]
                     }
                 } 
@@ -460,7 +459,7 @@
                         name: "Submarines", 
                         items: [
                             { id: "hangor", name: "Hangor Class", role: "AIP SSK", specs: { "Status": "Construction (8 Units)", "Missile": "Babur-3", "Origin": "China/KS&EW" } },
-                            { id: "agosta90b", name: "Agosta 90B", role: "AIP SSK", specs: { "Name": "Khalid Class", "Upgrade": "STM Turkey", "Origin": "France" } },
+                            { id: "agosta90b", name: "Agosta 90B", role: "AIP SSK", specs: { "Name": "Khalid Class", "Upgrade": "STM Turkey", "Origin": "France", "AIP": "MESMA" } },
                             { id: "agosta70", name: "Agosta 70", role: "SSK", specs: { "Name": "Hashmat Class", "Status": "Active" } },
                             { id: "xcraft", name: "X-Craft", role: "Midget Sub", specs: { "Role": "SSG(N) Ops", "Origin": "Indigenous (KS&EW)" } }
                         ] 
@@ -576,7 +575,9 @@
             viewport: document.getElementById('viewport'),
 
             view: function(key) {
-                this.viewport.scrollTo(0,0);
+                // FIXED SCROLL: Always jump to top on view change
+                this.viewport.scrollTop = 0; 
+
                 if(key === 'home') this.renderHome();
                 else this.renderBranch(key);
             },
@@ -615,7 +616,7 @@
                 const data = DB[key];
                 let html = `
                     <div class="fade-in max-w-7xl mx-auto pb-10">
-                        <div class="flex justify-between items-end border-b border-white/10 pb-4 mb-6">
+                        <div class="flex justify-between items-end border-b border-white/10 pb-4 mb-6 sticky top-0 bg-black/80 backdrop-blur-md z-20 pt-2">
                             <div>
                                 <h1 class="text-5xl text-white font-header ${data.color}">${data.name}</h1>
                                 <p class="text-xs text-gray-500 font-mono">SECTOR ID: ${key.toUpperCase()}</p>
@@ -661,18 +662,24 @@
                         `;
                     });
 
-                    html += `</div></div></div>`;
+                    // PER-DRAWER ANALYTICS
+                    html += `</div>
+                        <div class="p-4 bg-black/40 border-t border-white/5">
+                            <h4 class="text-[10px] text-gray-500 font-mono mb-2">PERFORMANCE METRICS</h4>
+                            <div class="chart-wrapper h-40"><canvas id="chart-${cKey}"></canvas></div>
+                        </div>
+                    </div></div>`;
                 }
                 
-                // Smart Analytics
-                html += `
-                    <div class="mt-8 p-6 bg-black/40 border border-white/10 rounded float-card">
-                        <h3 class="text-sm text-gray-400 font-mono mb-4">SECTOR ANALYTICS</h3>
-                        <div class="chart-wrapper"><canvas id="chart-${key}"></canvas></div>
-                    </div>
-                </div>`;
+                html += `</div>`;
                 this.viewport.innerHTML = html;
-                setTimeout(() => this.renderChart(key), 100);
+
+                // Render Charts for each drawer
+                setTimeout(() => {
+                    for(const [cKey, cat] of Object.entries(data.cats)) {
+                        this.renderDrawerChart(cKey, cat, key);
+                    }
+                }, 100);
             },
 
             toggleCategory: function(id) {
@@ -681,9 +688,11 @@
                 
                 if(drawer.classList.contains('hidden')) {
                     drawer.classList.remove('hidden');
+                    drawer.classList.add('animate-slide-down');
                     icon.innerText = '−'; 
                 } else {
                     drawer.classList.add('hidden');
+                    drawer.classList.remove('animate-slide-down');
                     icon.innerText = '+';
                 }
             },
@@ -714,49 +723,62 @@
                 document.body.appendChild(modal);
             },
 
-            renderChart: function(key) {
-                const ctx = document.getElementById(`chart-${key}`);
+            renderDrawerChart: function(cKey, cat, bKey) {
+                const ctx = document.getElementById(`chart-${cKey}`);
                 if (!ctx) return;
-                
+
                 const labels = [];
                 const dataPoints = [];
-                const data = DB[key];
+                
+                // Determine Metric
                 let metric = 'Range (KM)';
-                
-                if (key === 'navy') { metric = 'Displacement (Tons)'; }
-                if (key === 'airforce') { metric = 'Speed (Mach * 10)'; }
-                
-                for (const cat of Object.values(data.cats)) {
-                    cat.items.forEach(i => {
-                        let val = 0;
-                        if (key === 'navy' && i.specs.Displacement) val = parseInt(i.specs.Displacement.replace(/\D/g, ''));
-                        else if (key === 'airforce' && i.specs.Speed && i.specs.Speed.includes("Mach")) val = parseFloat(i.specs.Speed.split(' ')[1]) * 10;
-                        else if (i.specs.Range) val = parseInt(i.specs.Range.replace(/\D/g, ''));
-                        
-                        if (val > 0) { 
-                            labels.push(i.name.split(' ')[0]); 
-                            dataPoints.push(val); 
-                        }
-                    });
+                if (bKey === 'navy' && (cKey === 'surface' || cKey === 'subs')) metric = 'Displacement (Tons)';
+                if (bKey === 'airforce' && cKey === 'fighters') metric = 'Speed (Mach * 10)';
+                if (cKey === 'armor') metric = 'Engine (HP)';
+                if (cKey === 'infantry_arms') metric = 'Range (m)';
+
+                cat.items.forEach(i => {
+                    let val = 0;
+                    if (metric === 'Displacement (Tons)' && i.specs.Displacement) val = parseInt(i.specs.Displacement.replace(/\D/g, ''));
+                    else if (metric === 'Speed (Mach * 10)' && i.specs.Speed && i.specs.Speed.includes("Mach")) val = parseFloat(i.specs.Speed.split(' ')[1]) * 10;
+                    else if (metric === 'Engine (HP)' && i.specs.Engine) val = parseInt(i.specs.Engine.replace(/\D/g, ''));
+                    else if (i.specs.Range) {
+                        let matches = i.specs.Range.match(/(\d+)/g);
+                        if(matches) val = Math.max(...matches.map(Number));
+                    }
+                    
+                    if (val > 0) { 
+                        labels.push(i.name.split(' ')[0]); 
+                        dataPoints.push(val); 
+                    }
+                });
+
+                if (dataPoints.length === 0) {
+                    ctx.parentElement.style.display = 'none';
+                    return;
                 }
 
                 new Chart(ctx, {
                     type: 'bar',
-                    data: { labels: labels, datasets: [{ label: metric, data: dataPoints, backgroundColor: data.accent, barThickness: 15 }] },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true, labels: { color: '#888' } } }, scales: { x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#666', font: { family: 'JetBrains Mono', size: 9 } } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#666' } } } }
+                    data: { labels: labels, datasets: [{ label: metric, data: dataPoints, backgroundColor: 'rgba(255, 255, 255, 0.2)', hoverBackgroundColor: '#fff', barThickness: 8, borderRadius: 4 }] },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#666', font: { family: 'JetBrains Mono', size: 9 } } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#666' } } } }
                 });
             },
 
+            // --- FOLDABLE MOBILE MENU LOGIC ---
             toggleMobileMenu: function() {
                 const menu = document.getElementById('mobileMenu');
                 menu.classList.toggle('active');
             },
 
             viewMobile: function(key) {
+                // 1. Close the menu
                 this.toggleMobileMenu();
+                // 2. Load the view (with scroll reset)
                 this.view(key);
             },
 
+            // --- SEARCH LOGIC (FIXED) ---
             toggleMobileSearch: function() {
                 document.getElementById('mobileSearch').classList.toggle('hidden');
                 document.getElementById('mobileSearchInput').focus();
@@ -769,6 +791,7 @@
             },
 
             search: function(q) {
+                // 1. Reset if Empty
                 if (!q || q.length < 2) {
                     this.view('home');
                     return;
@@ -776,15 +799,21 @@
 
                 q = q.toLowerCase();
                 let html = `<div class="fade-in pt-4"><h2 class="text-2xl text-white font-header mb-6">SEARCH RESULTS: "${q.toUpperCase()}"</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-4">`;
+                let count = 0;
+
                 for (const [bKey, branch] of Object.entries(DB)) {
                     for (const [cKey, cat] of Object.entries(branch.cats)) {
                         cat.items.forEach(item => {
                             if (item.name.toLowerCase().includes(q) || item.id.includes(q)) {
+                                count++;
                                 html += `<div onclick="app.openModal('${bKey}', '${cKey}', '${item.id}')" class="glass float-card p-4 cursor-pointer hover:bg-white/10 border-l-2 border-transparent hover:border-white transition-all"><div class="text-white font-bold font-header text-lg">${item.name}</div><div class="text-[9px] text-gray-500 font-mono">${branch.name} // ${item.role}</div></div>`;
                             }
                         });
                     }
                 }
+                
+                if (count === 0) html += `<div class="text-gray-500 font-mono text-sm col-span-3">NO RESULTS FOUND.</div>`;
+                
                 html += `</div></div>`;
                 this.viewport.innerHTML = html;
             }

@@ -64,7 +64,7 @@
             border-color: rgba(0,243,255,0.5);
             z-index: 10;
         }
-
+        
         .scanlines {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5;
             background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.05));
@@ -156,11 +156,6 @@
             <div class="p-3 bg-white/5 border-b border-white/5 text-center font-bold text-gray-500 text-[10px] tracking-widest">COMMAND CONSOLE</div>
             
             <nav class="flex-1 overflow-y-auto p-3 custom-scrollbar">
-                <button onclick="app.view('news')" class="w-full flex items-center justify-between p-3 mb-4 rounded bg-neon-red/5 hover:bg-neon-red/10 border border-neon-red/20 hover:border-neon-red transition-all cursor-pointer group text-gray-300">
-                    <span class="text-xs font-bold group-hover:text-white font-mono">INTEL WIRE</span>
-                    <span class="text-neon-red animate-pulse">●</span>
-                </button>
-
                 <div class="text-[9px] text-gray-600 font-bold px-2 py-1 uppercase font-mono">Combat Branches</div>
                 <button onclick="app.view('nuclear')" class="nav-btn hover:border-neon-amber hover:text-neon-amber">STRATEGIC <span>☢</span></button>
                 <button onclick="app.view('army')" class="nav-btn hover:border-neon-green hover:text-neon-green">ARMY (LAND) <span>🛡</span></button>
@@ -188,14 +183,14 @@
         </button>
     </div>
 
-    <!-- MOBILE FOLDABLE MENU -->
+    <!-- MOBILE FOLDABLE MENU (Collapsed State) -->
     <div class="md:hidden fixed bottom-0 w-full h-12 bg-black/95 border-t border-white/10 z-50 flex items-center justify-center backdrop-blur-xl">
         <button onclick="app.toggleMobileMenu()" class="flex items-center gap-2 text-neon-blue font-mono text-xs uppercase tracking-widest px-4 py-2 w-full justify-center">
             <span class="animate-bounce">▲</span> ACCESS SYSTEM
         </button>
     </div>
 
-    <!-- MOBILE MENU EXPANDED -->
+    <!-- MOBILE MENU (Expanded State) -->
     <div id="mobileMenu" class="md:hidden fixed inset-0 z-[60] bg-black/95 backdrop-blur-xl flex flex-col translate-y-full">
         <div class="p-4 border-b border-white/10 flex justify-between items-center">
             <h2 class="text-xl font-header text-white tracking-widest">COMMAND GRID</h2>
@@ -205,14 +200,40 @@
         </div>
         
         <div class="p-4 overflow-y-auto grid grid-cols-2 gap-3 pb-20">
-            <button onclick="app.viewMobile('news')" class="p-4 bg-neon-red/5 border border-neon-red/20 rounded flex flex-col items-center justify-center gap-2 hover:bg-neon-red/10 active:scale-95 transition-all"><span class="text-3xl text-neon-red animate-pulse">●</span><span class="text-[10px] font-mono font-bold text-gray-300">INTEL WIRE</span></button>
-            <button onclick="app.viewMobile('nuclear')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-amber hover:text-neon-amber active:scale-95 transition-all"><span class="text-3xl">☢</span><span class="text-[10px] font-mono font-bold">STRATEGIC</span></button>
-            <button onclick="app.viewMobile('army')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-green hover:text-neon-green active:scale-95 transition-all"><span class="text-3xl">🛡</span><span class="text-[10px] font-mono font-bold">ARMY</span></button>
-            <button onclick="app.viewMobile('airforce')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-blue hover:text-neon-blue active:scale-95 transition-all"><span class="text-3xl">✈</span><span class="text-[10px] font-mono font-bold">AIR FORCE</span></button>
-            <button onclick="app.viewMobile('navy')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-cyan-400 hover:text-cyan-400 active:scale-95 transition-all"><span class="text-3xl">⚓</span><span class="text-[10px] font-mono font-bold">NAVY</span></button>
-            <button onclick="app.viewMobile('logistics')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-white hover:text-white active:scale-95 transition-all"><span class="text-3xl">📦</span><span class="text-[10px] font-mono font-bold">LOGISTICS</span></button>
-            <button onclick="app.viewMobile('industry')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-purple hover:text-neon-purple active:scale-95 transition-all"><span class="text-3xl">🏭</span><span class="text-[10px] font-mono font-bold">INDUSTRY</span></button>
-            <button onclick="app.viewMobile('future')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-purple hover:text-neon-purple active:scale-95 transition-all"><span class="text-3xl">🔬</span><span class="text-[10px] font-mono font-bold">NASTP / R&D</span></button>
+            <button onclick="app.viewMobile('nuclear')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-amber hover:text-neon-amber active:scale-95 transition-all">
+                <span class="text-3xl">☢</span>
+                <span class="text-[10px] font-mono font-bold">STRATEGIC</span>
+            </button>
+
+            <button onclick="app.viewMobile('army')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-green hover:text-neon-green active:scale-95 transition-all">
+                <span class="text-3xl">🛡</span>
+                <span class="text-[10px] font-mono font-bold">ARMY</span>
+            </button>
+
+            <button onclick="app.viewMobile('airforce')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-blue hover:text-neon-blue active:scale-95 transition-all">
+                <span class="text-3xl">✈</span>
+                <span class="text-[10px] font-mono font-bold">AIR FORCE</span>
+            </button>
+
+            <button onclick="app.viewMobile('navy')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-cyan-400 hover:text-cyan-400 active:scale-95 transition-all">
+                <span class="text-3xl">⚓</span>
+                <span class="text-[10px] font-mono font-bold">NAVY</span>
+            </button>
+
+            <button onclick="app.viewMobile('logistics')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-white hover:text-white active:scale-95 transition-all">
+                <span class="text-3xl">📦</span>
+                <span class="text-[10px] font-mono font-bold">LOGISTICS</span>
+            </button>
+
+            <button onclick="app.viewMobile('industry')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-purple hover:text-neon-purple active:scale-95 transition-all">
+                <span class="text-3xl">🏭</span>
+                <span class="text-[10px] font-mono font-bold">INDUSTRY</span>
+            </button>
+
+            <button onclick="app.viewMobile('future')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-purple hover:text-neon-purple active:scale-95 transition-all">
+                <span class="text-3xl">🔬</span>
+                <span class="text-[10px] font-mono font-bold">NASTP / R&D</span>
+            </button>
         </div>
     </div>
 
@@ -222,34 +243,34 @@
             document.getElementById('syncTime').innerText = now.toLocaleTimeString('en-US', { hour12: false });
         }, 1000);
 
-        // --- FULL OMNIBUS DATABASE (v41.0) ---
+        // --- FULL DATABASE (v41.0) ---
         const DB = {
             nuclear: { 
                 name: "Strategic Command", color: "text-neon-amber", accent: "#ffbf00", 
                 cats: { 
                     ballistic: { 
-                        name: "Ballistic Missiles (Hatf Series)", 
+                        name: "Ballistic Missiles", 
                         items: [
                             { id: "shaheen3", name: "Shaheen-III", role: "MRBM", specs: { "Range": "2,750 km", "Propulsion": "Solid (2-Stage)", "Warhead": "Nuclear/HE/EMP", "Origin": "NESCOM", "CEP": "<50m", "Launch": "10-Axis TEL", "Status": "Active" } },
                             { id: "ababeel", name: "Ababeel", role: "MIRV MRBM", specs: { "Range": "2,200 km", "Payload": "MIRV (3-8 RVs)", "Guidance": "Inertial + Star", "Role": "BMD Countermeasure", "Diameter": "1.4m", "Status": "Active/Deployed", "Origin": "KRL" } },
-                            { id: "shaheen2", name: "Shaheen-II", role: "MRBM", specs: { "Range": "2,000 km", "Propulsion": "Solid (2-Stage)", "Guidance": "INS/GPS", "Accuracy": "<50m CEP", "Warhead": "Single (Nuc/HE)", "Origin": "NESCOM", "Mobile": "Yes", "Status": "Active" } },
-                            { id: "ghauri", name: "Ghauri (Hatf-V)", role: "MRBM", specs: { "Range": "1,300 km", "Fuel": "Liquid (TM-185)", "Warhead": "700 kg", "Launch": "TEL", "Origin": "KRL", "Status": "Active", "Type": "Single Stage", "Guidance": "Inertial" } },
-                            { id: "shaheen1a", name: "Shaheen-IA", role: "SRBM", specs: { "Range": "900 km", "Accuracy": "Improved", "Control": "Terminal Guidance", "Status": "Active", "Origin": "NESCOM", "Propulsion": "Solid", "Warhead": "Nuclear", "Launch": "Mobile" } },
-                            { id: "shaheen1", name: "Shaheen-I", role: "SRBM", specs: { "Range": "750 km", "Propulsion": "Solid", "Status": "Active", "Origin": "NESCOM", "Accuracy": "200m CEP", "Payload": "700kg", "Warhead": "Nuclear", "Launch": "TEL" } },
-                            { id: "ghaznavi", name: "Ghaznavi (Hatf-III)", role: "SRBM", specs: { "Range": "290 km", "Propulsion": "Solid", "Origin": "NDC", "Status": "Active", "Launch": "Road Mobile", "Warhead": "Nuclear/HE", "Accuracy": "High", "Payload": "700kg" } },
-                            { id: "abdali", name: "Abdali (Hatf-II)", role: "SRBM", specs: { "Range": "180 km", "Propulsion": "Solid", "Origin": "NDC", "Status": "Active", "Role": "Tactical", "Warhead": "Variable", "Accuracy": "High", "Payload": "450kg" } },
-                            { id: "nasr", name: "Nasr (Hatf-IX)", role: "TNW", specs: { "Range": "70 km", "Role": "Tactical Nuke", "Salvo": "4 Missiles", "Maneuver": "In-flight", "Launcher": "ARJE TEL", "Origin": "NDC", "Yield": "Sub-kiloton", "Guidance": "High Precision" } },
+                            { id: "shaheen2", name: "Shaheen-II", role: "MRBM", specs: { "Range": "2,000 km", "Propulsion": "Solid (2-Stage)", "Guidance": "INS/GPS", "Accuracy": "<50m CEP", "Warhead": "Single (Nuc/HE)", "Origin": "NESCOM", "Mobile": "Yes", "Status": "Active", "Length": "17.5m" } },
+                            { id: "ghauri", name: "Ghauri (Hatf-V)", role: "MRBM", specs: { "Range": "1,300 km", "Fuel": "Liquid (TM-185)", "Warhead": "700 kg", "Launch": "TEL", "Origin": "KRL", "Status": "Active", "Type": "Single Stage", "Guidance": "Inertial", "Accuracy": "1100m CEP" } },
+                            { id: "shaheen1a", name: "Shaheen-IA", role: "SRBM", specs: { "Range": "900 km", "Accuracy": "Improved", "Control": "Terminal Guidance", "Status": "Active", "Origin": "NESCOM", "Propulsion": "Solid", "Warhead": "Nuclear", "Launch": "Mobile", "Length": "12m" } },
+                            { id: "shaheen1", name: "Shaheen-I", role: "SRBM", specs: { "Range": "750 km", "Propulsion": "Solid", "Status": "Active", "Origin": "NESCOM", "Accuracy": "200m CEP", "Payload": "700kg", "Warhead": "Nuclear", "Launch": "TEL", "Diameter": "1m" } },
+                            { id: "ghaznavi", name: "Ghaznavi (Hatf-III)", role: "SRBM", specs: { "Range": "290 km", "Propulsion": "Solid", "Origin": "NDC", "Status": "Active", "Launch": "Road Mobile", "Warhead": "Nuclear/HE", "Accuracy": "High", "Payload": "700kg", "Length": "9.64m" } },
+                            { id: "abdali", name: "Abdali (Hatf-II)", role: "SRBM", specs: { "Range": "180 km", "Propulsion": "Solid", "Origin": "NDC", "Status": "Active", "Role": "Tactical", "Warhead": "Variable", "Accuracy": "High", "Payload": "450kg", "Launch": "TEL" } },
+                            { id: "nasr", name: "Nasr (Hatf-IX)", role: "TNW", specs: { "Range": "70 km", "Role": "Tactical Nuke", "Salvo": "4 Missiles", "Maneuver": "In-flight", "Launcher": "ARJE TEL", "Origin": "NDC", "Yield": "Sub-kiloton", "Guidance": "High Precision", "Status": "Active" } },
                             { id: "hatf1", name: "Hatf-I/IB", role: "BRBM", specs: { "Range": "70-100 km", "Status": "Active/Reserve", "Origin": "KRL", "Propulsion": "Solid", "Payload": "500kg", "Type": "Artillery Rocket", "Guidance": "Inertial (IB)", "Warhead": "HE" } }
                         ] 
                     }, 
                     cruise: { 
                         name: "Strategic Cruise Missiles", 
                         items: [
-                            { id: "babur3", name: "Babur-III", role: "SLCM", specs: { "Range": "450 km", "Platform": "Submarine", "Capability": "Second Strike", "Propulsion": "Turbofan", "Origin": "NESCOM", "Warhead": "Nuclear", "Launch": "Torpedo Tube", "Guidance": "TERCOM" } },
-                            { id: "babur2", name: "Babur-2", role: "GLCM", specs: { "Range": "700 km", "Stealth": "Low Observable", "Guidance": "TERCOM/DSMAC", "Launch": "3-Tube TEL", "Origin": "NESCOM", "Speed": "Mach 0.8", "Warhead": "Nuclear/HE", "Accuracy": "Pinpoint" } },
-                            { id: "babur1b", name: "Babur-1B", role: "GLCM", specs: { "Range": "700 km", "Guidance": "INS/GPS", "Origin": "NESCOM", "Payload": "450kg", "Status": "Active", "Speed": "Subsonic", "Launch": "4-Tube TEL", "Warhead": "Dual" } },
-                            { id: "raad2", name: "Ra'ad-II", role: "ALCM", specs: { "Range": "600 km", "Stealth": "X-Tail", "Platform": "Mirage/JF-17", "Guidance": "TERCOM", "Origin": "AWC", "Engine": "Turbofan", "Warhead": "Nuc/HE", "Status": "Active" } },
-                            { id: "raad1", name: "Ra'ad-I", role: "ALCM", specs: { "Range": "350 km", "Status": "Active", "Origin": "AWC", "Config": "H-Tail", "Payload": "Nuclear/HE", "Platform": "Mirage ROSE", "Guidance": "INS/GPS", "Speed": "Mach 0.8" } }
+                            { id: "babur3", name: "Babur-III", role: "SLCM", specs: { "Range": "450 km", "Platform": "Submarine", "Capability": "Second Strike", "Propulsion": "Turbofan", "Origin": "NESCOM", "Warhead": "Nuclear", "Launch": "Torpedo Tube", "Guidance": "TERCOM", "Status": "Active" } },
+                            { id: "babur2", name: "Babur-2", role: "GLCM", specs: { "Range": "700 km", "Stealth": "Low Observable", "Guidance": "TERCOM/DSMAC", "Launch": "3-Tube TEL", "Origin": "NESCOM", "Speed": "Mach 0.8", "Warhead": "Nuclear/HE", "Accuracy": "Pinpoint", "Status": "Active" } },
+                            { id: "babur1b", name: "Babur-1B", role: "GLCM", specs: { "Range": "700 km", "Guidance": "INS/GPS", "Origin": "NESCOM", "Payload": "450kg", "Status": "Active", "Speed": "Subsonic", "Launch": "4-Tube TEL", "Warhead": "Dual", "Type": "Cruise" } },
+                            { id: "raad2", name: "Ra'ad-II", role: "ALCM", specs: { "Range": "600 km", "Stealth": "X-Tail", "Platform": "Mirage/JF-17", "Guidance": "TERCOM", "Origin": "AWC", "Engine": "Turbofan", "Warhead": "Nuc/HE", "Status": "Active", "Role": "Standoff" } },
+                            { id: "raad1", name: "Ra'ad-I", role: "ALCM", specs: { "Range": "350 km", "Status": "Active", "Origin": "AWC", "Config": "H-Tail", "Payload": "Nuclear/HE", "Platform": "Mirage ROSE", "Guidance": "INS/GPS", "Speed": "Mach 0.8", "Type": "Air Launched" } }
                         ] 
                     } 
                 } 
@@ -260,13 +281,13 @@
                     infantry_arms: {
                         name: "Infantry Weapons",
                         items: [
-                            { id: "bw20", name: "BW-20", role: "Assault Rifle", specs: { "Caliber": "5.56x45 / 7.62x51", "Origin": "POF (Indigenous)", "Mode": "Gas Piston", "Mag": "Polymer", "Rail": "Picatinny", "Status": "Inducting", "Action": "Roller Delayed" } },
-                            { id: "g3a3", name: "G3A3", role: "Battle Rifle", specs: { "Caliber": "7.62x51mm", "Origin": "POF (License)", "Range": "400m Effective", "Weight": "4.4kg", "Mag": "20 Round", "Status": "Standard Issue", "Action": "Roller Delayed" } },
+                            { id: "bw20", name: "BW-20", role: "Assault Rifle", specs: { "Caliber": "5.56x45 / 7.62x51", "Origin": "POF (Indigenous)", "Mode": "Gas Piston", "Mag": "Polymer", "Rail": "Picatinny", "Status": "Inducting", "Action": "Roller Delayed", "Weight": "Light" } },
+                            { id: "g3a3", name: "G3A3", role: "Battle Rifle", specs: { "Caliber": "7.62x51mm", "Origin": "POF (License)", "Range": "400m Effective", "Weight": "4.4kg", "Mag": "20 Round", "Status": "Standard Issue", "Action": "Roller Delayed", "Rate": "500-600 rpm" } },
                             { id: "type56", name: "Type 56-1", role: "Assault Rifle", specs: { "Caliber": "7.62x39mm", "Origin": "China/Pak", "Stock": "Folding", "Reliability": "High", "Mag": "30 Round", "Rate": "600 rpm", "Range": "300m", "Action": "Gas Operated" } },
                             { id: "cw39", name: "CW-39", role: "Assault Rifle", specs: { "Caliber": "7.62x39mm", "Origin": "POF", "Platform": "AR-15 Style", "Status": "Prototype/LRIP", "Rail": "Full", "Mag": "AK Type", "Action": "Roller Delayed", "Weight": "3.5kg" } },
                             { id: "ak103", name: "AK-103", role: "Assault Rifle", specs: { "Caliber": "7.62x39mm", "Origin": "Russia/Local", "Usage": "SSG / Frontline", "Mag": "30 Round", "Rate": "600 rpm", "Rail": "Side", "Muzzle": "Brake", "Stock": "Folding" } },
                             { id: "m4a1", name: "M4A1", role: "Carbine", specs: { "Caliber": "5.56mm", "Origin": "USA", "Use": "SSG", "Weight": "2.9kg", "Rail": "Quad", "Range": "500m", "Action": "Gas Impingement", "Optics": "ACOG/Red Dot" } },
-                            { id: "mg3", name: "MG3", role: "Machine Gun", specs: { "Caliber": "7.62x51mm", "Origin": "POF (License)", "Rate of Fire": "1200 rpm", "Feed": "Belt", "Range": "1200m", "Weight": "11.5kg", "Cooling": "Air", "Bipod": "Yes" } },
+                            { id: "mg3", name: "MG3", role: "GPMG", specs: { "Caliber": "7.62x51mm", "Origin": "POF (License)", "Rate of Fire": "1200 rpm", "Feed": "Belt", "Range": "1200m", "Weight": "11.5kg", "Cooling": "Air", "Bipod": "Yes" } },
                             { id: "pk16", name: "PK-16", role: "HMG", specs: { "Caliber": "12.7x108mm", "Origin": "POF", "Mount": "Tripod/Vehicle", "Range": "2000m", "Rate": "600 rpm", "Feed": "Belt", "Weight": "25kg", "Role": "Anti-Material" } },
                             { id: "psr90", name: "PSR-90", role: "Sniper Rifle", specs: { "Caliber": "7.62x51mm", "Origin": "POF", "Precision": "Sub-MOA", "Action": "Bolt", "Scope": "Variable Zoom", "Barrel": "Free Float", "Stock": "Adjustable", "Range": "800m" } },
                             { id: "lsr", name: "Light Sniper", role: "Sniper", specs: { "Caliber": ".308", "Origin": "POF", "Action": "Bolt", "Range": "600m", "Weight": "Light", "Optics": "Day/Night", "Usage": "Designated Marksman", "Mag": "5 Round" } },
@@ -285,11 +306,11 @@
                     armor: { 
                         name: "Armored Corps (MBT/IFV)", 
                         items: [
-                            { id: "vt4", name: "VT-4 Haider", role: "MBT", specs: { "Gun": "125mm Smoothbore", "Engine": "1200hp", "Origin": "NORINCO/HIT", "APS": "GL-5 Active Protection", "Armor": "Composite+FY-4 ERA", "Crew": "3", "FCS": "Hunter-Killer", "Status": "Active" } },
+                            { id: "vt4", name: "VT-4 Haider", role: "MBT", specs: { "Gun": "125mm Smoothbore", "Engine": "1200hp", "APS": "GL-5 Active Protection", "Armor": "Composite+FY-4 ERA", "Origin": "NORINCO/HIT", "Crew": "3", "FCS": "Hunter-Killer", "Status": "Active" } },
                             { id: "alkhalid1", name: "Al-Khalid I", role: "MBT", specs: { "Origin": "Indigenous (HIT)", "Engine": "6TD-2 1200hp", "Autoloader": "Yes", "Gun": "125mm KBA-3", "Sights": "Thermal/Night", "Weight": "46 Tons", "Armor": "Composite+ERA", "Status": "Active" } },
                             { id: "alkhalid", name: "Al-Khalid", role: "MBT", specs: { "Status": "Active", "Origin": "HIT", "Engine": "6TD-2", "Gun": "125mm", "Autoloader": "Yes", "Speed": "70 km/h", "Range": "500 km", "Upgrade": "Ongoing to AK-I" } },
                             { id: "t80ud", name: "T-80UD", role: "MBT", specs: { "Origin": "Ukraine", "Engine": "Diesel 6TD-1 (1000hp)", "Armor": "ERA K-5", "Gun": "125mm", "Autoloader": "Cassette Type", "Speed": "60 km/h", "Status": "Active", "Count": "320" } },
-                            { id: "alzarrar", name: "Al-Zarrar", role: "MBT", specs: { "Base": "Type-59", "Origin": "HIT", "Gun": "125mm Smoothbore", "Engine": "730hp", "Armor": "ERA", "FCS": "Computerized", "Speed": "55 km/h", "Status": "Active" } },
+                            { id: "alzarrar", name: "Al-Zarrar", role: "MBT", specs: { "Base": "Type-59", "Gun": "125mm Smoothbore", "Engine": "730hp", "Armor": "ERA", "Origin": "HIT", "FCS": "Computerized", "Speed": "55 km/h", "Status": "Active" } },
                             { id: "type85", name: "Type 85-IIAP", role: "MBT", specs: { "Gun": "125mm", "Status": "Active", "Origin": "China", "Count": "300+", "Engine": "730hp", "Autoloader": "Yes", "Armor": "Composite", "FCS": "ISFCS" } },
                             { id: "type69", name: "Type 69-IIMP", role: "MBT", specs: { "Gun": "105mm", "Status": "Reserve/Active", "Origin": "China/HIT", "Engine": "580hp", "Upgrade": "Pak", "Range": "Laser Finder", "Armor": "Steel", "Role": "Support" } },
                             { id: "type59", name: "Type 59", role: "MBT", specs: { "Gun": "100mm", "Status": "Reserve", "Origin": "China", "Engine": "520hp", "Armor": "Steel", "Role": "Training", "Count": "Variable", "Base": "T-54" } },
@@ -301,6 +322,7 @@
                             { id: "sakb", name: "Sakb", role: "Command Vehicle", specs: { "Base": "Talha", "Origin": "HIT", "Role": "C3I", "Comms": "Enhanced", "Power": "Aux Unit", "Crew": "Staff", "Status": "Active" } },
                             { id: "alqaswa", name: "Al-Qaswa", role: "Logistics", specs: { "Base": "Talha", "Origin": "HIT", "Role": "Supply/Ambulance", "Capacity": "6 Ton", "Crane": "Optional", "Status": "Active", "Amphibious": "Yes" } },
                             { id: "m113", name: "M113", role: "APC", specs: { "Status": "Widespread Service", "Origin": "USA/HIT", "Variants": "A1/A2/A3/P", "Troops": "11", "Armor": "Aluminum", "Speed": "60 km/h", "Weapon": "M2 Browning" } },
+                            { id: "maxxpro", name: "MaxxPro", role: "MRAP", specs: { "Origin": "USA", "Protection": "Mine Resistant", "Usage": "COIN Ops", "Chassis": "International", "Engine": "MaxxForce", "Crew": "2+6", "Status": "Active" } },
                             { id: "dragoon", name: "Dragoon", role: "AFV", specs: { "Role": "Security", "Origin": "HIT", "Gun": "90mm", "Drive": "4x4", "Speed": "100 km/h", "Armor": "Steel", "Status": "Police/Paramilitary" } },
                             { id: "ferret", name: "Daimler Ferret", role: "Scout", specs: { "Status": "Ceremonial/Reserve", "Origin": "UK", "Drive": "4x4", "Role": "Recon", "Weapon": "7.62mm", "Armor": "Light", "History": "Legacy" } }
                         ] 
@@ -340,7 +362,7 @@
                     aviation: {
                         name: "Army Aviation",
                         items: [
-                            { id: "z10me", name: "Z-10ME", role: "Attack Helo", specs: { "Armor": "Graphene", "Missiles": "AKD-10", "Engine": "Upgraded (1200kw)", "MAWS": "Yes", "Origin": "China", "Gun": "23mm", "Status": "Inducting" } },
+                            { id: "z10me", name: "Z-10ME", role: "Attack Helo", specs: { "Armor": "Graphene", "Missiles": "AKD-10", "Engine": "Upgraded (1200kw)", "MAWS": "Yes", "Origin": "China", "Gun": "23mm", "Status": "Inducting" }, desc: "Modern attack helicopter inducted to replace the aging Cobra fleet. Features advanced countermeasures and heavy armor." },
                             { id: "mi35", name: "Mi-35M", role: "Assault Helo", specs: { "Origin": "Russia", "Role": "Transport/Attack", "Armament": "Shturm-V / 23mm Cannon", "Troops": "8", "Engine": "VK-2500", "Night Ops": "Full", "Status": "Active" } },
                             { id: "cobra", name: "AH-1F/S Cobra", role: "Attack Helo", specs: { "Armament": "TOW 2", "Status": "Active/Upgraded", "Origin": "USA", "Engine": "T53-L-703", "Gun": "20mm Vulcan", "Role": "Anti-Armor", "Avionics": "C-NITE" } },
                             { id: "mi17", name: "Mi-171E", role: "Transport", specs: { "Capacity": "24 Troops", "Reliability": "High", "Lift": "4 Ton", "Origin": "Russia", "Engine": "TV3-117", "Role": "Logistics/Assault", "Status": "Active" } },
@@ -362,8 +384,8 @@
                     fighters: { 
                         name: "Fighter Fleet", 
                         items: [
-                            { id: "j10c", name: "J-10C Dragon", role: "Omni-Role", specs: { "Radar": "AESA (KLJ-7A)", "Engine": "WS-10B", "Missiles": "PL-15 (145km+)", "Origin": "China", "Speed": "Mach 1.8", "Hardpoints": "11", "Status": "Active", "IR": "PL-10" } },
-                            { id: "jf173", name: "JF-17 Block III", role: "Multi-Role", specs: { "Radar": "KLJ-7A AESA", "HMD": "Yes", "Engine": "RD-93MA", "Origin": "PAC Kamra", "Speed": "Mach 1.6", "Hardpoints": "7", "EWAR": "Internal", "Status": "Production" } },
+                            { id: "j10c", name: "J-10C Dragon", role: "Omni-Role", specs: { "Radar": "AESA (KLJ-7A)", "Engine": "WS-10B", "Missiles": "PL-15 (145km+)", "Origin": "China", "Speed": "Mach 1.8", "Hardpoints": "11", "Status": "Active", "IR": "PL-10" }, desc: "4.5+ Gen fighter with cutting edge avionics, AESA radar, and long-range BVR capabilities." },
+                            { id: "jf173", name: "JF-17 Block III", role: "Multi-Role", specs: { "Radar": "KLJ-7A AESA", "HMD": "Yes", "Engine": "RD-93MA", "Origin": "PAC Kamra", "Speed": "Mach 1.6", "Hardpoints": "7", "EWAR": "Internal", "Status": "Production" }, desc: "Latest iteration of the Thunder, featuring 5th gen avionics, composite airframe elements, and AESA radar." },
                             { id: "jf172", name: "JF-17 Block II", role: "Multi-Role", specs: { "Refueling": "Probe", "Data Link": "Link-17", "Origin": "PAC Kamra", "Radar": "KLJ-7", "Status": "Active", "Role": "Workhorse" } },
                             { id: "jf171", name: "JF-17 Block I", role: "Multi-Role", specs: { "Status": "Active", "Origin": "PAC Kamra", "Radar": "KLJ-7", "Role": "Air Defense", "Upgrade": "Scheduled" } },
                             { id: "jf17b", name: "JF-17B", role: "Twin Seat", specs: { "Role": "Training/Strike", "Fuel": "Dorsal Spine", "Origin": "PAC Kamra", "Status": "Active", "EWAR": "Enhanced" } },
@@ -528,11 +550,7 @@
                             { id: "nvg", name: "Night Vision", role: "Optics", specs: { "Origin": "IEP", "Gen": "3", "Type": "Monocular/Binocular", "Status": "Active" } },
                             { id: "boots", name: "Combat Boots", role: "Footwear", specs: { "Type": "DMS", "Durability": "High", "Origin": "Local", "Status": "Active" } },
                             { id: "ration", name: "MRE", role: "Supplies", specs: { "Type": "Halal", "Shelf Life": "3 Years", "Origin": "Local", "Status": "Active" } },
-                            { id: "uniform", name: "Digital Camo", role: "Uniform", specs: { "Pattern": "Arid/Semi-Arid", "Material": "Ripstop", "Feature": "IR Masking", "Status": "Active" } },
-                            { id: "pack", name: "Ruck Sack", role: "Load Bearing", specs: { "Capacity": "60L", "Frame": "Internal", "Origin": "Local" } },
-                            { id: "sleepingbag", name: "Sleeping Bag", role: "Survival", specs: { "Rating": "-10C", "Fill": "Synthetic", "Origin": "Local" } },
-                            { id: "socks", name: "Combat Socks", role: "Apparel", specs: { "Material": "Wool Blend", "Feature": "Anti-bacterial", "Origin": "Local" } },
-                            { id: "jerrycan", name: "Jerry Can", role: "Fuel", specs: { "Capacity": "20L", "Material": "Steel/Plastic" } }
+                            { id: "uniform", name: "Digital Camo", role: "Uniform", specs: { "Pattern": "Arid/Semi-Arid", "Material": "Ripstop", "Feature": "IR Masking", "Status": "Active" } }
                         ]
                     }
                 } 
@@ -578,9 +596,9 @@
             viewport: document.getElementById('viewport'),
 
             view: function(key) {
+                // FIXED SCROLL: Always jump to top on view change
                 this.viewport.scrollTop = 0; 
                 if(key === 'home') this.renderHome();
-                else if(key === 'news') this.renderNews();
                 else this.renderBranch(key);
             },
 
@@ -751,7 +769,6 @@
                 const labels = [];
                 const dataPoints = [];
                 
-                // Determine Metric
                 let metric = 'Range (KM)';
                 if (bKey === 'navy' && (cKey === 'surface' || cKey === 'subs')) metric = 'Displacement (Tons)';
                 if (bKey === 'airforce' && cKey === 'fighters') metric = 'Speed (Mach * 10)';
@@ -786,7 +803,6 @@
                 });
             },
 
-            // --- FOLDABLE MOBILE MENU LOGIC ---
             toggleMobileMenu: function() {
                 const menu = document.getElementById('mobileMenu');
                 menu.classList.toggle('active');
@@ -797,7 +813,6 @@
                 this.view(key);
             },
 
-            // --- SEARCH LOGIC (FIXED) ---
             toggleMobileSearch: function() {
                 document.getElementById('mobileSearch').classList.toggle('hidden');
                 document.getElementById('mobileSearchInput').focus();
@@ -810,7 +825,7 @@
             },
 
             search: function(q) {
-                // 1. Reset if Empty
+                // INSTANT CLEAR LOGIC
                 if (!q || q.length < 2) {
                     this.view('home');
                     return;
@@ -840,7 +855,6 @@
 
         app.renderHome();
         
-        // Sync Time
         setInterval(() => {
             const now = new Date();
             const timeString = now.toLocaleTimeString('en-US', { hour12: false });

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PAKDEF SENTINEL | v49.0 SEARCH FIXED</title>
+    <title>PAKDEF SENTINEL | v50.0 SEARCH FIXED</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -90,7 +90,7 @@
         #mobileMenu { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); transform: translateY(100%); }
         #mobileMenu.active { transform: translateY(0); }
 
-        /* Custom Search Input Reset - Force Hide Native Buttons */
+        /* Force Hide Native Search Buttons */
         input[type="search"]::-webkit-search-decoration,
         input[type="search"]::-webkit-search-cancel-button,
         input[type="search"]::-webkit-search-results-button,
@@ -127,7 +127,7 @@
             </div>
             <div class="leading-none">
                 <h1 class="text-xl text-white font-header tracking-wide">SENTINEL <span class="text-neon-blue">DB</span></h1>
-                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v49.0 SEARCH FIX</div>
+                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v50.0 STABLE</div>
             </div>
         </div>
         
@@ -213,7 +213,7 @@
             document.getElementById('syncTime').innerText = now.toLocaleTimeString('en-US', { hour12: false });
         }, 1000);
 
-        // --- FULL DATABASE v49.0 ---
+        // --- FULL DATABASE v50.0 (R&D SEGREGATED) ---
         const DB = {
             nuclear: { 
                 name: "Strategic Command", color: "text-neon-amber", accent: "#ffbf00", 
@@ -273,7 +273,8 @@
                             { id: "bell412", name: "Bell 412", role: "Transport", specs: { "Role": "VIP/Utility", "Speed": "260 km/h", "Capacity": "13 Pax", "Range": "980 km", "Origin": "USA" } },
                             { id: "ecureuil", name: "AS350 Ecureuil", role: "Light Utility", specs: { "Role": "High Altitude", "Speed": "287 km/h", "Capacity": "5 Pax", "Range": "660 km", "Origin": "France" } },
                             { id: "mushshak_a", name: "Mushshak", role: "Trainer", specs: { "Role": "Basic Trainer", "Speed": "238 km/h", "Capacity": "2 Seats", "Range": "800 km", "Origin": "PAC" } },
-                            { id: "burraq", name: "Burraq", role: "UCAV", specs: { "Role": "COIN/Strike", "Speed": "200 km/h", "Armament": "Barq Missile", "Endurance": "12 Hours", "Origin": "NESCOM" } }
+                            { id: "burraq", name: "Burraq", role: "UCAV", specs: { "Role": "COIN/Strike", "Speed": "200 km/h", "Armament": "Barq Missile", "Endurance": "12 Hours", "Origin": "NESCOM" } },
+                            { id: "ababeel_d", name: "Ababeel-V", role: "Loitering", specs: { "Role": "Kamikaze", "Speed": "Unknown", "Armament": "Warhead", "Endurance": "4 Hours", "Origin": "GIDS" } }
                         ]
                     },
                     armor: { 
@@ -761,7 +762,11 @@
             toggleMobileMenu: function() { document.getElementById('mobileMenu').classList.toggle('active'); },
             viewMobile: function(key) { this.toggleMobileMenu(); this.view(key); },
             toggleMobileSearch: function() { document.getElementById('mobileSearch').classList.toggle('hidden'); document.getElementById('mobileSearchInput').focus(); },
-            closeMobileSearch: function() { document.getElementById('mobileSearch').classList.add('hidden'); document.getElementById('mobileSearchInput').value = ''; },
+            closeMobileSearch: function() { 
+                document.getElementById('mobileSearch').classList.add('hidden'); 
+                document.getElementById('mobileSearchInput').value = '';
+                this.view('home'); 
+            },
             search: function(q) {
                 if (!q || q.length < 2) { this.view('home'); return; }
                 q = q.toLowerCase();
@@ -797,6 +802,9 @@
                 el.value = '';
                 el.focus();
                 this.search('');
+                
+                const btnId = type === 'desktop' ? 'desktopClearBtn' : 'mobileClearBtn';
+                document.getElementById(btnId).classList.add('hidden');
             },
             scrollToTop: function() { this.viewport.scrollTo({ top: 0, behavior: 'smooth' }); }
         };

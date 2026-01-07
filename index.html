@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PAKDEF SENTINEL | v43.5 SCROLL FIX</title>
+    <title>PAKDEF SENTINEL | v44.0 TYPO FIXES</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -102,7 +102,7 @@
             </div>
             <div class="leading-none">
                 <h1 class="text-xl text-white font-header tracking-wide">SENTINEL <span class="text-neon-blue">DB</span></h1>
-                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v43.5 SCROLL FIX</div>
+                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v44.0 TYPO FIXES</div>
             </div>
         </div>
         
@@ -198,7 +198,7 @@
             document.getElementById('syncTime').innerText = now.toLocaleTimeString('en-US', { hour12: false });
         }, 1000);
 
-        // --- DATABASE v43.5 ---
+        // --- DATABASE v44.0 ---
         const DB = {
             nuclear: { 
                 name: "Strategic Command", color: "text-neon-amber", accent: "#ffbf00", 
@@ -279,7 +279,7 @@
                             { id: "fatah2", name: "Fatah-II", role: "GMLRS", specs: { "Caliber": "Unknown", "Range": "400 km", "Guidance": "GPS/INS", "Origin": "GIDS", "Status": "Inducting" } },
                             { id: "fatah1", name: "Fatah-1", role: "GMLRS", specs: { "Caliber": "300mm", "Range": "140 km", "Guidance": "Inertial", "Origin": "GIDS", "Status": "Active" } },
                             { id: "a100", name: "A-100", role: "MLRS", specs: { "Caliber": "300mm", "Range": "100 km", "Guidance": "Simple Inertial", "Origin": "China/Pak", "Status": "Active" } },
-                            { id: "krl122", name: "KRL-122", role: "MLRS", specs: { "Caliber": "122mm", "Range": "40 km", "Guidance": "Unuided", "Origin": "KRL", "Status": "Active" } },
+                            { id: "krl122", name: "KRL-122", role: "MLRS", specs: { "Caliber": "122mm", "Range": "40 km", "Guidance": "Unguided", "Origin": "KRL", "Status": "Active" } },
                             { id: "sh15", name: "SH-15", role: "SP Howitzer", specs: { "Caliber": "155mm / 52 Cal", "Range": "53km (V-LAP)", "Rate": "4-6 rpm", "Origin": "China/Pak", "Status": "Active" } },
                             { id: "m109a5", name: "M109A5", role: "SP Howitzer", specs: { "Caliber": "155mm", "Range": "30km", "Rate": "4 rpm", "Origin": "USA", "Status": "Active" } },
                             { id: "m109a2", name: "M109A2", role: "SP Howitzer", specs: { "Caliber": "155mm", "Range": "24km", "Rate": "3 rpm", "Origin": "USA", "Status": "Active" } },
@@ -407,18 +407,18 @@
                             { id: "hangor", name: "Hangor Class", role: "AIP SSK", specs: { "Role": "Attack/Strike", "Displacement": "2800 Tons", "Armament": "Babur-3/Yu-6", "Propulsion": "Stirling AIP", "Origin": "China/Pak", "Status": "Building" } },
                             { id: "agosta90b", name: "Agosta 90B", role: "AIP SSK", specs: { "Role": "Attack/Strike", "Displacement": "2050 Tons", "Armament": "Harpoon/Exocet", "Propulsion": "MESMA AIP", "Origin": "France/Pak", "Status": "Active" } },
                             { id: "agosta70", name: "Agosta 70", role: "SSK", specs: { "Role": "Hunter Killer", "Displacement": "1700 Tons", "Armament": "Harpoon", "Propulsion": "Diesel Electric", "Origin": "France", "Status": "Active" } },
-                            { id: "xcraft", name: "X-Craft", role: "Midget Sub", specs: { "Role": "SOF Ops", "Displacement": "100 Tons", "Armament": "Torpedos", "Propulsion": "Electric", "Origin": "KS&EW", "Status": "Active" } }
+                            { id: "xcraft", name: "X-Craft", role: "Midget Sub", specs: { "Role": "SOF Ops", "Displacement": "100 Tons", "Armament": "Torpedoes", "Propulsion": "Electric", "Origin": "KS&EW", "Status": "Active" } }
                         ]
                     },
                     aviation: {
                         name: "Naval Aviation",
                         items: [
-                            { id: "seasultan", name: "Sea Sultan", role: "LRMP", specs: { "Role": "ASW/ASuW", "Speed": "Mach 0.82", "Range": "Strategic", "Armament": "Torpedos/Missiles", "Origin": "Pak/Italy" } },
+                            { id: "seasultan", name: "Sea Sultan", role: "LRMP", specs: { "Role": "ASW/ASuW", "Speed": "Mach 0.82", "Range": "Strategic", "Armament": "Torpedoes/Missiles", "Origin": "Pak/Italy" } },
                             { id: "p3c", name: "P-3C Orion", role: "LRMP", specs: { "Role": "ASW", "Speed": "750 km/h", "Range": "4400 km", "Armament": "Harpoon", "Origin": "USA" } },
-                            { id: "atr72", name: "ATR-72 MPA", role: "MPA", specs: { "Role": "Patrol/ASW", "Speed": "500 km/h", "Range": "1500 km", "Armament": "Torpedos", "Origin": "Germany/Italy" } },
+                            { id: "atr72", name: "ATR-72 MPA", role: "MPA", specs: { "Role": "Patrol/ASW", "Speed": "500 km/h", "Range": "1500 km", "Armament": "Torpedoes", "Origin": "Germany/Italy" } },
                             { id: "seaking", name: "Sea King", role: "ASW Helo", specs: { "Role": "ASW/SAR", "Speed": "208 km/h", "Range": "1200 km", "Armament": "Exocet", "Origin": "UK" } },
-                            { id: "z9ec", name: "Z-9EC", role: "ASW Helo", specs: { "Role": "ASW", "Speed": "280 km/h", "Range": "400 km", "Armament": "Torpedos", "Origin": "China" } },
-                            { id: "luna", name: "Luna NG", role: "UAV", specs: { "Role": "Recce", "Speed": "100 km/h", "Range": "100 km", "Armament": "None", "Origin": "Germany" } }
+                            { id: "z9ec", name: "Z-9EC", role: "ASW Helo", specs: { "Role": "ASW", "Speed": "280 km/h", "Range": "400 km", "Armament": "Torpedoes", "Origin": "China" } },
+                            { id: "luna", name: "Luna NG", role: "UAV", specs: { "Role": "Recon", "Speed": "100 km/h", "Range": "100 km", "Armament": "None", "Origin": "Germany" } }
                         ]
                     },
                     coastal: {

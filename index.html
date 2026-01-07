@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PAKDEF SENTINEL | v35.0 MODULAR ANALYTICS</title>
+    <title>PAKDEF SENTINEL | v36.0 UX PERFECT</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -29,14 +29,15 @@
                     backgroundImage: {
                         'grid': "linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)",
                     },
-                    keyframes: {
-                        slideDown: {
-                            '0%': { opacity: '0', transform: 'translateY(-10px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
-                    },
                     animation: {
-                        'slide-down': 'slideDown 0.3s ease-out forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-5px)' },
+                        }
                     }
                 }
             }
@@ -44,7 +45,8 @@
     </script>
 
     <style>
-        body { background-color: #020203; color: #e4e4e7; height: 100dvh; overflow: hidden; display: flex; flex-direction: column; }
+        /* CORE LAYOUT LOCK */
+        body { background-color: #020203; color: #e4e4e7; height: 100dvh; width: 100vw; overflow: hidden; display: flex; flex-direction: column; }
         .bg-grid { background-size: 30px 30px; }
         
         .glass {
@@ -54,7 +56,6 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
-        /* 3D Floating Effect */
         .float-card {
             transform-style: preserve-3d;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -72,9 +73,9 @@
             background-size: 100% 4px;
         }
 
-        .chart-wrapper { position: relative; height: 200px; width: 100%; }
+        .chart-wrapper { position: relative; height: 250px; width: 100%; }
 
-        /* Scrollbar */
+        /* SCROLLBAR */
         ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-track { background: #050505; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
@@ -96,7 +97,6 @@
         }
         .nav-btn:hover { background-color: rgba(255,255,255,0.05); color: white; padding-left: 1rem; }
 
-        /* Mobile Menu */
         #mobileMenu {
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             transform: translateY(100%);
@@ -104,21 +104,34 @@
         #mobileMenu.active {
             transform: translateY(0);
         }
+
+        /* GHOST ARROW */
+        #ghostArrow {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+        #ghostArrow.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
     </style>
 </head>
 <body class="bg-grid font-body selection:bg-neon-blue selection:text-black">
 
     <div class="scanlines"></div>
 
-    <!-- HEADER -->
-    <header class="h-14 border-b border-white/10 bg-black/95 flex items-center justify-between px-4 z-50 shrink-0">
+    <!-- HEADER (FIXED - Flex None) -->
+    <header class="flex-none h-14 border-b border-white/10 bg-black/95 flex items-center justify-between px-4 z-50">
         <div class="flex items-center gap-3 cursor-pointer" onclick="app.view('home')">
             <div class="w-8 h-8 bg-neon-blue/10 border border-neon-blue flex items-center justify-center">
                 <span class="text-neon-blue font-bold text-lg">⌬</span>
             </div>
             <div class="leading-none">
                 <h1 class="text-xl text-white font-header tracking-wide">SENTINEL <span class="text-neon-blue">DB</span></h1>
-                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v35.0 MODULAR ANALYTICS</div>
+                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v36.0 UX PERFECT</div>
             </div>
         </div>
         
@@ -175,16 +188,21 @@
         <main id="viewport" class="flex-1 overflow-y-auto p-4 md:p-8 relative bg-black/60 pb-24 md:pb-8 custom-scrollbar scroll-smooth">
             <!-- Dynamic Content -->
         </main>
+        
+        <!-- GHOST SCROLL TO TOP ARROW -->
+        <button id="ghostArrow" onclick="app.scrollToTop()" class="absolute bottom-20 right-6 w-10 h-10 bg-neon-blue/20 border border-neon-blue text-neon-blue rounded-full flex items-center justify-center backdrop-blur-md z-50 hover:bg-neon-blue/40 transition-colors">
+            <span class="text-xl font-bold">↑</span>
+        </button>
     </div>
 
-    <!-- MOBILE FOLDABLE MENU -->
+    <!-- MOBILE FOLDABLE MENU (Collapsed State) -->
     <div class="md:hidden fixed bottom-0 w-full h-12 bg-black/95 border-t border-white/10 z-50 flex items-center justify-center backdrop-blur-xl">
         <button onclick="app.toggleMobileMenu()" class="flex items-center gap-2 text-neon-blue font-mono text-xs uppercase tracking-widest px-4 py-2 w-full justify-center">
             <span class="animate-bounce">▲</span> ACCESS SYSTEM
         </button>
     </div>
 
-    <!-- MOBILE MENU -->
+    <!-- MOBILE MENU (Expanded State) -->
     <div id="mobileMenu" class="md:hidden fixed inset-0 z-[60] bg-black/95 backdrop-blur-xl flex flex-col translate-y-full">
         <div class="p-4 border-b border-white/10 flex justify-between items-center">
             <h2 class="text-xl font-header text-white tracking-widest">COMMAND GRID</h2>
@@ -306,8 +324,6 @@
                             { id: "type69", name: "Type 69-IIMP", role: "MBT", specs: { "Gun": "105mm", "Status": "Reserve", "Origin": "HIT" } },
                             { id: "type59", name: "Type 59", role: "MBT", specs: { "Gun": "100mm", "Status": "Reserve", "Origin": "China" } },
                             { id: "viper", name: "Viper", role: "IFV", specs: { "Gun": "30mm RCWS", "Missiles": "ATGM", "Troops": "8", "Origin": "HIT" } },
-                            { id: "hamza8", name: "Hamza 8x8", role: "IFV", specs: { "Drive": "8x8", "Origin": "HIT", "Protection": "Stanag 4" } },
-                            { id: "hamza6", name: "Hamza 6x6", role: "MRAP", specs: { "Drive": "6x6", "Origin": "HIT", "Role": "Troop Carrier" } },
                             { id: "talha", name: "Talha", role: "APC", specs: { "Base": "M113", "Origin": "Indigenous (HIT)", "Troops": "11" } },
                             { id: "saad", name: "Saad", role: "APC", specs: { "Origin": "HIT", "Extended": "Yes" } },
                             { id: "sakb", name: "Sakb", role: "Command", specs: { "Origin": "HIT", "Base": "Talha" } },
@@ -449,17 +465,15 @@
                             { id: "yarmook", name: "Yarmook Class", role: "OPV", specs: { "Origin": "Damen", "Tonnage": "2300t", "Modular": "Yes", "Missiles": "Fitted for" } },
                             { id: "azmat", name: "Azmat Class", role: "FAC(M)", specs: { "Speed": "30 knots", "Missiles": "8x C-802A", "Origin": "KS&EW" } },
                             { id: "jurrat", name: "Jurrat Class", role: "Missile Boat", specs: { "Origin": "Indigenous (KS&EW)", "Role": "Coastal Defense" } },
-                            { id: "jalalat", name: "Jalalat Class", role: "Missile Boat", specs: { "Origin": "Indigenous", "Missiles": "C-802" } },
                             { id: "mrtp33", name: "MRTP-33", role: "FAC", specs: { "Origin": "Turkey", "Speed": "High", "Role": "Interdiction" } },
-                            { id: "munsif", name: "Munsif Class", role: "Minehunter", specs: { "Origin": "France/Pak" } },
-                            { id: "griffon", name: "Griffon 2000TD", role: "Hovercraft", specs: { "Role": "Amphibious/SSG(N)", "Terrain": "Littoral" } }
+                            { id: "munsif", name: "Munsif Class", role: "Minehunter", specs: { "Origin": "France/Pak" } }
                         ] 
                     }, 
                     subs: { 
                         name: "Submarines", 
                         items: [
                             { id: "hangor", name: "Hangor Class", role: "AIP SSK", specs: { "Status": "Construction (8 Units)", "Missile": "Babur-3", "Origin": "China/KS&EW" } },
-                            { id: "agosta90b", name: "Agosta 90B", role: "AIP SSK", specs: { "Name": "Khalid Class", "Upgrade": "STM Turkey", "Origin": "France", "AIP": "MESMA" } },
+                            { id: "agosta90b", name: "Agosta 90B", role: "AIP SSK", specs: { "Name": "Khalid Class", "Upgrade": "STM Turkey", "Origin": "France" } },
                             { id: "agosta70", name: "Agosta 70", role: "SSK", specs: { "Name": "Hashmat Class", "Status": "Active" } },
                             { id: "xcraft", name: "X-Craft", role: "Midget Sub", specs: { "Role": "SSG(N) Ops", "Origin": "Indigenous (KS&EW)" } }
                         ] 
@@ -575,9 +589,7 @@
             viewport: document.getElementById('viewport'),
 
             view: function(key) {
-                // FIXED SCROLL: Always jump to top on view change
                 this.viewport.scrollTop = 0; 
-
                 if(key === 'home') this.renderHome();
                 else this.renderBranch(key);
             },
@@ -638,6 +650,11 @@
                             </button>
                             
                             <div id="drawer-${cKey}" class="hidden transition-all duration-500 ease-in-out">
+                                <div class="p-4 bg-black/40 flex justify-end">
+                                    <button onclick="document.getElementById('chart-${cKey}').scrollIntoView({behavior:'smooth'})" class="text-[9px] border border-white/20 px-2 py-1 rounded text-gray-400 hover:text-white font-mono uppercase">
+                                        ▼ JUMP TO ANALYTICS
+                                    </button>
+                                </div>
                                 <div class="p-4 border-t border-white/5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     `;
                     
@@ -683,6 +700,22 @@
             },
 
             toggleCategory: function(id) {
+                // AUTO-CLOSE LOGIC: Close all others first
+                const allDrawers = document.querySelectorAll('[id^="drawer-"]');
+                const allIcons = document.querySelectorAll('[id^="icon-"]');
+                
+                allDrawers.forEach(el => {
+                    if(el.id !== `drawer-${id}`) {
+                        el.classList.add('hidden');
+                        el.classList.remove('animate-slide-down');
+                    }
+                });
+                
+                allIcons.forEach(el => {
+                    if(el.id !== `icon-${id}`) el.innerText = '+';
+                });
+
+                // Toggle Target
                 const drawer = document.getElementById(`drawer-${id}`);
                 const icon = document.getElementById(`icon-${id}`);
                 
@@ -772,9 +805,7 @@
             },
 
             viewMobile: function(key) {
-                // 1. Close the menu
                 this.toggleMobileMenu();
-                // 2. Load the view (with scroll reset)
                 this.view(key);
             },
 
@@ -791,7 +822,6 @@
             },
 
             search: function(q) {
-                // 1. Reset if Empty
                 if (!q || q.length < 2) {
                     this.view('home');
                     return;
@@ -816,12 +846,33 @@
                 
                 html += `</div></div>`;
                 this.viewport.innerHTML = html;
+            },
+
+            scrollToTop: function() {
+                this.viewport.scrollTo({ top: 0, behavior: 'smooth' });
             }
         };
 
+        // SCROLL TO TOP GHOST ARROW LOGIC
+        let scrollTimeout;
+        app.viewport.addEventListener('scroll', () => {
+            const arrow = document.getElementById('ghostArrow');
+            if(app.viewport.scrollTop > 100) {
+                // Show ONLY when scrolling UP
+                // (Simplified for stability: Show when not at top, hide when stopped)
+                arrow.classList.add('visible');
+                
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    arrow.classList.remove('visible');
+                }, 1500);
+            } else {
+                arrow.classList.remove('visible');
+            }
+        });
+
         app.renderHome();
         
-        // Sync Time
         setInterval(() => {
             const now = new Date();
             const timeString = now.toLocaleTimeString('en-US', { hour12: false });

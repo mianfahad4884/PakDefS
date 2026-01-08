@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PAKDEF SENTINEL | v51.0 HISTORY FIX</title>
+    <title>PAKDEF SENTINEL | v51.5 TACTICAL GRAPHS</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -64,7 +64,7 @@
             background-size: 100% 4px;
         }
 
-        .chart-wrapper { position: relative; height: 250px; width: 100%; }
+        .chart-wrapper { position: relative; height: 350px; width: 100%; }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #050505; }
@@ -111,7 +111,7 @@
             <div class="w-full h-px bg-gradient-to-r from-transparent via-neon-red/50 to-transparent mb-4"></div>
             <p class="text-gray-300 font-mono text-xs leading-relaxed mb-8">
                 ACCESSING DEFENSE DATABASE...<br><br>
-                PLEASE NOTE: ALL INFORMATION CONTAINED WITHIN THIS SYSTEM IS AGGREGATED FROM <span class="text-neon-blue font-bold">PUBLIC OPEN SOURCE INTELLIGENCE (OSINT)</span> AND PUBLICLY AVAILABLE RECORDS. PERFORMANCE METRICS ARE ESTIMATES.<br><br>
+                PLEASE NOTE: ALL INFORMATION CONTAINED WITHIN THIS SYSTEM IS AGGREGATED FROM <span class="text-neon-blue font-bold">PUBLIC OPEN SOURCE INTELLIGENCE (OSINT)</span>. PERFORMANCE METRICS ARE ESTIMATES.<br><br>
                 NO CLASSIFIED DATA IS STORED ON THIS SERVER.
             </p>
             <button onclick="document.getElementById('disclaimerModal').remove()" class="w-full bg-neon-red/10 border border-neon-red text-neon-red hover:bg-neon-red hover:text-white px-6 py-3 rounded font-header text-xl tracking-widest transition-all duration-300 shadow-[0_0_15px_rgba(255,0,60,0.3)]">
@@ -127,7 +127,7 @@
             </div>
             <div class="leading-none">
                 <h1 class="text-xl text-white font-header tracking-wide">SENTINEL <span class="text-neon-blue">DB</span></h1>
-                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v51.0 HISTORY FIX</div>
+                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v51.5 TACTICAL HUD</div>
             </div>
         </div>
         
@@ -213,7 +213,7 @@
             document.getElementById('syncTime').innerText = now.toLocaleTimeString('en-US', { hour12: false });
         }, 1000);
 
-        // --- FULL DATABASE v51.0 ---
+        // --- FULL DATABASE v51.5 (R&D SEGREGATED + NEW ITEMS) ---
         const DB = {
             nuclear: { 
                 name: "Strategic Command", color: "text-neon-amber", accent: "#ffbf00", 
@@ -383,7 +383,8 @@
                             { id: "h4", name: "H-4 SOW", role: "Glide Bomb", specs: { "Range": "120km", "Guidance": "TV/IR", "Warhead": "HE", "Propulsion": "Glide", "Origin": "NESCOM" } },
                              { id: "takbir", name: "Takbir", role: "Glide Bomb", specs: { "Range": "8km", "Guidance": "Satellite", "Warhead": "250kg", "Propulsion": "Glide", "Origin": "GIDS" } },
                             { id: "cm400", name: "CM-400AKG", role: "Anti-Ship", specs: { "Range": "400km", "Guidance": "Radar/IR", "Warhead": "Penetrator", "Propulsion": "Solid", "Origin": "China" } },
-                            { id: "bkd", name: "BKD-1", role: "Bunker Buster", specs: { "Range": "Drop", "Guidance": "Laser", "Warhead": "Deep Pen", "Propulsion": "Gravity", "Origin": "AWC" } }
+                            { id: "bkd", name: "BKD-1", role: "Bunker Buster", specs: { "Range": "Drop", "Guidance": "Laser", "Warhead": "Deep Pen", "Propulsion": "Gravity", "Origin": "AWC" } },
+                            { id: "burq2", name: "Burq-II", role: "AGM", specs: { "Range": "10 km", "Guidance": "Laser", "Warhead": "HE Anti-Tank", "Propulsion": "Solid", "Origin": "NESCOM" } }
                         ]
                     },
                     asymmetric_air: {
@@ -554,6 +555,10 @@
                 this.viewport.scrollTop = 0; 
                 if(key === 'home') this.renderHome();
                 else this.renderBranch(key);
+                
+                // History Push
+                if(key !== 'home') history.pushState({ page: key }, null, `#${key}`);
+                else history.pushState({ page: 'home' }, null, '');
             },
 
             renderHome: function() {
@@ -729,7 +734,7 @@
                 new Chart(ctx, {
                     type: 'bar',
                     data: { labels: labels, datasets: [{ label: metric, data: dataPoints, backgroundColor: 'rgba(255, 255, 255, 0.2)', hoverBackgroundColor: '#00f3ff', barThickness: 10, borderRadius: 4 }] },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#666', font: { family: 'JetBrains Mono', size: 9 } } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#666' } } } }
+                    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#666', font: { family: 'JetBrains Mono', size: 9 } } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#666' } } } }
                 });
             },
 
@@ -761,7 +766,11 @@
             toggleMobileMenu: function() { document.getElementById('mobileMenu').classList.toggle('active'); },
             viewMobile: function(key) { this.toggleMobileMenu(); this.view(key); },
             toggleMobileSearch: function() { document.getElementById('mobileSearch').classList.toggle('hidden'); document.getElementById('mobileSearchInput').focus(); },
-            closeMobileSearch: function() { document.getElementById('mobileSearch').classList.add('hidden'); document.getElementById('mobileSearchInput').value = ''; },
+            closeMobileSearch: function() { 
+                document.getElementById('mobileSearch').classList.add('hidden'); 
+                document.getElementById('mobileSearchInput').value = '';
+                this.view('home'); 
+            },
             search: function(q) {
                 if (!q || q.length < 2) { this.view('home'); return; }
                 q = q.toLowerCase();
@@ -804,7 +813,18 @@
             scrollToTop: function() { this.viewport.scrollTo({ top: 0, behavior: 'smooth' }); }
         };
 
+        // History Management
+        window.onpopstate = function(event) {
+            if (event.state && event.state.page) {
+                if (event.state.page === 'home') app.renderHome();
+                else app.renderBranch(event.state.page);
+            } else {
+                app.renderHome();
+            }
+        };
+
         app.renderHome();
+        history.replaceState({ page: 'home' }, null, '');
         
         const ghost = document.getElementById('ghostArrow');
         document.getElementById('viewport').addEventListener('scroll', (e) => {

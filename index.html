@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PAKDEF SENTINEL | v50.0 SEARCH FIXED</title>
+    <title>PAKDEF SENTINEL | v51.0 HISTORY FIX</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -127,7 +127,7 @@
             </div>
             <div class="leading-none">
                 <h1 class="text-xl text-white font-header tracking-wide">SENTINEL <span class="text-neon-blue">DB</span></h1>
-                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v50.0 STABLE</div>
+                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v51.0 HISTORY FIX</div>
             </div>
         </div>
         
@@ -213,7 +213,7 @@
             document.getElementById('syncTime').innerText = now.toLocaleTimeString('en-US', { hour12: false });
         }, 1000);
 
-        // --- FULL DATABASE v50.0 (R&D SEGREGATED) ---
+        // --- FULL DATABASE v51.0 ---
         const DB = {
             nuclear: { 
                 name: "Strategic Command", color: "text-neon-amber", accent: "#ffbf00", 
@@ -273,8 +273,7 @@
                             { id: "bell412", name: "Bell 412", role: "Transport", specs: { "Role": "VIP/Utility", "Speed": "260 km/h", "Capacity": "13 Pax", "Range": "980 km", "Origin": "USA" } },
                             { id: "ecureuil", name: "AS350 Ecureuil", role: "Light Utility", specs: { "Role": "High Altitude", "Speed": "287 km/h", "Capacity": "5 Pax", "Range": "660 km", "Origin": "France" } },
                             { id: "mushshak_a", name: "Mushshak", role: "Trainer", specs: { "Role": "Basic Trainer", "Speed": "238 km/h", "Capacity": "2 Seats", "Range": "800 km", "Origin": "PAC" } },
-                            { id: "burraq", name: "Burraq", role: "UCAV", specs: { "Role": "COIN/Strike", "Speed": "200 km/h", "Armament": "Barq Missile", "Endurance": "12 Hours", "Origin": "NESCOM" } },
-                            { id: "ababeel_d", name: "Ababeel-V", role: "Loitering", specs: { "Role": "Kamikaze", "Speed": "Unknown", "Armament": "Warhead", "Endurance": "4 Hours", "Origin": "GIDS" } }
+                            { id: "burraq", name: "Burraq", role: "UCAV", specs: { "Role": "COIN/Strike", "Speed": "200 km/h", "Armament": "Barq Missile", "Endurance": "12 Hours", "Origin": "NESCOM" } }
                         ]
                     },
                     armor: { 
@@ -501,6 +500,7 @@
                         name: "Future Aerospace", 
                         items: [
                             { id: "pfx", name: "PF-X (Project Azm)", role: "5th Gen Fighter", specs: { "Role": "Air Dominance", "Speed": "Mach 2.0+", "Radar": "Advanced AESA", "Armament": "Internal Bays", "Origin": "PAC/AWC" }, desc: "Next-generation stealth fighter program designed for air superiority." },
+                            { id: "jinnah_frigate", name: "Jinnah Class Frigate", role: "Frigate", specs: { "Role": "Multi-Role", "Displacement": "3300 Tons", "Missiles": "VLS/Harbah", "Speed": "26+ Knots", "Origin": "KSEW (Indigenous)" }, desc: "Indigenously designed frigate project." },
                             { id: "jf17_blk4", name: "JF-17 Block 4", role: "Next Gen", specs: { "Role": "Stealthy Multi-Role", "Speed": "Mach 1.8+", "Radar": "Indigenous AESA (GaN)", "Armament": "FAAZ-2", "Range": "Extended", "Origin": "PAC/AWC" } }
                         ] 
                     },
@@ -524,7 +524,6 @@
                     future_naval: { 
                         name: "Future Naval", 
                         items: [
-                            { id: "jinnah_frigate", name: "Jinnah Class Frigate", role: "Frigate", specs: { "Role": "Multi-Role", "Displacement": "3300 Tons", "Missiles": "VLS/Harbah", "Speed": "26+ Knots", "Origin": "KSEW (Indigenous)" }, desc: "Indigenously designed frigate project." },
                             { id: "sea_sultan", name: "Sea Sultan", role: "LRMP", specs: { "Role": "ASW/ASuW", "Speed": "Mach 0.82", "Range": "Strategic", "Armament": "Torpedoes/Missiles", "Origin": "Pak/Italy" } }
                         ] 
                     },
@@ -762,11 +761,7 @@
             toggleMobileMenu: function() { document.getElementById('mobileMenu').classList.toggle('active'); },
             viewMobile: function(key) { this.toggleMobileMenu(); this.view(key); },
             toggleMobileSearch: function() { document.getElementById('mobileSearch').classList.toggle('hidden'); document.getElementById('mobileSearchInput').focus(); },
-            closeMobileSearch: function() { 
-                document.getElementById('mobileSearch').classList.add('hidden'); 
-                document.getElementById('mobileSearchInput').value = '';
-                this.view('home'); 
-            },
+            closeMobileSearch: function() { document.getElementById('mobileSearch').classList.add('hidden'); document.getElementById('mobileSearchInput').value = ''; },
             search: function(q) {
                 if (!q || q.length < 2) { this.view('home'); return; }
                 q = q.toLowerCase();

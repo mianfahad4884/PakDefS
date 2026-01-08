@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PAKDEF SENTINEL | v52.0 R&D FIX</title>
+    <title>PAKDEF SENTINEL | v53.0 FATAH-5 ADDED</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -127,7 +127,7 @@
             </div>
             <div class="leading-none">
                 <h1 class="text-xl text-white font-header tracking-wide">SENTINEL <span class="text-neon-blue">DB</span></h1>
-                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v52.0 R&D FIX</div>
+                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v53.0 FATAH-5 ADDED</div>
             </div>
         </div>
         
@@ -213,7 +213,7 @@
             document.getElementById('syncTime').innerText = now.toLocaleTimeString('en-US', { hour12: false });
         }, 1000);
 
-        // --- FULL DATABASE v52.0 ---
+        // --- FULL DATABASE v53.0 (R&D SEGREGATED) ---
         const DB = {
             nuclear: { 
                 name: "Strategic Command", color: "text-neon-amber", accent: "#ffbf00", 
@@ -384,8 +384,7 @@
                             { id: "h4", name: "H-4 SOW", role: "Glide Bomb", specs: { "Range": "120km", "Guidance": "TV/IR", "Warhead": "HE", "Propulsion": "Glide", "Origin": "NESCOM" } },
                              { id: "takbir", name: "Takbir", role: "Glide Bomb", specs: { "Range": "8km", "Guidance": "Satellite", "Warhead": "250kg", "Propulsion": "Glide", "Origin": "GIDS" } },
                             { id: "cm400", name: "CM-400AKG", role: "Anti-Ship", specs: { "Range": "400km", "Guidance": "Radar/IR", "Warhead": "Penetrator", "Propulsion": "Solid", "Origin": "China" } },
-                            { id: "bkd", name: "BKD-1", role: "Bunker Buster", specs: { "Range": "Drop", "Guidance": "Laser", "Warhead": "Deep Pen", "Propulsion": "Gravity", "Origin": "AWC" } },
-                            { id: "burq2", name: "Burq-II", role: "AGM", specs: { "Range": "10 km", "Guidance": "Laser", "Warhead": "HE Anti-Tank", "Propulsion": "Solid", "Origin": "NESCOM" } }
+                            { id: "bkd", name: "BKD-1", role: "Bunker Buster", specs: { "Range": "Drop", "Guidance": "Laser", "Warhead": "Deep Pen", "Propulsion": "Gravity", "Origin": "AWC" } }
                         ]
                     },
                     asymmetric_air: {
@@ -426,6 +425,7 @@
                     aviation: {
                         name: "Naval Aviation",
                         items: [
+                            { id: "seasultan", name: "Sea Sultan", role: "LRMP", specs: { "Role": "ASW/ASuW", "Speed": "Mach 0.82", "Range": "Strategic", "Armament": "Torpedoes/Missiles", "Origin": "Pak/Italy" } },
                             { id: "p3c", name: "P-3C Orion", role: "LRMP", specs: { "Role": "ASW", "Speed": "750 km/h", "Range": "4400 km", "Armament": "Harpoon", "Origin": "USA" } },
                             { id: "atr72", name: "ATR-72 MPA", role: "MPA", specs: { "Role": "Patrol/ASW", "Speed": "500 km/h", "Range": "1500 km", "Armament": "Torpedoes", "Origin": "Germany/Italy" } },
                             { id: "seaking", name: "Sea King", role: "ASW Helo", specs: { "Role": "ASW/SAR", "Speed": "208 km/h", "Range": "1200 km", "Armament": "Exocet", "Origin": "UK" } },
@@ -508,6 +508,7 @@
                         name: "Future Missiles", 
                         items: [
                             { id: "p282", name: "P-282", role: "Hypersonic", specs: { "Range": "350 km", "Warhead": "Anti-Ship/Land", "Guidance": "Advanced Inertial", "Propulsion": "Solid (Mach 5+)", "Origin": "NESCOM" } },
+                            { id: "fatah5", name: "Fatah-5", role: "Long Range GMLRS", specs: { "Range": "1000 km", "Guidance": "Inertial/Satellite", "Warhead": "Unitary/Cluster", "Origin": "GIDS", "Status": "Development (2026)" }, desc: "Expected 1000km range guided rocket system for the Army Rocket Force Command." },
                             { id: "faaz2", name: "FAAZ-2", role: "BVR AAM", specs: { "Range": "180 km", "Guidance": "Active RF/IIR", "Warhead": "HE Frag", "Propulsion": "Solid", "Origin": "GIDS" } },
                             { id: "taimoor", name: "Taimoor", role: "ALCM", specs: { "Range": "600 km", "Warhead": "Conventional/Nuc", "Guidance": "Stealth/Terrain", "Propulsion": "Turbofan", "Origin": "Indigenous" } },
                              { id: "lomads", name: "GIDS LOMADS", role: "LOMADS", specs: { "Range": "100 km", "Guidance": "Active Radar", "Ceiling": "20 km", "Radar": "AESA", "Origin": "GIDS" } },

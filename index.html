@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SENTINEL | v67.0 COLOR CODED</title>
+    <title>SENTINEL | v68.0 STABILITY FIX</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -41,8 +41,13 @@
         .panel { background-color: var(--bg-panel); border: 1px solid var(--border); }
         .input-field { background-color: var(--bg-input); border: 1px solid var(--border); color: var(--text-main); }
         
-        /* Updated Nav Button: Removed generic accent color on hover to allow specific colors */
-        .nav-btn { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border-left: 3px solid transparent; font-size: 0.75rem; font-weight: 600; color: var(--text-mut); cursor: pointer; transition: all 0.2s; }
+        /* Fixed Nav Button: Default state is visible txtMut, hover/active is specific color */
+        .nav-btn { 
+            display: flex; align-items: center; justify-content: space-between; 
+            padding: 0.75rem 1rem; border-left: 3px solid transparent; 
+            font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+            color: var(--text-mut); /* Default visible color */
+        }
         .nav-btn:hover { background-color: var(--bg-input); padding-left: 1.25rem; }
         
         .chart-wrapper { position: relative; height: 250px; width: 100%; }
@@ -86,7 +91,7 @@
             <div class="w-8 h-8 bg-input flex items-center justify-center chamfer border border-borderC group-hover:border-accent transition-colors"><span class="text-accent font-header font-bold text-lg">S</span></div>
             <div class="leading-none">
                 <h1 class="text-lg font-header font-bold tracking-wide text-txtMain">SENTINEL <span class="text-accent">DB</span></h1>
-                <div class="text-[9px] font-mono text-txtMut tracking-[0.2em]">v67.0</div>
+                <div class="text-[9px] font-mono text-txtMut tracking-[0.2em]">v68.0</div>
             </div>
         </div>
         <div class="flex-1 max-w-xl mx-6 hidden md:block relative">
@@ -120,7 +125,7 @@
                 <button onclick="app.view('nuclear')" class="nav-btn hover:border-l-amber-500 hover:text-amber-500">STRATEGIC <span>☢</span></button>
                 <button onclick="app.view('army')" class="nav-btn hover:border-l-emerald-500 hover:text-emerald-500">LAND FORCES <span>🛡</span></button>
                 <button onclick="app.view('airforce')" class="nav-btn hover:border-l-sky-500 hover:text-sky-500">AIR FORCE <span>✈</span></button>
-                <button onclick="app.view('navy')" class="nav-btn hover:border-l-white hover:text-white">NAVAL FORCES <span>⚓</span></button>
+                <button onclick="app.view('navy')" class="nav-btn hover:border-l-blue-800 hover:text-blue-800">NAVAL FORCES <span>⚓</span></button>
                 <div class="my-2 border-t border-borderC mx-4"></div>
                 <button onclick="app.view('logistics')" class="nav-btn hover:border-l-orange-400 hover:text-orange-400">LOGISTICS <span>📦</span></button>
                 <button onclick="app.view('industry')" class="nav-btn hover:border-l-purple-500 hover:text-purple-500">INDUSTRY <span>🏭</span></button>
@@ -145,7 +150,7 @@
              <button onclick="app.viewMobile('nuclear')" class="p-4 bg-input border-l-4 border-amber-500 shadow-sm chamfer text-left h-24 flex flex-col justify-between"><span class="text-2xl text-amber-500">☢</span><span class="text-xs font-header font-bold text-txtMain">STRATEGIC</span></button>
              <button onclick="app.viewMobile('army')" class="p-4 bg-input border-l-4 border-emerald-500 shadow-sm chamfer text-left h-24 flex flex-col justify-between"><span class="text-2xl text-emerald-500">🛡</span><span class="text-xs font-header font-bold text-txtMain">ARMY</span></button>
              <button onclick="app.viewMobile('airforce')" class="p-4 bg-input border-l-4 border-sky-500 shadow-sm chamfer text-left h-24 flex flex-col justify-between"><span class="text-2xl text-sky-500">✈</span><span class="text-xs font-header font-bold text-txtMain">AIR FORCE</span></button>
-             <button onclick="app.viewMobile('navy')" class="p-4 bg-input border-l-4 border-white shadow-sm chamfer text-left h-24 flex flex-col justify-between"><span class="text-2xl text-white">⚓</span><span class="text-xs font-header font-bold text-txtMain">NAVY</span></button>
+             <button onclick="app.viewMobile('navy')" class="p-4 bg-input border-l-4 border-blue-900 shadow-sm chamfer text-left h-24 flex flex-col justify-between"><span class="text-2xl text-blue-800">⚓</span><span class="text-xs font-header font-bold text-txtMain">NAVY</span></button>
              <button onclick="app.viewMobile('logistics')" class="p-4 bg-input border-l-4 border-orange-400 shadow-sm chamfer text-left h-24 flex flex-col justify-between"><span class="text-2xl text-orange-400">📦</span><span class="text-xs font-header font-bold text-txtMain">LOGISTICS</span></button>
              <button onclick="app.viewMobile('industry')" class="p-4 bg-input border-l-4 border-purple-500 shadow-sm chamfer text-left h-24 flex flex-col justify-between"><span class="text-2xl text-purple-500">🏭</span><span class="text-xs font-header font-bold text-txtMain">INDUSTRY</span></button>
              <button onclick="app.viewMobile('future')" class="col-span-2 p-4 bg-input border-l-4 border-pink-500 shadow-sm chamfer text-left h-24 flex flex-col justify-between"><span class="text-2xl text-pink-500">🔬</span><span class="text-xs font-header font-bold text-txtMain">R&D / FUTURE</span></button>
@@ -193,7 +198,7 @@
                             ${this.homeBtn('nuclear', 'STRATEGIC', 'hover:border-amber-500', 'group-hover:text-amber-500')}
                             ${this.homeBtn('army', 'ARMY', 'hover:border-emerald-500', 'group-hover:text-emerald-500')}
                             ${this.homeBtn('airforce', 'AIR FORCE', 'hover:border-sky-500', 'group-hover:text-sky-500')}
-                            ${this.homeBtn('navy', 'NAVY', 'hover:border-white', 'group-hover:text-white')}
+                            ${this.homeBtn('navy', 'NAVY', 'hover:border-blue-900', 'group-hover:text-blue-900')}
                             ${this.homeBtn('logistics', 'LOGISTICS', 'hover:border-orange-400', 'group-hover:text-orange-400')}
                             ${this.homeBtn('industry', 'INDUSTRY', 'hover:border-purple-500', 'group-hover:text-purple-500')}
                         </div>
@@ -212,12 +217,12 @@
 
             renderBranch: function(key) {
                 const data = DB[key];
-                // Determine color class for header based on key
+                // Update: Navy is now Dark Blue (#1e3a8a / blue-900), Air Force is Sky Blue
                 let headerColor = "text-accent";
                 if(key === 'nuclear') headerColor = "text-amber-500";
                 if(key === 'army') headerColor = "text-emerald-500";
                 if(key === 'airforce') headerColor = "text-sky-500";
-                if(key === 'navy') headerColor = "text-white";
+                if(key === 'navy') headerColor = "text-blue-800";
                 if(key === 'logistics') headerColor = "text-orange-400";
                 if(key === 'industry') headerColor = "text-purple-500";
                 if(key === 'future') headerColor = "text-pink-500";
@@ -249,7 +254,7 @@
                             
                             <div id="drawer-${cKey}" class="hidden transition-all duration-500 ease-in-out border-t border-borderC">
                                 <div class="p-2 bg-input flex justify-end">
-                                    <button onclick="document.getElementById('chart-${cKey}').scrollIntoView({behavior:'smooth'})" class="text-[9px] border border-borderC px-3 py-1 rounded-sm text-txtMut hover:text-white font-mono uppercase font-bold tracking-widest transition-colors">
+                                    <button onclick="document.getElementById('chart-${cKey}').scrollIntoView({behavior:'smooth'})" class="text-[9px] border border-borderC px-3 py-1 rounded-sm text-txtMut hover:bg-accent hover:text-black font-mono uppercase font-bold tracking-widest transition-colors">
                                         ▼ ANALYTICS
                                     </button>
                                 </div>
@@ -263,12 +268,12 @@
                             if(i++ < 3) specs += `<div class="flex justify-between text-[10px] md:text-[11px] text-txtMut py-1 border-b border-borderC"><span>${k}</span><span class="text-txtMain font-mono font-medium">${v}</span></div>`;
                         }
                         
-                        // Card Hover Effect matching Branch Color
+                        // Card Hover Effect
                         let hoverClass = "";
                         if(key === 'nuclear') hoverClass = "hover:border-amber-500";
                         else if(key === 'army') hoverClass = "hover:border-emerald-500";
                         else if(key === 'airforce') hoverClass = "hover:border-sky-500";
-                        else if(key === 'navy') hoverClass = "hover:border-white";
+                        else if(key === 'navy') hoverClass = "hover:border-blue-900";
                         else if(key === 'logistics') hoverClass = "hover:border-orange-400";
                         else if(key === 'industry') hoverClass = "hover:border-purple-500";
                         else if(key === 'future') hoverClass = "hover:border-pink-500";
@@ -310,18 +315,20 @@
                 if (!ctx) return;
                 const styles = getComputedStyle(document.documentElement);
                 const textColor = styles.getPropertyValue('--text-mut').trim();
+                const accentColor = styles.getPropertyValue('--accent').trim();
+                const accentDim = styles.getPropertyValue('--accent-dim').trim();
                 const gridColor = styles.getPropertyValue('--grid-line').trim();
                 const labels = [];
                 const dataPoints = [];
                 
-                let accentColor = '#f59e0b'; // Default
-                if(bKey === 'nuclear') accentColor = '#f59e0b';
-                if(bKey === 'army') accentColor = '#10b981';
-                if(bKey === 'airforce') accentColor = '#0ea5e9';
-                if(bKey === 'navy') accentColor = '#ffffff';
-                if(bKey === 'logistics') accentColor = '#fb923c';
-                if(bKey === 'industry') accentColor = '#a855f7';
-                if(bKey === 'future') accentColor = '#ec4899';
+                let chartColor = '#f59e0b';
+                if(bKey === 'nuclear') chartColor = '#f59e0b';
+                if(bKey === 'army') chartColor = '#10b981';
+                if(bKey === 'airforce') chartColor = '#0ea5e9';
+                if(bKey === 'navy') chartColor = '#1e3a8a';
+                if(bKey === 'logistics') chartColor = '#fb923c';
+                if(bKey === 'industry') chartColor = '#a855f7';
+                if(bKey === 'future') chartColor = '#ec4899';
 
                 let metric = 'Range (KM)';
                 if (bKey === 'navy' && (cKey === 'surface' || cKey === 'subs')) metric = 'Displacement (Tons)';
@@ -356,7 +363,7 @@
                     type: 'bar',
                     data: { 
                         labels: labels, 
-                        datasets: [{ label: metric, data: dataPoints, backgroundColor: accentColor + '40', borderColor: accentColor, borderWidth: 1, barThickness: 12, borderRadius: 0 }] 
+                        datasets: [{ label: metric, data: dataPoints, backgroundColor: chartColor + '40', borderColor: chartColor, borderWidth: 1, barThickness: 12, borderRadius: 0 }] 
                     },
                     options: { 
                         indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, 
@@ -390,7 +397,7 @@
                 if(bKey === 'nuclear') headerColor = "text-amber-500";
                 if(bKey === 'army') headerColor = "text-emerald-500";
                 if(bKey === 'airforce') headerColor = "text-sky-500";
-                if(bKey === 'navy') headerColor = "text-white";
+                if(bKey === 'navy') headerColor = "text-blue-800";
                 if(bKey === 'logistics') headerColor = "text-orange-400";
                 if(bKey === 'industry') headerColor = "text-purple-500";
                 if(bKey === 'future') headerColor = "text-pink-500";
@@ -548,7 +555,7 @@
                             { id: "alzarrar", name: "Al-Zarrar", role: "MBT", specs: { "Gun": "125mm Smoothbore", "Engine": "730hp Diesel", "Armor": "Add-on ERA", "Speed": "55 km/h", "Origin": "HIT", "Status": "Active" } },
                             { id: "type85", name: "Type 85-IIAP", role: "MBT", specs: { "Gun": "125mm Smoothbore", "Engine": "730hp Diesel", "Armor": "Composite", "Speed": "57 km/h", "Origin": "China", "Status": "Active" } },
                             { id: "type69", name: "Type 69-IIMP", role: "MBT", specs: { "Gun": "105mm Rifled", "Engine": "580hp Diesel", "Armor": "Steel", "Speed": "50 km/h", "Origin": "China/HIT", "Status": "Reserve" } },
-                            { id: "hamza6", name: "Hamza 6x6", role: "MRAP", specs: { "Gun": "12.7mm Turret", "Engine": "Diesel", "Armor": "Mine Resistant", "Speed": "90 km/h", "Origin": "HIT", "Status": "Active" } },
+                             { id: "hamza6", name: "Hamza 6x6", role: "MRAP", specs: { "Gun": "12.7mm Turret", "Engine": "Diesel", "Armor": "Mine Resistant", "Speed": "90 km/h", "Origin": "HIT", "Status": "Active" } },
                             { id: "talha", name: "Talha", role: "APC", specs: { "Gun": "12.7mm HMG", "Engine": "Detroit Diesel", "Armor": "Aluminum 5083", "Speed": "62 km/h", "Origin": "HIT", "Status": "Active" } },
                             { id: "saad", name: "Saad", role: "APC", specs: { "Gun": "14.5mm HMG", "Engine": "400hp", "Armor": "Enhanced", "Speed": "65 km/h", "Origin": "HIT", "Status": "Active" } },
                             { id: "m113", name: "M113", role: "APC", specs: { "Gun": "12.7mm HMG", "Engine": "215hp", "Armor": "Aluminum", "Speed": "60 km/h", "Origin": "USA", "Status": "Active" } },
@@ -660,7 +667,7 @@
                 } 
             },
             navy: { 
-                name: "Pakistan Navy", color: "text-white", 
+                name: "Pakistan Navy", color: "text-blue-800", 
                 cats: { 
                     surface: { 
                         name: "Surface Fleet", 

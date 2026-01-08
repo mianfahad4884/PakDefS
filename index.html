@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SENTINEL | v63.0 THEME SYSTEM</title>
+    <title>SENTINEL | v64.0 QUAD THEME</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
-        /* --- THEME DEFINITIONS (Strict Separation) --- */
+        /* --- THEME DEFINITIONS --- */
         
         /* 1. MIDNIGHT (Default Tactical) */
         :root[data-theme="midnight"] {
@@ -49,6 +49,19 @@
             --accent: #00f3ff; /* Neon Cyan */
             --accent-dim: rgba(0, 243, 255, 0.1);
             --grid-line: rgba(0, 243, 255, 0.05);
+        }
+
+        /* 4. CAMO (Mil-Spec - New) */
+        :root[data-theme="camo"] {
+            --bg-base: #1c1917;       /* Stone 900 */
+            --bg-panel: #292524;      /* Stone 800 */
+            --bg-input: #0c0a09;      /* Stone 950 */
+            --border: #44403c;        /* Stone 700 */
+            --text-main: #e7e5e4;     /* Stone 200 */
+            --text-mut: #a8a29e;      /* Stone 400 */
+            --accent: #84cc16;        /* Tactical Lime */
+            --accent-dim: rgba(132, 204, 22, 0.15);
+            --grid-line: rgba(132, 204, 22, 0.05);
         }
 
         /* --- GLOBAL STYLES --- */
@@ -142,8 +155,8 @@
                 <span class="text-accent font-header font-bold text-xl">S</span>
             </div>
             <div class="leading-none">
-                <h1 class="text-xl font-header font-bold tracking-wide">SENTINEL <span class="text-accent">DB</span></h1>
-                <div class="text-[10px] font-mono text-txtMut tracking-[0.2em] uppercase">Tactical Ops v63</div>
+                <h1 class="text-xl font-header font-bold text-txtMain tracking-wide">SENTINEL <span class="text-accent">DB</span></h1>
+                <div class="text-[10px] font-mono text-txtMut tracking-[0.2em] uppercase">Tactical Ops v64</div>
             </div>
         </div>
 
@@ -161,10 +174,11 @@
                 <span class="text-lg">🎨</span>
             </button>
             
-            <div id="themeMenu" class="hidden absolute top-12 right-0 w-40 panel border border-borderC shadow-xl chamfer flex-col z-[101]">
-                <button onclick="app.setTheme('midnight')" class="text-left px-4 py-3 text-xs font-bold hover:bg-input hover:text-accent text-txtMut border-b border-borderC">MIDNIGHT (DARK)</button>
-                <button onclick="app.setTheme('daylight')" class="text-left px-4 py-3 text-xs font-bold hover:bg-input hover:text-accent text-txtMut border-b border-borderC">DAYLIGHT (LIGHT)</button>
-                <button onclick="app.setTheme('neon')" class="text-left px-4 py-3 text-xs font-bold hover:bg-input hover:text-accent text-txtMut">CYBER (NEON)</button>
+            <div id="themeMenu" class="hidden absolute top-12 right-0 w-48 panel border border-borderC shadow-xl chamfer flex-col z-[101]">
+                <button onclick="app.setTheme('midnight')" class="text-left px-4 py-3 text-xs font-bold hover:bg-input hover:text-accent text-txtMut border-b border-borderC tracking-widest flex justify-between">MIDNIGHT <span>●</span></button>
+                <button onclick="app.setTheme('daylight')" class="text-left px-4 py-3 text-xs font-bold hover:bg-input hover:text-accent text-txtMut border-b border-borderC tracking-widest flex justify-between">DAYLIGHT <span>☀</span></button>
+                <button onclick="app.setTheme('camo')" class="text-left px-4 py-3 text-xs font-bold hover:bg-input hover:text-accent text-txtMut border-b border-borderC tracking-widest flex justify-between">CAMO <span>🛡</span></button>
+                <button onclick="app.setTheme('neon')" class="text-left px-4 py-3 text-xs font-bold hover:bg-input hover:text-accent text-txtMut tracking-widest flex justify-between">CYBER <span>⚡</span></button>
             </div>
 
             <button class="md:hidden w-10 h-10 flex items-center justify-center bg-input border border-borderC chamfer text-accent" onclick="app.toggleMobileSearch()">
@@ -895,7 +909,7 @@
                 } 
             }
         };
-
+        
         // ... (App Logic)
     </script>
 </body>

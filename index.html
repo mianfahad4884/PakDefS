@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PAKDEF SENTINEL | v54.0 LIVE OPS UPDATE</title>
+    <title>PAKDEF SENTINEL | v55.0 DATA CORRECTION</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -90,7 +90,7 @@
         #mobileMenu { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); transform: translateY(100%); }
         #mobileMenu.active { transform: translateY(0); }
 
-        /* Force Hide Native Search Buttons */
+        /* Custom Search Input Reset */
         input[type="search"]::-webkit-search-decoration,
         input[type="search"]::-webkit-search-cancel-button,
         input[type="search"]::-webkit-search-results-button,
@@ -127,7 +127,7 @@
             </div>
             <div class="leading-none">
                 <h1 class="text-xl text-white font-header tracking-wide">SENTINEL <span class="text-neon-blue">DB</span></h1>
-                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v54.0 LIVE OPS</div>
+                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v55.0 DATA CORRECTION</div>
             </div>
         </div>
         
@@ -170,7 +170,7 @@
                 <div class="text-[9px] text-gray-600 font-bold px-2 py-1 mt-4 uppercase font-mono">Support & Industry</div>
                 <button onclick="app.view('logistics')" class="nav-btn hover:border-white hover:text-white">LOGISTICS <span>📦</span></button>
                 <button onclick="app.view('industry')" class="nav-btn hover:border-neon-purple hover:text-neon-purple">INDUSTRIAL <span>🏭</span></button>
-                <button onclick="app.view('future')" class="nav-btn hover:border-neon-purple hover:text-neon-purple">NASTP / R&D <span>🔬</span></button>
+                <button onclick="app.view('future')" class="nav-btn hover:border-neon-purple hover:text-neon-purple">PROJECTS & R&D <span>🔬</span></button>
             </nav>
             <div class="p-3 border-t border-white/10 text-[9px] text-gray-600 text-center font-mono">
                 SECURE TERMINAL // <span id="syncTime">00:00:00</span>
@@ -197,7 +197,7 @@
             <button onclick="app.viewMobile('navy')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-cyan-400 hover:text-cyan-400"><span class="text-3xl">⚓</span><span class="text-[10px] font-mono font-bold">NAVY</span></button>
             <button onclick="app.viewMobile('logistics')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-white hover:text-white"><span class="text-3xl">📦</span><span class="text-[10px] font-mono font-bold">LOGISTICS</span></button>
             <button onclick="app.viewMobile('industry')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-purple hover:text-neon-purple"><span class="text-3xl">🏭</span><span class="text-[10px] font-mono font-bold">INDUSTRY</span></button>
-            <button onclick="app.viewMobile('future')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-purple hover:text-neon-purple"><span class="text-3xl">🔬</span><span class="text-[10px] font-mono font-bold">NASTP / R&D</span></button>
+            <button onclick="app.viewMobile('future')" class="p-4 bg-white/5 border border-white/10 rounded flex flex-col items-center justify-center gap-2 hover:border-neon-purple hover:text-neon-purple"><span class="text-3xl">🔬</span><span class="text-[10px] font-mono font-bold">PROJECTS & R&D</span></button>
         </div>
     </div>
 
@@ -213,7 +213,7 @@
             document.getElementById('syncTime').innerText = now.toLocaleTimeString('en-US', { hour12: false });
         }, 1000);
 
-        // --- FULL DATABASE v54.0 ---
+        // --- FULL DATABASE v55.0 ---
         const DB = {
             nuclear: { 
                 name: "Strategic Command", color: "text-neon-amber", accent: "#ffbf00", 
@@ -413,6 +413,7 @@
                     surface: { 
                         name: "Surface Fleet", 
                         items: [
+                            { id: "jinnah", name: "Jinnah Class", role: "Frigate", specs: { "Role": "Multi-Role", "Displacement": "3300 Tons", "Missiles": "VLS/Harbah", "Speed": "26+ Knots", "Origin": "KSEW (Indigenous)" }, desc: "Indigenously designed frigate project." },
                             { id: "054ap", name: "Tughril Class", role: "Frigate", specs: { "Role": "Multi-Role", "Displacement": "4200 Tons", "Missiles": "CM-302/LY-80N", "Speed": "27 Knots", "Origin": "China", "Status": "Active" } },
                             { id: "babur", name: "Babur Class", role: "Corvette", specs: { "Role": "Patrol/ASW", "Displacement": "3000 Tons", "Missiles": "Harbah/Albatros", "Speed": "29 Knots", "Origin": "Turkey/Pak", "Status": "Active" } },
                             { id: "f22p", name: "Zulfiquar Class", role: "Frigate", specs: { "Role": "Multi-Role", "Displacement": "3100 Tons", "Missiles": "C-802/FM-90", "Speed": "29 Knots", "Origin": "China/Pak", "Status": "Active" } },
@@ -436,7 +437,7 @@
                     aviation: {
                         name: "Naval Aviation",
                         items: [
-                            { id: "seasultan", name: "Sea Sultan", role: "LRMP", specs: { "Role": "ASW/ASuW", "Speed": "Mach 0.82", "Range": "Strategic", "Armament": "Torpedoes/Missiles", "Origin": "Pak/Italy" } },
+                            { id: "sea_sultan", name: "Sea Sultan", role: "LRMP", specs: { "Role": "ASW/ASuW", "Speed": "Mach 0.82", "Range": "Strategic", "Armament": "Torpedoes/Missiles", "Origin": "Pak/Italy" } },
                             { id: "p3c", name: "P-3C Orion", role: "LRMP", specs: { "Role": "ASW", "Speed": "750 km/h", "Range": "4400 km", "Armament": "Harpoon", "Origin": "USA" } },
                             { id: "atr72", name: "ATR-72 MPA", role: "MPA", specs: { "Role": "Patrol/ASW", "Speed": "500 km/h", "Range": "1500 km", "Armament": "Torpedoes", "Origin": "Germany/Italy" } },
                             { id: "seaking", name: "Sea King", role: "ASW Helo", specs: { "Role": "ASW/SAR", "Speed": "208 km/h", "Range": "1200 km", "Armament": "Exocet", "Origin": "UK" } },
@@ -506,13 +507,12 @@
                 } 
             },
             future: { 
-                name: "NASTP / R&D", color: "text-neon-purple", accent: "#b026ff", 
+                name: "FUTURE PROJECTS & R&D", color: "text-neon-purple", accent: "#b026ff", 
                 cats: { 
                     future_aerospace: { 
                         name: "Future Aerospace", 
                         items: [
                             { id: "pfx", name: "PF-X (Project Azm)", role: "5th Gen Fighter", specs: { "Role": "Air Dominance", "Speed": "Mach 2.0+", "Radar": "Advanced AESA", "Armament": "Internal Bays", "Origin": "PAC/AWC" }, desc: "Next-generation stealth fighter program designed for air superiority." },
-                            { id: "jinnah_frigate", name: "Jinnah Class Frigate", role: "Frigate", specs: { "Role": "Multi-Role", "Displacement": "3300 Tons", "Missiles": "VLS/Harbah", "Speed": "26+ Knots", "Origin": "KSEW (Indigenous)" }, desc: "Indigenously designed frigate project." },
                             { id: "jf17_blk4", name: "JF-17 Block 4", role: "Next Gen", specs: { "Role": "Stealthy Multi-Role", "Speed": "Mach 1.8+", "Radar": "Indigenous AESA (GaN)", "Armament": "FAAZ-2", "Range": "Extended", "Origin": "PAC/AWC" } }
                         ] 
                     },

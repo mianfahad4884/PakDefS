@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PAKDEF SENTINEL | v53.0 FATAH-5 ADDED</title>
+    <title>PAKDEF SENTINEL | v54.0 LIVE OPS UPDATE</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -127,7 +127,7 @@
             </div>
             <div class="leading-none">
                 <h1 class="text-xl text-white font-header tracking-wide">SENTINEL <span class="text-neon-blue">DB</span></h1>
-                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v53.0 FATAH-5 ADDED</div>
+                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v54.0 LIVE OPS</div>
             </div>
         </div>
         
@@ -213,7 +213,7 @@
             document.getElementById('syncTime').innerText = now.toLocaleTimeString('en-US', { hour12: false });
         }, 1000);
 
-        // --- FULL DATABASE v53.0 (R&D SEGREGATED) ---
+        // --- FULL DATABASE v54.0 ---
         const DB = {
             nuclear: { 
                 name: "Strategic Command", color: "text-neon-amber", accent: "#ffbf00", 
@@ -248,6 +248,17 @@
             army: { 
                 name: "Pakistan Army", color: "text-neon-green", accent: "#39ff14", 
                 cats: { 
+                    drones_loitering: {
+                        name: "Loitering Munitions & Drones",
+                        items: [
+                             { id: "sarfarosh", name: "Sarfarosh", role: "Strategic Strike", specs: { "Range": "800 km", "Warhead": "HE/Anti-Radiation", "Guidance": "Advanced", "Propulsion": "Propeller", "Origin": "Indigenous", "Status": "Active" }, desc: "Long-range kamikaze drone capable of deep strikes." },
+                             { id: "blaze75", name: "Blaze-75", role: "Loitering", specs: { "Range": "500 km", "Warhead": "30 kg", "Guidance": "AI/EO/IR", "Propulsion": "Gasoline", "Origin": "GIDS", "Status": "Active" } },
+                             { id: "blaze50", name: "Blaze-50", role: "Loitering", specs: { "Range": "180 km", "Warhead": "20 kg", "Guidance": "AI/EO/IR", "Propulsion": "Gasoline", "Origin": "GIDS", "Status": "Active" } },
+                             { id: "blaze25", name: "Blaze-25", role: "Loitering", specs: { "Range": "75 km", "Warhead": "Anti-Tank", "Guidance": "Man-in-Loop", "Propulsion": "Electric", "Origin": "GIDS", "Status": "Active" } },
+                             { id: "ababeel_v", name: "Ababeel-V", role: "Loitering", specs: { "Range": "Unknown", "Warhead": "HE", "Endurance": "4 Hours", "Origin": "GIDS", "Status": "Active" } },
+                             { id: "burraq", name: "Burraq", role: "UCAV", specs: { "Role": "COIN/Strike", "Speed": "200 km/h", "Armament": "Barq Missile", "Endurance": "12 Hours", "Origin": "NESCOM", "Status": "Active" } }
+                        ]
+                    },
                     ad_army: { 
                         name: "Army Air Defense", 
                         items: [
@@ -272,9 +283,7 @@
                             { id: "puma", name: "SA330 Puma", role: "Transport", specs: { "Role": "Utility", "Speed": "257 km/h", "Capacity": "16 Troops", "Range": "580 km", "Origin": "France" } },
                             { id: "bell412", name: "Bell 412", role: "Transport", specs: { "Role": "VIP/Utility", "Speed": "260 km/h", "Capacity": "13 Pax", "Range": "980 km", "Origin": "USA" } },
                             { id: "ecureuil", name: "AS350 Ecureuil", role: "Light Utility", specs: { "Role": "High Altitude", "Speed": "287 km/h", "Capacity": "5 Pax", "Range": "660 km", "Origin": "France" } },
-                            { id: "mushshak_a", name: "Mushshak", role: "Trainer", specs: { "Role": "Basic Trainer", "Speed": "238 km/h", "Capacity": "2 Seats", "Range": "800 km", "Origin": "PAC" } },
-                            { id: "burraq", name: "Burraq", role: "UCAV", specs: { "Role": "COIN/Strike", "Speed": "200 km/h", "Armament": "Barq Missile", "Endurance": "12 Hours", "Origin": "NESCOM" } },
-                            { id: "ababeel_d", name: "Ababeel-V", role: "Loitering", specs: { "Role": "Kamikaze", "Speed": "Unknown", "Armament": "Warhead", "Endurance": "4 Hours", "Origin": "GIDS" } }
+                            { id: "mushshak_a", name: "Mushshak", role: "Trainer", specs: { "Role": "Basic Trainer", "Speed": "238 km/h", "Capacity": "2 Seats", "Range": "800 km", "Origin": "PAC" } }
                         ]
                     },
                     armor: { 
@@ -353,6 +362,7 @@
                     special: { 
                         name: "Special Mission & UAVs", 
                         items: [
+                            { id: "shahpar3", name: "Shahpar-III", role: "MALE UCAV", specs: { "Role": "Strike/Recce", "Speed": "Unknown", "Armament": "6 Hardpoints", "Endurance": "20 Hours", "Origin": "GIDS" }, desc: "Group 4+ UCAV with heavy payload and SATCOM capability, inducted into active service." },
                             { id: "zdk03", name: "ZDK-03 Karakoram", role: "AEW&C", specs: { "Role": "AEW&C", "Radar": "AESA Rotodome", "Range": "450km (Detect)", "Platform": "Y-8F600", "Origin": "China" } },
                             { id: "erieye", name: "Saab 2000 Erieye", role: "AEW&C", specs: { "Role": "AEW&C", "Radar": "PS-890 AESA", "Range": "450km (Detect)", "Platform": "Saab 2000", "Origin": "Sweden" } },
                             { id: "falcon", name: "DA-20 Falcon", role: "EW/ELINT", specs: { "Role": "EW/Jamming", "Radar": "Classified", "Range": "Unknown", "Platform": "Falcon 20", "Origin": "France/Pak" } },
@@ -384,7 +394,8 @@
                             { id: "h4", name: "H-4 SOW", role: "Glide Bomb", specs: { "Range": "120km", "Guidance": "TV/IR", "Warhead": "HE", "Propulsion": "Glide", "Origin": "NESCOM" } },
                              { id: "takbir", name: "Takbir", role: "Glide Bomb", specs: { "Range": "8km", "Guidance": "Satellite", "Warhead": "250kg", "Propulsion": "Glide", "Origin": "GIDS" } },
                             { id: "cm400", name: "CM-400AKG", role: "Anti-Ship", specs: { "Range": "400km", "Guidance": "Radar/IR", "Warhead": "Penetrator", "Propulsion": "Solid", "Origin": "China" } },
-                            { id: "bkd", name: "BKD-1", role: "Bunker Buster", specs: { "Range": "Drop", "Guidance": "Laser", "Warhead": "Deep Pen", "Propulsion": "Gravity", "Origin": "AWC" } }
+                            { id: "bkd", name: "BKD-1", role: "Bunker Buster", specs: { "Range": "Drop", "Guidance": "Laser", "Warhead": "Deep Pen", "Propulsion": "Gravity", "Origin": "AWC" } },
+                            { id: "burq2", name: "Burq-II", role: "AGM", specs: { "Range": "10 km", "Guidance": "Laser", "Warhead": "HE Anti-Tank", "Propulsion": "Solid", "Origin": "NESCOM" } }
                         ]
                     },
                     asymmetric_air: {
@@ -501,6 +512,7 @@
                         name: "Future Aerospace", 
                         items: [
                             { id: "pfx", name: "PF-X (Project Azm)", role: "5th Gen Fighter", specs: { "Role": "Air Dominance", "Speed": "Mach 2.0+", "Radar": "Advanced AESA", "Armament": "Internal Bays", "Origin": "PAC/AWC" }, desc: "Next-generation stealth fighter program designed for air superiority." },
+                            { id: "jinnah_frigate", name: "Jinnah Class Frigate", role: "Frigate", specs: { "Role": "Multi-Role", "Displacement": "3300 Tons", "Missiles": "VLS/Harbah", "Speed": "26+ Knots", "Origin": "KSEW (Indigenous)" }, desc: "Indigenously designed frigate project." },
                             { id: "jf17_blk4", name: "JF-17 Block 4", role: "Next Gen", specs: { "Role": "Stealthy Multi-Role", "Speed": "Mach 1.8+", "Radar": "Indigenous AESA (GaN)", "Armament": "FAAZ-2", "Range": "Extended", "Origin": "PAC/AWC" } }
                         ] 
                     },
@@ -540,9 +552,7 @@
                     future_drones: {
                         name: "Future Drones",
                         items: [
-                            { id: "shahpar3", name: "Shahpar-III", role: "MALE UCAV", specs: { "Type": "Drone", "Status": "Testing", "Payload": "Heavy", "Goal": "Strike" } },
-                            { id: "arrow1", name: "Arrow-1", role: "Loitering", specs: { "Type": "Munition", "Status": "R&D", "Range": "Long", "Goal": "Precision" } },
-                            { id: "blaze25", name: "Blaze-25", role: "Loitering", specs: { "Role": "Kamikaze", "Speed": "Electric", "Armament": "25kg Warhead", "Endurance": "60 Mins", "Origin": "Indigenous" } }
+                            { id: "arrow1", name: "Arrow-1", role: "Loitering", specs: { "Type": "Munition", "Status": "R&D", "Range": "Long", "Goal": "Precision" } }
                         ]
                     }
                 } 

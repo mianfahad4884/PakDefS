@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PAKDEF SENTINEL | v51.5 TACTICAL GRAPHS</title>
+    <title>PAKDEF SENTINEL | v52.0 R&D FIX</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -64,7 +64,7 @@
             background-size: 100% 4px;
         }
 
-        .chart-wrapper { position: relative; height: 350px; width: 100%; }
+        .chart-wrapper { position: relative; height: 250px; width: 100%; }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #050505; }
@@ -127,7 +127,7 @@
             </div>
             <div class="leading-none">
                 <h1 class="text-xl text-white font-header tracking-wide">SENTINEL <span class="text-neon-blue">DB</span></h1>
-                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v51.5 TACTICAL HUD</div>
+                <div class="text-[9px] text-gray-500 font-mono tracking-widest">v52.0 R&D FIX</div>
             </div>
         </div>
         
@@ -213,7 +213,7 @@
             document.getElementById('syncTime').innerText = now.toLocaleTimeString('en-US', { hour12: false });
         }, 1000);
 
-        // --- FULL DATABASE v51.5 (R&D SEGREGATED + NEW ITEMS) ---
+        // --- FULL DATABASE v52.0 ---
         const DB = {
             nuclear: { 
                 name: "Strategic Command", color: "text-neon-amber", accent: "#ffbf00", 
@@ -273,7 +273,8 @@
                             { id: "bell412", name: "Bell 412", role: "Transport", specs: { "Role": "VIP/Utility", "Speed": "260 km/h", "Capacity": "13 Pax", "Range": "980 km", "Origin": "USA" } },
                             { id: "ecureuil", name: "AS350 Ecureuil", role: "Light Utility", specs: { "Role": "High Altitude", "Speed": "287 km/h", "Capacity": "5 Pax", "Range": "660 km", "Origin": "France" } },
                             { id: "mushshak_a", name: "Mushshak", role: "Trainer", specs: { "Role": "Basic Trainer", "Speed": "238 km/h", "Capacity": "2 Seats", "Range": "800 km", "Origin": "PAC" } },
-                            { id: "burraq", name: "Burraq", role: "UCAV", specs: { "Role": "COIN/Strike", "Speed": "200 km/h", "Armament": "Barq Missile", "Endurance": "12 Hours", "Origin": "NESCOM" } }
+                            { id: "burraq", name: "Burraq", role: "UCAV", specs: { "Role": "COIN/Strike", "Speed": "200 km/h", "Armament": "Barq Missile", "Endurance": "12 Hours", "Origin": "NESCOM" } },
+                            { id: "ababeel_d", name: "Ababeel-V", role: "Loitering", specs: { "Role": "Kamikaze", "Speed": "Unknown", "Armament": "Warhead", "Endurance": "4 Hours", "Origin": "GIDS" } }
                         ]
                     },
                     armor: { 
@@ -425,7 +426,6 @@
                     aviation: {
                         name: "Naval Aviation",
                         items: [
-                            { id: "seasultan", name: "Sea Sultan", role: "LRMP", specs: { "Role": "ASW/ASuW", "Speed": "Mach 0.82", "Range": "Strategic", "Armament": "Torpedoes/Missiles", "Origin": "Pak/Italy" } },
                             { id: "p3c", name: "P-3C Orion", role: "LRMP", specs: { "Role": "ASW", "Speed": "750 km/h", "Range": "4400 km", "Armament": "Harpoon", "Origin": "USA" } },
                             { id: "atr72", name: "ATR-72 MPA", role: "MPA", specs: { "Role": "Patrol/ASW", "Speed": "500 km/h", "Range": "1500 km", "Armament": "Torpedoes", "Origin": "Germany/Italy" } },
                             { id: "seaking", name: "Sea King", role: "ASW Helo", specs: { "Role": "ASW/SAR", "Speed": "208 km/h", "Range": "1200 km", "Armament": "Exocet", "Origin": "UK" } },
@@ -501,7 +501,6 @@
                         name: "Future Aerospace", 
                         items: [
                             { id: "pfx", name: "PF-X (Project Azm)", role: "5th Gen Fighter", specs: { "Role": "Air Dominance", "Speed": "Mach 2.0+", "Radar": "Advanced AESA", "Armament": "Internal Bays", "Origin": "PAC/AWC" }, desc: "Next-generation stealth fighter program designed for air superiority." },
-                            { id: "jinnah_frigate", name: "Jinnah Class Frigate", role: "Frigate", specs: { "Role": "Multi-Role", "Displacement": "3300 Tons", "Missiles": "VLS/Harbah", "Speed": "26+ Knots", "Origin": "KSEW (Indigenous)" }, desc: "Indigenously designed frigate project." },
                             { id: "jf17_blk4", name: "JF-17 Block 4", role: "Next Gen", specs: { "Role": "Stealthy Multi-Role", "Speed": "Mach 1.8+", "Radar": "Indigenous AESA (GaN)", "Armament": "FAAZ-2", "Range": "Extended", "Origin": "PAC/AWC" } }
                         ] 
                     },
@@ -510,21 +509,22 @@
                         items: [
                             { id: "p282", name: "P-282", role: "Hypersonic", specs: { "Range": "350 km", "Warhead": "Anti-Ship/Land", "Guidance": "Advanced Inertial", "Propulsion": "Solid (Mach 5+)", "Origin": "NESCOM" } },
                             { id: "faaz2", name: "FAAZ-2", role: "BVR AAM", specs: { "Range": "180 km", "Guidance": "Active RF/IIR", "Warhead": "HE Frag", "Propulsion": "Solid", "Origin": "GIDS" } },
-                            { id: "taimoor", name: "Taimoor", role: "ALCM", specs: { "Range": "600 km", "Warhead": "Conventional/Nuc", "Guidance": "Stealth/Terrain", "Propulsion": "Turbofan", "Origin": "Indigenous" } }
+                            { id: "taimoor", name: "Taimoor", role: "ALCM", specs: { "Range": "600 km", "Warhead": "Conventional/Nuc", "Guidance": "Stealth/Terrain", "Propulsion": "Turbofan", "Origin": "Indigenous" } },
+                             { id: "lomads", name: "GIDS LOMADS", role: "LOMADS", specs: { "Range": "100 km", "Guidance": "Active Radar", "Ceiling": "20 km", "Radar": "AESA", "Origin": "GIDS" } },
+                            { id: "faazsl", name: "FAAZ-SL", role: "E-SHORADS", specs: { "Range": "25 km", "Guidance": "Active RF/IIR", "Ceiling": "8 km", "Mount": "Mobile", "Origin": "GIDS" } }
                         ] 
                     },
                     future_land: { 
                         name: "Future Land Systems", 
                         items: [
                             { id: "faaris", name: "Faaris APC", role: "APC", specs: { "Gun": "12.7mm/14.5mm", "Engine": "Diesel", "Armor": "B7", "Speed": "100 km/h", "Origin": "GIDS" } },
-                            { id: "hamza8", name: "Hamza 8x8", role: "IFV", specs: { "Gun": "30mm Cannon", "Engine": "600hp", "Armor": "STANAG 4", "Speed": "100 km/h", "Origin": "HIT" } },
-                            { id: "lomads", name: "GIDS LOMADS", role: "LOMADS", specs: { "Range": "100 km", "Guidance": "Active Radar", "Ceiling": "20 km", "Radar": "AESA", "Origin": "GIDS" } },
-                            { id: "faazsl", name: "FAAZ-SL", role: "E-SHORADS", specs: { "Range": "25 km", "Guidance": "Active RF/IIR", "Ceiling": "8 km", "Mount": "Mobile", "Origin": "GIDS" } }
+                            { id: "hamza8", name: "Hamza 8x8", role: "IFV", specs: { "Gun": "30mm Cannon", "Engine": "600hp", "Armor": "STANAG 4", "Speed": "100 km/h", "Origin": "HIT" } }
                         ] 
                     },
                     future_naval: { 
                         name: "Future Naval", 
                         items: [
+                            { id: "jinnah_frigate", name: "Jinnah Class Frigate", role: "Frigate", specs: { "Role": "Multi-Role", "Displacement": "3300 Tons", "Missiles": "VLS/Harbah", "Speed": "26+ Knots", "Origin": "KSEW (Indigenous)" }, desc: "Indigenously designed frigate project." },
                             { id: "sea_sultan", name: "Sea Sultan", role: "LRMP", specs: { "Role": "ASW/ASuW", "Speed": "Mach 0.82", "Range": "Strategic", "Armament": "Torpedoes/Missiles", "Origin": "Pak/Italy" } }
                         ] 
                     },
@@ -556,7 +556,6 @@
                 if(key === 'home') this.renderHome();
                 else this.renderBranch(key);
                 
-                // History Push
                 if(key !== 'home') history.pushState({ page: key }, null, `#${key}`);
                 else history.pushState({ page: 'home' }, null, '');
             },

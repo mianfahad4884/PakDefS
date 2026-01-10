@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SENTINEL | v69.0 INITIALIZATION FIX</title>
+    <title>SENTINEL | v70.0 ADIC ADDED</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -90,7 +90,7 @@
             <div class="w-8 h-8 bg-input flex items-center justify-center chamfer border border-borderC group-hover:border-accent transition-colors"><span class="text-accent font-header font-bold text-lg">S</span></div>
             <div class="leading-none">
                 <h1 class="text-lg font-header font-bold tracking-wide text-txtMain">SENTINEL <span class="text-accent">DB</span></h1>
-                <div class="text-[9px] font-mono text-txtMut tracking-[0.2em]">v69.0</div>
+                <div class="text-[9px] font-mono text-txtMut tracking-[0.2em]">v70.0</div>
             </div>
         </div>
         <div class="flex-1 max-w-xl mx-6 hidden md:block relative">
@@ -437,6 +437,7 @@
                     giants: { 
                         name: "Major Complexes", 
                         items: [
+                            { id: "adic", name: "ADIC | Aerospace Design & Innovation Centre", role: "Aerospace Design & R&D", specs: { "Focus": "PFX Fighter/UAVs", "Location": "NASTP Kamra", "Affiliation": "PAF/NASTP", "Goal": "5th Gen Fighter" }, desc: "Strategic enabler for Pakistan's 5th Gen Fighter (PFX) program. One of the largest aerospace design centers in the region, fostering indigenous innovation." },
                             { id: "nastp", name: "NASTP", role: "Tech Park", specs: { "Domain": "Cyber/EW/Space", "Product": "Software/Design", "Location": "Rawalpindi", "Type": "Strategic" } },
                             { id: "pac", name: "PAC Kamra", role: "Aviation", specs: { "Domain": "Aerospace", "Product": "JF-17 Thunder", "Location": "Kamra", "Type": "State Owned" } },
                             { id: "hit", name: "HIT Taxila", role: "Land Systems", specs: { "Domain": "Armor", "Product": "Al-Khalid/VT-4", "Location": "Taxila", "Type": "State Owned" } },
@@ -525,7 +526,6 @@
             },
 
             renderHome: function() {
-                // Ensure viewport exists before writing
                 if(!this.viewport) return;
                 
                 this.viewport.innerHTML = `

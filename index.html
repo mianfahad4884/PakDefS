@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SENTINEL | v68.5 MENU FIX</title>
+    <title>SENTINEL | v69.0 INITIALIZATION FIX</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -41,12 +41,11 @@
         .panel { background-color: var(--bg-panel); border: 1px solid var(--border); }
         .input-field { background-color: var(--bg-input); border: 1px solid var(--border); color: var(--text-main); }
         
-        /* Updated Nav Button: Ensures visibility */
         .nav-btn { 
             display: flex; align-items: center; justify-content: space-between; 
             padding: 0.75rem 1rem; border-left: 3px solid transparent; 
             font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
-            color: var(--text-mut); /* Default visible color */
+            color: var(--text-mut);
         }
         .nav-btn:hover { background-color: var(--bg-input); padding-left: 1.25rem; }
         
@@ -91,7 +90,7 @@
             <div class="w-8 h-8 bg-input flex items-center justify-center chamfer border border-borderC group-hover:border-accent transition-colors"><span class="text-accent font-header font-bold text-lg">S</span></div>
             <div class="leading-none">
                 <h1 class="text-lg font-header font-bold tracking-wide text-txtMain">SENTINEL <span class="text-accent">DB</span></h1>
-                <div class="text-[9px] font-mono text-txtMut tracking-[0.2em]">v68.5</div>
+                <div class="text-[9px] font-mono text-txtMut tracking-[0.2em]">v69.0</div>
             </div>
         </div>
         <div class="flex-1 max-w-xl mx-6 hidden md:block relative">
@@ -122,14 +121,14 @@
         <aside class="hidden md:flex w-64 panel border-r border-borderC flex-col z-40 h-full shrink-0">
             <div class="p-4 border-b border-borderC"><div class="text-[10px] font-header font-bold text-txtMut tracking-widest mb-1">UNIT SELECTION</div></div>
             <nav class="flex-1 overflow-y-auto py-2">
-                <button onclick="app.view('nuclear')" class="nav-btn hover:border-l-amber-500 hover:text-amber-500">STRATEGIC <span>☢</span></button>
-                <button onclick="app.view('army')" class="nav-btn hover:border-l-emerald-500 hover:text-emerald-500">LAND FORCES <span>🛡</span></button>
-                <button onclick="app.view('airforce')" class="nav-btn hover:border-l-sky-500 hover:text-sky-500">AIR FORCE <span>✈</span></button>
-                <button onclick="app.view('navy')" class="nav-btn hover:border-l-blue-800 hover:text-blue-800">NAVAL FORCES <span>⚓</span></button>
+                <button onclick="app.view('nuclear')" class="nav-btn hover:border-l-amber-500 hover:text-amber-500 text-gray-500">STRATEGIC <span>☢</span></button>
+                <button onclick="app.view('army')" class="nav-btn hover:border-l-emerald-500 hover:text-emerald-500 text-gray-500">LAND FORCES <span>🛡</span></button>
+                <button onclick="app.view('airforce')" class="nav-btn hover:border-l-sky-500 hover:text-sky-500 text-gray-500">AIR FORCE <span>✈</span></button>
+                <button onclick="app.view('navy')" class="nav-btn hover:border-l-blue-800 hover:text-blue-800 text-gray-500">NAVAL FORCES <span>⚓</span></button>
                 <div class="my-2 border-t border-borderC mx-4"></div>
-                <button onclick="app.view('logistics')" class="nav-btn hover:border-l-orange-400 hover:text-orange-400">LOGISTICS <span>📦</span></button>
-                <button onclick="app.view('industry')" class="nav-btn hover:border-l-purple-500 hover:text-purple-500">INDUSTRY <span>🏭</span></button>
-                <button onclick="app.view('future')" class="nav-btn hover:border-l-pink-500 hover:text-pink-500">R&D / FUTURE <span>🔬</span></button>
+                <button onclick="app.view('logistics')" class="nav-btn hover:border-l-orange-400 hover:text-orange-400 text-gray-500">LOGISTICS <span>📦</span></button>
+                <button onclick="app.view('industry')" class="nav-btn hover:border-l-purple-500 hover:text-purple-500 text-gray-500">INDUSTRY <span>🏭</span></button>
+                <button onclick="app.view('future')" class="nav-btn hover:border-l-pink-500 hover:text-pink-500 text-gray-500">R&D / FUTURE <span>🔬</span></button>
             </nav>
             <div class="p-4 border-t border-borderC bg-input"><div class="text-[10px] font-mono text-txtMut text-center">SYNC: <span id="syncTime">00:00:00</span></div></div>
         </aside>
@@ -158,321 +157,7 @@
     </div>
 
     <script>
-        function initTheme() {
-            const saved = localStorage.getItem('sentinel_theme') || 'midnight';
-            document.documentElement.setAttribute('data-theme', saved);
-        }
-        initTheme();
-
-        const app = {
-            viewport: document.getElementById('viewport'),
-            
-            toggleThemeMenu: function() { document.getElementById('themeMenu').classList.toggle('hidden'); },
-
-            setTheme: function(themeName) {
-                document.documentElement.setAttribute('data-theme', themeName);
-                localStorage.setItem('sentinel_theme', themeName);
-                document.getElementById('themeMenu').classList.add('hidden');
-                const currentKey = history.state?.page || 'home';
-                if(currentKey !== 'home') this.renderBranch(currentKey);
-            },
-
-            view: function(key) {
-                this.viewport.scrollTop = 0; 
-                if(key === 'home') this.renderHome();
-                else this.renderBranch(key);
-                if(key !== 'home') history.pushState({ page: key }, null, `#${key}`);
-                else history.pushState({ page: 'home' }, null, '');
-            },
-
-            renderHome: function() {
-                this.viewport.innerHTML = `
-                    <div class="flex flex-col items-center justify-center min-h-[60vh] fade-in pt-6">
-                        <div class="w-20 h-20 bg-input border-2 border-accent chamfer flex items-center justify-center mb-6 shadow-xl">
-                            <span class="text-4xl text-accent animate-pulse font-header">⌬</span>
-                        </div>
-                        <h1 class="text-4xl md:text-7xl text-txtMain font-header font-bold tracking-tight mb-2 text-center">SENTINEL <span class="text-accent">DB</span></h1>
-                        <p class="text-txtMut font-mono tracking-[0.3em] text-[10px] md:text-sm mb-10 uppercase text-center">Tactical Intelligence Archive</p>
-                        
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 w-full max-w-4xl px-2">
-                            ${this.homeBtn('nuclear', 'STRATEGIC', 'hover:border-amber-500', 'group-hover:text-amber-500')}
-                            ${this.homeBtn('army', 'ARMY', 'hover:border-emerald-500', 'group-hover:text-emerald-500')}
-                            ${this.homeBtn('airforce', 'AIR FORCE', 'hover:border-sky-500', 'group-hover:text-sky-500')}
-                            ${this.homeBtn('navy', 'NAVY', 'hover:border-blue-900', 'group-hover:text-blue-900')}
-                            ${this.homeBtn('logistics', 'LOGISTICS', 'hover:border-orange-400', 'group-hover:text-orange-400')}
-                            ${this.homeBtn('industry', 'INDUSTRY', 'hover:border-purple-500', 'group-hover:text-purple-500')}
-                        </div>
-                    </div>
-                `;
-            },
-
-            homeBtn: function(key, title, borderClass, textClass) {
-                return `
-                    <div onclick="app.view('${key}')" class="panel border border-borderC ${borderClass} chamfer p-4 md:p-6 cursor-pointer transition-all flex flex-col items-center justify-center h-28 md:h-32 group shadow-sm hover:shadow-md">
-                        <span class="text-txtMain font-header font-bold text-lg md:text-2xl ${textClass} transition-colors tracking-wide text-center">${title}</span>
-                        <span class="text-[9px] text-txtMut mt-2 font-mono uppercase group-hover:text-txtMain">ACCESS &rarr;</span>
-                    </div>
-                `;
-            },
-
-            renderBranch: function(key) {
-                const data = DB[key];
-                // Update: Navy is now Dark Blue (#1e3a8a / blue-900), Air Force is Sky Blue
-                let headerColor = "text-accent";
-                if(key === 'nuclear') headerColor = "text-amber-500";
-                if(key === 'army') headerColor = "text-emerald-500";
-                if(key === 'airforce') headerColor = "text-sky-500";
-                if(key === 'navy') headerColor = "text-blue-800";
-                if(key === 'logistics') headerColor = "text-orange-400";
-                if(key === 'industry') headerColor = "text-purple-500";
-                if(key === 'future') headerColor = "text-pink-500";
-
-                let html = `
-                    <div class="fade-in max-w-7xl mx-auto pb-10">
-                        <div class="flex justify-between items-end border-b border-borderC pb-4 mb-6 pt-2 relative">
-                            <div>
-                                <h1 class="text-3xl md:text-4xl text-txtMain font-header font-bold uppercase tracking-wide ${headerColor}">${data.name}</h1>
-                                <div class="flex items-center gap-2 mt-1">
-                                    <div class="w-2 h-2 bg-current text-txtMain rounded-full"></div>
-                                    <p class="text-xs text-txtMut font-mono tracking-widest">SECTOR ID: ${key.toUpperCase()}</p>
-                                </div>
-                            </div>
-                            <button onclick="app.view('home')" class="text-[10px] font-bold text-txtMut border border-borderC bg-panel px-4 py-2 chamfer hover:bg-input hover:text-txtMain transition-colors uppercase">Return</button>
-                        </div>
-                        <div class="space-y-6">
-                `;
-
-                for(const [cKey, cat] of Object.entries(data.cats)) {
-                    html += `
-                        <div id="section-${cKey}" class="panel border border-borderC chamfer overflow-hidden shadow-sm">
-                            <button onclick="app.toggleCategory('${cKey}')" class="w-full p-4 md:p-5 flex justify-between items-center text-left focus:outline-none hover:bg-input transition-colors">
-                                <span class="text-base md:text-lg font-header font-bold text-txtMain tracking-wide uppercase flex items-center gap-3">
-                                    <span class="w-1 h-5 bg-current ${headerColor.replace('text-', 'bg-')}"></span> ${cat.name}
-                                </span>
-                                <span id="icon-${cKey}" class="${headerColor} text-xl font-bold font-mono transition-transform duration-300 transform rotate-0">+</span>
-                            </button>
-                            
-                            <div id="drawer-${cKey}" class="hidden transition-all duration-500 ease-in-out border-t border-borderC">
-                                <div class="p-2 bg-input flex justify-end">
-                                    <button onclick="document.getElementById('chart-${cKey}').scrollIntoView({behavior:'smooth'})" class="text-[9px] border border-borderC px-3 py-1 rounded-sm text-txtMut hover:bg-accent hover:text-black font-mono uppercase font-bold tracking-widest transition-colors">
-                                        ▼ ANALYTICS
-                                    </button>
-                                </div>
-                                <div class="p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                    `;
-                    
-                    cat.items.forEach(item => {
-                        let specs = '';
-                        let i = 0;
-                        for(const [k,v] of Object.entries(item.specs)) {
-                            if(i++ < 3) specs += `<div class="flex justify-between text-[10px] md:text-[11px] text-txtMut py-1 border-b border-borderC"><span>${k}</span><span class="text-txtMain font-mono font-medium">${v}</span></div>`;
-                        }
-                        
-                        // Card Hover Effect
-                        let hoverClass = "";
-                        if(key === 'nuclear') hoverClass = "hover:border-amber-500";
-                        else if(key === 'army') hoverClass = "hover:border-emerald-500";
-                        else if(key === 'airforce') hoverClass = "hover:border-sky-500";
-                        else if(key === 'navy') hoverClass = "hover:border-blue-900";
-                        else if(key === 'logistics') hoverClass = "hover:border-orange-400";
-                        else if(key === 'industry') hoverClass = "hover:border-purple-500";
-                        else if(key === 'future') hoverClass = "hover:border-pink-500";
-
-                        html += `
-                            <div onclick="app.openModal('${key}', '${cKey}', '${item.id}')" class="bg-input border border-borderC p-4 md:p-5 chamfer cursor-pointer ${hoverClass} hover:shadow-md transition-all group">
-                                <div class="flex justify-between items-start mb-3">
-                                    <h4 class="text-lg font-bold text-txtMain font-header leading-none ${headerColor.replace('text-', 'group-hover:text-')} transition-colors">${item.name}</h4>
-                                    <span class="text-[9px] px-1.5 py-0.5 bg-panel rounded-sm text-txtMut font-mono font-bold border border-borderC">${item.role}</span>
-                                </div>
-                                <div class="space-y-1 mb-3">
-                                    ${specs}
-                                </div>
-                                <div class="text-[10px] text-right ${headerColor} font-bold font-mono group-hover:underline tracking-wider">VIEW INTEL &rarr;</div>
-                            </div>
-                        `;
-                    });
-
-                    html += `</div>
-                        <div class="p-4 md:p-6 bg-input border-t border-borderC">
-                            <h4 class="text-[10px] text-txtMut font-mono font-bold mb-4 tracking-widest border-b border-borderC pb-2">PERFORMANCE METRICS // ESTIMATED</h4>
-                            <div class="chart-wrapper h-64"><canvas id="chart-${cKey}"></canvas></div>
-                        </div>
-                    </div></div>`;
-                }
-                
-                html += `</div></div>`;
-                this.viewport.innerHTML = html;
-
-                setTimeout(() => {
-                    for(const [cKey, cat] of Object.entries(data.cats)) {
-                        this.renderDrawerChart(cKey, cat, key);
-                    }
-                }, 100);
-            },
-
-            renderDrawerChart: function(cKey, cat, bKey) {
-                const ctx = document.getElementById(`chart-${cKey}`);
-                if (!ctx) return;
-                const styles = getComputedStyle(document.documentElement);
-                const textColor = styles.getPropertyValue('--text-mut').trim();
-                const accentColor = styles.getPropertyValue('--accent').trim();
-                const accentDim = styles.getPropertyValue('--accent-dim').trim();
-                const gridColor = styles.getPropertyValue('--grid-line').trim();
-                const labels = [];
-                const dataPoints = [];
-                
-                let chartColor = '#f59e0b';
-                if(bKey === 'nuclear') chartColor = '#f59e0b';
-                if(bKey === 'army') chartColor = '#10b981';
-                if(bKey === 'airforce') chartColor = '#0ea5e9';
-                if(bKey === 'navy') chartColor = '#1e3a8a';
-                if(bKey === 'logistics') chartColor = '#fb923c';
-                if(bKey === 'industry') chartColor = '#a855f7';
-                if(bKey === 'future') chartColor = '#ec4899';
-
-                let metric = 'Range (KM)';
-                if (bKey === 'navy' && (cKey === 'surface' || cKey === 'subs')) metric = 'Displacement (Tons)';
-                if (bKey === 'airforce' && cKey === 'fighters') metric = 'Speed (Mach x10)';
-                if (cKey === 'armor') metric = 'Engine (HP)';
-                if (cKey === 'infantry_arms') metric = 'Range (m)';
-                cat.items.forEach(i => {
-                    let val = 0;
-                    let text = "";
-                    if (metric === 'Range (KM)' && i.specs.Range) text = i.specs.Range;
-                    if (metric === 'Range (m)' && i.specs.Range) text = i.specs.Range;
-                    if (metric === 'Displacement (Tons)' && i.specs.Displacement) text = i.specs.Displacement;
-                    if (metric === 'Engine (HP)' && i.specs.Engine) text = i.specs.Engine;
-                    if (metric === 'Speed (Mach x10)' && i.specs.Speed) text = i.specs.Speed;
-                    if(text) {
-                        let matches = text.match(/(\d+(?:,\d+)*(?:\.\d+)?)/g);
-                        if(matches) {
-                            let nums = matches.map(m => parseFloat(m.replace(/,/g, '')));
-                            val = Math.max(...nums);
-                            if(metric.includes("Mach")) val = val * 10;
-                        }
-                    }
-                    if (val > 0) { 
-                        let label = i.name.split(' ')[0];
-                        if (i.name.includes("Al-Khalid")) label = i.name; 
-                        labels.push(label); 
-                        dataPoints.push(val); 
-                    }
-                });
-                if (dataPoints.length === 0) { ctx.parentElement.style.display = 'none'; return; }
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: { 
-                        labels: labels, 
-                        datasets: [{ label: metric, data: dataPoints, backgroundColor: chartColor + '40', borderColor: chartColor, borderWidth: 1, barThickness: 12, borderRadius: 0 }] 
-                    },
-                    options: { 
-                        indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, 
-                        scales: { x: { grid: { color: gridColor, borderDash: [4, 4] }, ticks: { color: textColor, font: { family: 'JetBrains Mono', size: 9 } } }, y: { grid: { display: false }, ticks: { color: textColor, font: { family: 'Barlow', weight: '600', size: 10 } } } } 
-                    } 
-                });
-            },
-
-            toggleCategory: function(id) {
-                const allDrawers = document.querySelectorAll('[id^="drawer-"]');
-                const allIcons = document.querySelectorAll('[id^="icon-"]');
-                allDrawers.forEach(el => { if(el.id !== `drawer-${id}`) el.classList.add('hidden'); });
-                allIcons.forEach(el => { if(el.id !== `icon-${id}`) el.innerText = '+'; });
-                const drawer = document.getElementById(`drawer-${id}`);
-                const icon = document.getElementById(`icon-${id}`);
-                if(drawer.classList.contains('hidden')) {
-                    drawer.classList.remove('hidden');
-                    icon.innerText = '−';
-                    setTimeout(() => { document.getElementById(`section-${id}`).scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
-                } else {
-                    drawer.classList.add('hidden');
-                    icon.innerText = '+';
-                }
-            },
-
-            openModal: function(bKey, cKey, itemId) {
-                const item = DB[bKey].cats[cKey].items.find(i => i.id === itemId);
-                const data = DB[bKey];
-                
-                let headerColor = "text-accent";
-                if(bKey === 'nuclear') headerColor = "text-amber-500";
-                if(bKey === 'army') headerColor = "text-emerald-500";
-                if(bKey === 'airforce') headerColor = "text-sky-500";
-                if(bKey === 'navy') headerColor = "text-blue-800";
-                if(bKey === 'logistics') headerColor = "text-orange-400";
-                if(bKey === 'industry') headerColor = "text-purple-500";
-                if(bKey === 'future') headerColor = "text-pink-500";
-
-                let specsFull = '';
-                for(const [k,v] of Object.entries(item.specs)) specsFull += `<div class="bg-input border border-borderC p-3 chamfer"><div class="text-[9px] text-txtMut uppercase font-mono mb-1 tracking-wider">${k}</div><div class="text-sm text-txtMain font-body font-semibold">${v}</div></div>`;
-                const modal = document.createElement('div');
-                modal.className = 'fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md fade-in';
-                modal.innerHTML = `
-                    <div class="w-full max-w-2xl bg-panel border-l-4 ${headerColor.replace('text-', 'border-')} shadow-2xl relative overflow-hidden flex flex-col max-h-[85vh] chamfer" onclick="event.stopPropagation()">
-                        <button class="absolute top-4 right-4 text-txtMut hover:text-white transition-colors font-bold" onclick="this.closest('.fixed').remove()">✕</button>
-                        <div class="p-6 border-b border-borderC bg-panel">
-                            <div class="text-[10px] ${headerColor} font-mono font-bold tracking-[0.2em] mb-2">${data.name.toUpperCase()} // ${item.role.toUpperCase()}</div>
-                            <h1 class="text-3xl md:text-4xl font-header font-bold text-txtMain uppercase tracking-wide">${item.name}</h1>
-                            ${item.desc ? `<p class="text-xs md:text-sm text-txtMut mt-3 font-body leading-relaxed border-l-2 border-borderC pl-3">${item.desc}</p>` : ''}
-                        </div>
-                        <div class="p-6 overflow-y-auto custom-scrollbar">
-                            <h3 class="text-xs text-txtMut font-bold tracking-[0.2em] mb-4 border-b border-borderC pb-2 uppercase">Tech Specs</h3>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">${specsFull}</div>
-                        </div>
-                    </div>`;
-                modal.onclick = () => modal.remove();
-                document.body.appendChild(modal);
-            },
-            
-            toggleMobileMenu: function() { document.getElementById('mobileMenu').classList.toggle('active'); },
-            viewMobile: function(key) { this.toggleMobileMenu(); this.view(key); },
-            toggleMobileSearch: function() { document.getElementById('mobileSearch').classList.toggle('hidden'); document.getElementById('mobileSearchInput').focus(); },
-            closeMobileSearch: function() { 
-                document.getElementById('mobileSearch').classList.add('hidden'); 
-                document.getElementById('mobileSearchInput').value = '';
-                this.view('home'); 
-            },
-            search: function(q) {
-                if (!q || q.length < 2) { this.view('home'); return; }
-                q = q.toLowerCase();
-                let html = `<div class="fade-in pt-4"><h2 class="text-2xl text-txtMain font-header font-bold mb-6 tracking-wide border-b border-borderC pb-2">SEARCH RESULTS: "<span class="text-accent">${q.toUpperCase()}</span>"</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-4">`;
-                let count = 0;
-                for (const [bKey, branch] of Object.entries(DB)) {
-                    for (const [cKey, cat] of Object.entries(branch.cats)) {
-                        cat.items.forEach(item => {
-                            if (item.name.toLowerCase().includes(q) || item.id.includes(q)) {
-                                count++;
-                                html += `<div onclick="app.openModal('${bKey}', '${cKey}', '${item.id}')" class="bg-panel border border-borderC p-4 cursor-pointer chamfer hover:border-accent transition-all group"><div class="text-txtMain font-bold font-header text-xl group-hover:text-accent transition-colors">${item.name}</div><div class="text-[10px] text-txtMut font-mono mt-1 uppercase">${branch.name} // ${item.role}</div></div>`;
-                            }
-                        });
-                    }
-                }
-                if (count === 0) html += `<div class="text-txtMut font-mono text-sm col-span-3 py-8 text-center border border-dashed border-borderC rounded">NO MATCHING ASSETS IDENTIFIED.</div>`;
-                html += `</div></div>`;
-                this.viewport.innerHTML = html;
-                
-                const dBtn = document.getElementById('desktopClearBtn');
-                const mBtn = document.getElementById('mobileClearBtn');
-                if(q.length > 0) {
-                    if(dBtn) dBtn.classList.remove('hidden');
-                    if(mBtn) mBtn.classList.remove('hidden');
-                } else {
-                    if(dBtn) dBtn.classList.add('hidden');
-                    if(mBtn) mBtn.classList.add('hidden');
-                }
-            },
-            clearSearch: function(type) {
-                const id = type === 'desktop' ? 'desktopSearch' : 'mobileSearchInput';
-                const el = document.getElementById(id);
-                el.value = '';
-                el.focus();
-                this.search('');
-                const btnId = type === 'desktop' ? 'desktopClearBtn' : 'mobileClearBtn';
-                document.getElementById(btnId).classList.add('hidden');
-            },
-            scrollToTop: function() { this.viewport.scrollTo({ top: 0, behavior: 'smooth' }); }
-        };
-
-        // --- FULL DB (Data Preserved) ---
+        // 1. DATA DEFINITION (FIRST)
         const DB = {
             nuclear: { 
                 name: "Strategic Command", color: "text-amber-500", 
@@ -816,7 +501,342 @@
             }
         };
 
-        // ... (App Logic)
+        // 2. APP LOGIC (SECOND)
+        const app = {
+            viewport: document.getElementById('viewport'),
+            
+            toggleThemeMenu: function() { document.getElementById('themeMenu').classList.toggle('hidden'); },
+
+            setTheme: function(themeName) {
+                document.documentElement.setAttribute('data-theme', themeName);
+                localStorage.setItem('sentinel_theme', themeName);
+                document.getElementById('themeMenu').classList.add('hidden');
+                const currentKey = history.state?.page || 'home';
+                if(currentKey !== 'home') this.renderBranch(currentKey);
+            },
+
+            view: function(key) {
+                this.viewport.scrollTop = 0; 
+                if(key === 'home') this.renderHome();
+                else this.renderBranch(key);
+                
+                if(key !== 'home') history.pushState({ page: key }, null, `#${key}`);
+                else history.pushState({ page: 'home' }, null, '');
+            },
+
+            renderHome: function() {
+                // Ensure viewport exists before writing
+                if(!this.viewport) return;
+                
+                this.viewport.innerHTML = `
+                    <div class="flex flex-col items-center justify-center min-h-[60vh] fade-in pt-10">
+                        <div class="w-24 h-24 bg-input border-2 border-accent chamfer flex items-center justify-center mb-8 shadow-xl">
+                            <span class="text-5xl text-accent animate-pulse font-header">⌬</span>
+                        </div>
+                        <h1 class="text-5xl md:text-7xl text-txtMain font-header font-bold tracking-tight mb-2">SENTINEL <span class="text-accent">DB</span></h1>
+                        <p class="text-txtMut font-mono tracking-[0.3em] text-xs md:text-sm mb-12 uppercase">Tactical Intelligence Archive</p>
+                        
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-4xl px-4">
+                            ${this.homeBtn('nuclear', 'STRATEGIC', 'hover:border-amber-500', 'group-hover:text-amber-500')}
+                            ${this.homeBtn('army', 'ARMY', 'hover:border-emerald-500', 'group-hover:text-emerald-500')}
+                            ${this.homeBtn('airforce', 'AIR FORCE', 'hover:border-sky-500', 'group-hover:text-sky-500')}
+                            ${this.homeBtn('navy', 'NAVY', 'hover:border-blue-800', 'group-hover:text-blue-800')}
+                            ${this.homeBtn('logistics', 'LOGISTICS', 'hover:border-orange-400', 'group-hover:text-orange-400')}
+                            ${this.homeBtn('industry', 'INDUSTRY', 'hover:border-purple-500', 'group-hover:text-purple-500')}
+                        </div>
+                    </div>
+                `;
+            },
+
+            homeBtn: function(key, title, borderClass, textClass) {
+                return `
+                    <div onclick="app.view('${key}')" class="panel border border-borderC ${borderClass} chamfer p-6 cursor-pointer transition-all flex flex-col items-center justify-center h-32 group shadow-sm hover:shadow-md">
+                        <span class="text-txtMain font-header font-bold text-2xl ${textClass} transition-colors tracking-wide">${title}</span>
+                        <span class="text-[10px] text-txtMut mt-2 font-mono uppercase group-hover:text-txtMain">ACCESS &rarr;</span>
+                    </div>
+                `;
+            },
+
+            renderBranch: function(key) {
+                if(!this.viewport) return;
+                const data = DB[key];
+                
+                let headerColor = "text-accent";
+                if(key === 'nuclear') headerColor = "text-amber-500";
+                if(key === 'army') headerColor = "text-emerald-500";
+                if(key === 'airforce') headerColor = "text-sky-500";
+                if(key === 'navy') headerColor = "text-blue-800";
+                if(key === 'logistics') headerColor = "text-orange-400";
+                if(key === 'industry') headerColor = "text-purple-500";
+                if(key === 'future') headerColor = "text-pink-500";
+
+                let html = `
+                    <div class="fade-in max-w-7xl mx-auto pb-10">
+                        <div class="flex justify-between items-end border-b border-borderC pb-4 mb-6 pt-2 relative">
+                            <div>
+                                <h1 class="text-4xl text-txtMain font-header font-bold uppercase tracking-wide ${headerColor}">${data.name}</h1>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <div class="w-2 h-2 bg-current text-txtMain rounded-full"></div>
+                                    <p class="text-xs text-txtMut font-mono tracking-widest">SECTOR ID: ${key.toUpperCase()}</p>
+                                </div>
+                            </div>
+                            <button onclick="app.view('home')" class="text-[10px] font-bold text-txtMut border border-borderC bg-panel px-4 py-2 chamfer hover:bg-input hover:text-txtMain transition-colors uppercase">Return to Base</button>
+                        </div>
+                        <div class="space-y-6">
+                `;
+
+                for(const [cKey, cat] of Object.entries(data.cats)) {
+                    html += `
+                        <div id="section-${cKey}" class="panel border border-borderC chamfer overflow-hidden shadow-sm">
+                            <button onclick="app.toggleCategory('${cKey}')" class="w-full p-5 flex justify-between items-center text-left focus:outline-none hover:bg-input transition-colors">
+                                <span class="text-lg font-header font-bold text-txtMain tracking-wide uppercase flex items-center gap-3">
+                                    <span class="w-1 h-5 bg-current ${headerColor.replace('text-', 'bg-')}"></span> ${cat.name}
+                                </span>
+                                <span id="icon-${cKey}" class="${headerColor} text-xl font-bold font-mono transition-transform duration-300 transform rotate-0">+</span>
+                            </button>
+                            
+                            <div id="drawer-${cKey}" class="hidden transition-all duration-500 ease-in-out border-t border-borderC">
+                                <div class="p-2 bg-input flex justify-end">
+                                    <button onclick="document.getElementById('chart-${cKey}').scrollIntoView({behavior:'smooth'})" class="text-[9px] border border-borderC px-3 py-1 rounded-sm text-txtMut hover:bg-accent hover:text-black font-mono uppercase font-bold tracking-widest transition-colors">
+                                        ▼ ANALYTICS
+                                    </button>
+                                </div>
+                                <div class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    `;
+                    
+                    cat.items.forEach(item => {
+                        let specs = '';
+                        let i = 0;
+                        for(const [k,v] of Object.entries(item.specs)) {
+                            if(i++ < 3) specs += `<div class="flex justify-between text-[11px] text-txtMut py-1 border-b border-borderC"><span>${k}</span><span class="text-txtMain font-mono font-medium">${v}</span></div>`;
+                        }
+                        
+                        let hoverClass = "";
+                        if(key === 'nuclear') hoverClass = "hover:border-amber-500";
+                        else if(key === 'army') hoverClass = "hover:border-emerald-500";
+                        else if(key === 'airforce') hoverClass = "hover:border-sky-500";
+                        else if(key === 'navy') hoverClass = "hover:border-blue-800";
+                        else if(key === 'logistics') hoverClass = "hover:border-orange-400";
+                        else if(key === 'industry') hoverClass = "hover:border-purple-500";
+                        else if(key === 'future') hoverClass = "hover:border-pink-500";
+
+                        html += `
+                            <div onclick="app.openModal('${key}', '${cKey}', '${item.id}')" class="bg-input border border-borderC p-5 chamfer cursor-pointer ${hoverClass} hover:shadow-md transition-all group">
+                                <div class="flex justify-between items-start mb-3">
+                                    <h4 class="text-lg font-bold text-txtMain font-header leading-none ${headerColor.replace('text-', 'group-hover:text-')} transition-colors">${item.name}</h4>
+                                    <span class="text-[9px] px-1.5 py-0.5 bg-panel rounded-sm text-txtMut font-mono font-bold border border-borderC">${item.role}</span>
+                                </div>
+                                <div class="space-y-1 mb-3">
+                                    ${specs}
+                                </div>
+                                <div class="text-[10px] text-right ${headerColor} font-bold font-mono group-hover:underline tracking-wider">VIEW INTEL &rarr;</div>
+                            </div>
+                        `;
+                    });
+
+                    html += `</div>
+                        <div class="p-6 bg-input border-t border-borderC">
+                            <h4 class="text-[10px] text-txtMut font-mono font-bold mb-4 tracking-widest border-b border-borderC pb-2">PERFORMANCE METRICS // ESTIMATED</h4>
+                            <div class="chart-wrapper h-64"><canvas id="chart-${cKey}"></canvas></div>
+                        </div>
+                    </div></div>`;
+                }
+                
+                html += `</div></div>`;
+                this.viewport.innerHTML = html;
+
+                setTimeout(() => {
+                    for(const [cKey, cat] of Object.entries(data.cats)) {
+                        this.renderDrawerChart(cKey, cat, key);
+                    }
+                }, 100);
+            },
+
+            // ... (Rest of App Logic Same as Before) ...
+            renderDrawerChart: function(cKey, cat, bKey) {
+                const ctx = document.getElementById(`chart-${cKey}`);
+                if (!ctx) return;
+                const styles = getComputedStyle(document.documentElement);
+                const textColor = styles.getPropertyValue('--text-mut').trim();
+                const accentColor = styles.getPropertyValue('--accent').trim();
+                const accentDim = styles.getPropertyValue('--accent-dim').trim();
+                const gridColor = styles.getPropertyValue('--grid-line').trim();
+                const labels = [];
+                const dataPoints = [];
+                
+                let chartColor = '#f59e0b';
+                if(bKey === 'nuclear') chartColor = '#f59e0b';
+                if(bKey === 'army') chartColor = '#10b981';
+                if(bKey === 'airforce') chartColor = '#0ea5e9';
+                if(bKey === 'navy') chartColor = '#1e3a8a';
+                if(bKey === 'logistics') chartColor = '#fb923c';
+                if(bKey === 'industry') chartColor = '#a855f7';
+                if(bKey === 'future') chartColor = '#ec4899';
+
+                let metric = 'Range (KM)';
+                if (bKey === 'navy' && (cKey === 'surface' || cKey === 'subs')) metric = 'Displacement (Tons)';
+                if (bKey === 'airforce' && cKey === 'fighters') metric = 'Speed (Mach x10)';
+                if (cKey === 'armor') metric = 'Engine (HP)';
+                if (cKey === 'infantry_arms') metric = 'Range (m)';
+                cat.items.forEach(i => {
+                    let val = 0;
+                    let text = "";
+                    if (metric === 'Range (KM)' && i.specs.Range) text = i.specs.Range;
+                    if (metric === 'Range (m)' && i.specs.Range) text = i.specs.Range;
+                    if (metric === 'Displacement (Tons)' && i.specs.Displacement) text = i.specs.Displacement;
+                    if (metric === 'Engine (HP)' && i.specs.Engine) text = i.specs.Engine;
+                    if (metric === 'Speed (Mach x10)' && i.specs.Speed) text = i.specs.Speed;
+                    if(text) {
+                        let matches = text.match(/(\d+(?:,\d+)*(?:\.\d+)?)/g);
+                        if(matches) {
+                            let nums = matches.map(m => parseFloat(m.replace(/,/g, '')));
+                            val = Math.max(...nums);
+                            if(metric.includes("Mach")) val = val * 10;
+                        }
+                    }
+                    if (val > 0) { 
+                        let label = i.name.split(' ')[0];
+                        if (i.name.includes("Al-Khalid")) label = i.name; 
+                        labels.push(label); 
+                        dataPoints.push(val); 
+                    }
+                });
+                if (dataPoints.length === 0) { ctx.parentElement.style.display = 'none'; return; }
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: { 
+                        labels: labels, 
+                        datasets: [{ label: metric, data: dataPoints, backgroundColor: chartColor + '40', borderColor: chartColor, borderWidth: 1, barThickness: 12, borderRadius: 0 }] 
+                    },
+                    options: { 
+                        indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, 
+                        scales: { x: { grid: { color: gridColor, borderDash: [4, 4] }, ticks: { color: textColor, font: { family: 'JetBrains Mono', size: 9 } } }, y: { grid: { display: false }, ticks: { color: textColor, font: { family: 'Barlow', weight: '600', size: 10 } } } } 
+                    } 
+                });
+            },
+
+            toggleCategory: function(id) {
+                const allDrawers = document.querySelectorAll('[id^="drawer-"]');
+                const allIcons = document.querySelectorAll('[id^="icon-"]');
+                allDrawers.forEach(el => { if(el.id !== `drawer-${id}`) el.classList.add('hidden'); });
+                allIcons.forEach(el => { if(el.id !== `icon-${id}`) el.innerText = '+'; });
+                const drawer = document.getElementById(`drawer-${id}`);
+                const icon = document.getElementById(`icon-${id}`);
+                if(drawer.classList.contains('hidden')) {
+                    drawer.classList.remove('hidden');
+                    icon.innerText = '−';
+                    setTimeout(() => { document.getElementById(`section-${id}`).scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
+                } else {
+                    drawer.classList.add('hidden');
+                    icon.innerText = '+';
+                }
+            },
+
+            openModal: function(bKey, cKey, itemId) {
+                const item = DB[bKey].cats[cKey].items.find(i => i.id === itemId);
+                const data = DB[bKey];
+                
+                let headerColor = "text-accent";
+                if(bKey === 'nuclear') headerColor = "text-amber-500";
+                if(bKey === 'army') headerColor = "text-emerald-500";
+                if(bKey === 'airforce') headerColor = "text-sky-500";
+                if(bKey === 'navy') headerColor = "text-blue-800";
+                if(bKey === 'logistics') headerColor = "text-orange-400";
+                if(bKey === 'industry') headerColor = "text-purple-500";
+                if(bKey === 'future') headerColor = "text-pink-500";
+
+                let specsFull = '';
+                for(const [k,v] of Object.entries(item.specs)) specsFull += `<div class="bg-input border border-borderC p-3 chamfer"><div class="text-[9px] text-txtMut uppercase font-mono mb-1 tracking-wider">${k}</div><div class="text-sm text-txtMain font-body font-semibold">${v}</div></div>`;
+                const modal = document.createElement('div');
+                modal.className = 'fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md fade-in';
+                modal.innerHTML = `
+                    <div class="w-full max-w-2xl bg-panel border-l-4 ${headerColor.replace('text-', 'border-')} shadow-2xl relative overflow-hidden flex flex-col max-h-[85vh] chamfer" onclick="event.stopPropagation()">
+                        <button class="absolute top-4 right-4 text-txtMut hover:text-white transition-colors font-bold" onclick="this.closest('.fixed').remove()">✕</button>
+                        <div class="p-6 border-b border-borderC bg-panel">
+                            <div class="text-[10px] ${headerColor} font-mono font-bold tracking-[0.2em] mb-2">${data.name.toUpperCase()} // ${item.role.toUpperCase()}</div>
+                            <h1 class="text-3xl md:text-4xl font-header font-bold text-txtMain uppercase tracking-wide">${item.name}</h1>
+                            ${item.desc ? `<p class="text-xs md:text-sm text-txtMut mt-3 font-body leading-relaxed border-l-2 border-borderC pl-3">${item.desc}</p>` : ''}
+                        </div>
+                        <div class="p-6 overflow-y-auto custom-scrollbar">
+                            <h3 class="text-xs text-txtMut font-bold tracking-[0.2em] mb-4 border-b border-borderC pb-2 uppercase">Tech Specs</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">${specsFull}</div>
+                        </div>
+                    </div>`;
+                modal.onclick = () => modal.remove();
+                document.body.appendChild(modal);
+            },
+            
+            toggleMobileMenu: function() { document.getElementById('mobileMenu').classList.toggle('active'); },
+            viewMobile: function(key) { this.toggleMobileMenu(); this.view(key); },
+            toggleMobileSearch: function() { document.getElementById('mobileSearch').classList.toggle('hidden'); document.getElementById('mobileSearchInput').focus(); },
+            closeMobileSearch: function() { 
+                document.getElementById('mobileSearch').classList.add('hidden'); 
+                document.getElementById('mobileSearchInput').value = '';
+                this.view('home'); 
+            },
+            search: function(q) {
+                if (!q || q.length < 2) { this.view('home'); return; }
+                q = q.toLowerCase();
+                let html = `<div class="fade-in pt-4"><h2 class="text-2xl text-txtMain font-header font-bold mb-6 tracking-wide border-b border-borderC pb-2">SEARCH RESULTS: "<span class="text-accent">${q.toUpperCase()}</span>"</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-4">`;
+                let count = 0;
+                for (const [bKey, branch] of Object.entries(DB)) {
+                    for (const [cKey, cat] of Object.entries(branch.cats)) {
+                        cat.items.forEach(item => {
+                            if (item.name.toLowerCase().includes(q) || item.id.includes(q)) {
+                                count++;
+                                html += `<div onclick="app.openModal('${bKey}', '${cKey}', '${item.id}')" class="bg-panel border border-borderC p-4 cursor-pointer chamfer hover:border-accent transition-all group"><div class="text-txtMain font-bold font-header text-xl group-hover:text-accent transition-colors">${item.name}</div><div class="text-[10px] text-txtMut font-mono mt-1 uppercase">${branch.name} // ${item.role}</div></div>`;
+                            }
+                        });
+                    }
+                }
+                if (count === 0) html += `<div class="text-txtMut font-mono text-sm col-span-3 py-8 text-center border border-dashed border-borderC rounded">NO MATCHING ASSETS IDENTIFIED.</div>`;
+                html += `</div></div>`;
+                this.viewport.innerHTML = html;
+                
+                const dBtn = document.getElementById('desktopClearBtn');
+                const mBtn = document.getElementById('mobileClearBtn');
+                if(q.length > 0) {
+                    if(dBtn) dBtn.classList.remove('hidden');
+                    if(mBtn) mBtn.classList.remove('hidden');
+                } else {
+                    if(dBtn) dBtn.classList.add('hidden');
+                    if(mBtn) mBtn.classList.add('hidden');
+                }
+            },
+            clearSearch: function(type) {
+                const id = type === 'desktop' ? 'desktopSearch' : 'mobileSearchInput';
+                const el = document.getElementById(id);
+                el.value = '';
+                el.focus();
+                this.search('');
+                const btnId = type === 'desktop' ? 'desktopClearBtn' : 'mobileClearBtn';
+                document.getElementById(btnId).classList.add('hidden');
+            },
+            scrollToTop: function() { this.viewport.scrollTo({ top: 0, behavior: 'smooth' }); }
+        };
+
+        // 3. INITIALIZATION (LAST)
+        window.onpopstate = function(event) {
+            if (event.state && event.state.page) {
+                if (event.state.page === 'home') app.renderHome();
+                else app.renderBranch(event.state.page);
+            } else {
+                app.renderHome();
+            }
+        };
+
+        // Wait for DOM
+        document.addEventListener('DOMContentLoaded', () => {
+            app.renderHome();
+            history.replaceState({ page: 'home' }, null, '');
+            
+            // Scroll Ghost
+            const ghost = document.getElementById('ghostArrow');
+            document.getElementById('viewport').addEventListener('scroll', (e) => {
+                if(e.target.scrollTop > 300) { ghost.classList.remove('opacity-0', 'pointer-events-none'); }
+                else { ghost.classList.add('opacity-0', 'pointer-events-none'); }
+            });
+        });
     </script>
 </body>
 </html>
